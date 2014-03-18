@@ -49,15 +49,14 @@ module MktoRest
       leads
     end
 
-    def update_lead(id, value)
+    def update_lead(id, values)
       
       data = {
-        action: "udpateOnly",
+        action: "updateOnly",
         input: [
           {
             id: id,
-            "CS-Email Names" => value
-          }
+          }.merge(values)
         ]
       }.to_json
 

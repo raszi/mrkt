@@ -1,9 +1,7 @@
 require 'mkto_rest'
 
 
-client_id = ''
-client_secret = ''
-host = ''
+
 client = MktoRest::Client.new(host, client_id, client_secret)
 client.authenticate
 
@@ -16,6 +14,6 @@ end
 
 # update 
 
-leads = client.update_lead(11278906, "Production")
+leads = client.update_lead(11278906, { "CS-EmailNames" => "Production", "CS-Login" => "deployer@marketo.com" } )
 p leads
 
