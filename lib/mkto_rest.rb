@@ -11,7 +11,12 @@ module MktoRest
       @client_id = client_id
       @client_secret = client_secret
     end
-  
+
+    #sets / unsets debug mode
+    def debug=(bool)
+      MktoRest::HttpUtils.debug = bool
+    end
+
     # \options: 
     #    open_timeout - http open timeout
     #    read_timeout - http read timeout
@@ -24,6 +29,7 @@ module MktoRest
       @options = options
       body = MktoRest::HttpUtils.get("https://#{@host}/identity/oauth/token", args, @options)
       data = JSON.parse(body, { symbolize_names: true })
+      raise Exception.new(data[:error_description]) if data[:error]
       @token = data[:access_token]
       @token_type = data[:token_type]
       @valid_until = Time.now + data[:expires_in] 
@@ -31,7 +37,9 @@ module MktoRest
     end
 
     def get_leads(filtr, values = [], fields = [])
-      raise Exception.new("not authenticated.") unless @token
+      raise RuntimeError.new("client not authenticated.") unless @token
+      # values can be a string or an array
+      values = values.split() unless values.is_a? Array
       args = {
         access_token: @token,
         filterType: filtr.to_s,
@@ -44,18 +52,19 @@ module MktoRest
       raise RuntimeError.new('API call failed.') if data[:success] == false
       leads = []
       data[:result].each do |lead_attributes|
-        leads << Lead.new(lead_attributes) 
-      end
-      leads
+        yield Lead.new(self, lead_attributes) 
+      end unless data[:result].empty?
     end
 
-    def update_lead(id, values)
-      
+    def update_lead_by_email(email, values)
       data = {
         action: "updateOnly",
+        #lookupField: lookup.to_s,
+        # bug prevents the use of this field lookupField: "id", 
         input: [
           {
-            id: id,
+            email: email,
+            # bug prevents the use of id id: id,
           }.merge(values)
         ]
       }.to_json
@@ -66,7 +75,8 @@ module MktoRest
       
       body = MktoRest::HttpUtils.post("https://#{@host}/rest/v1/leads.json" + "?", headers, data, @options)
       data = JSON.parse(body, { symbolize_names: true })
-      p data
+      raise RuntimeError.new(data[:errors].to_s) if data[:success] == false
+      data
     end
 
 

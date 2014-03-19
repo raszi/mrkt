@@ -18,22 +18,35 @@ Or install it yourself as:
 
 ## Prerequisites
 Get the follwing from your Marketo admin:
-* hostname, i.e. <munchkin_id>.mktoprest.com
+* hostname, i.e. <munchkin_id>.mktorest.com
 * client id, e.g. '4567e1cdf-0fae-4685-a914-5be45043f2d8'
 * client secret, e.g. '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'
 
 ## Usage
 
-Create a client and authenticate:
+Create a client and authenticate,
 
     client = MktoRest::Client.new(
       '123-abc-123.mktorest.com',
       '4567e1cdf-0fae-4685-a914-5be45043f2d8'', 
       '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
 
-find a lead id from an email:
+If you need verbosity during troubleshooting, set the client to debug mode
+
+    client.debug = true
+
+get leads matching an email, print their id and email:
     
-    client.get_leads('sammy@acme.com')
+    client.get_leads :email, 'sammy@acme.com' do |lead|
+      p "id: #{l.id}, email: #{l.email}"
+    end
+
+featch a lead and update one of its value:
+
+    client.get_leads :email, 'john@bigcorp.com' do |lead|
+      lead.update({ 'CustomField' => 'New Value', 'AnotherField' => 'New value' })
+    end
+    
 
 ## Contributing
 
