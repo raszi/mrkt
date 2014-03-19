@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Prerequisites
 Get the follwing from your Marketo admin:
-* hostname, i.e. <munchkin_id>.mktorest.com
+* hostname, i.e. \<munchkin_id\>.mktorest.com
 * client id, e.g. '4567e1cdf-0fae-4685-a914-5be45043f2d8'
 * client secret, e.g. '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'
 
