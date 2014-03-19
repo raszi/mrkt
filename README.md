@@ -46,7 +46,9 @@ featch a lead and update one of its value:
     client.get_leads :email, 'john@bigcorp.com' do |lead|
       lead.update({ 'CustomField' => 'New Value', 'AnotherField' => 'New value' })
     end
-    
+  
+## Examples
+An example scripts is provided in the example directory.
 
 ## Contributing
 
