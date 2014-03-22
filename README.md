@@ -48,7 +48,7 @@ featch a lead and update one of its value:
     end
   
 ## Examples
-An example scripts is provided in the example directory.
+An example script is provided in the example directory.
 
 ## Contributing
 
