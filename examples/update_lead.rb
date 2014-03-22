@@ -18,7 +18,7 @@ config_path = File.expand_path(File.join(File.dirname(__FILE__),'..', '.mktorest
 if File.exists? config_path 
   config = YAML::load_file(config_path) 
 else
-  print "Set your hostname, client id and key in #{config_path}\n\n in this format\n #{{ hostname: '', client_id: '', client_secret: '' }.to_yaml}\n\n"
+  print "Set your hostname, client id and key in #{config_path}\n\n in this format\n#{{ hostname: '', client_id: '', client_secret: '' }.to_yaml}\n\n"
   exit 1
 end
 if ARGV.size < 2 or ARGV[0].include?('=')

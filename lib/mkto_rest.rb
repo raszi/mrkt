@@ -59,7 +59,7 @@ module MktoRest
     def update_lead_by_email(email, values)
       data = {
         action: "updateOnly",
-        #lookupField: lookup.to_s,
+        lookupField: 'email',
         # bug prevents the use of this field lookupField: "id", 
         input: [
           {
@@ -68,7 +68,25 @@ module MktoRest
           }.merge(values)
         ]
       }.to_json
+      post data
+    end
+    def update_lead_by_id(id, values)
+      data = {
+        action: "updateOnly",
+        lookupField: 'id',
+        # bug prevents the use of this field lookupField: "id", 
+        input: [
+          {
+            #email: email,
+            id: id
+            # bug prevents the use of id id: id,
+          }.merge(values)
+        ]
+      }.to_json
+      post data
+    end
 
+    def post(data)
       headers = {
         "Authorization" => "Bearer #{@token}"
       }
@@ -78,7 +96,6 @@ module MktoRest
       raise RuntimeError.new(data[:errors].to_s) if data[:success] == false
       data
     end
-
 
   end
 

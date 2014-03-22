@@ -41,14 +41,42 @@ get leads matching an email, print their id and email:
       p "id: #{l.id}, email: #{l.email}"
     end
 
-featch a lead and update one of its value:
+fetch a lead and update one of its value:
 
     client.get_leads :email, 'john@bigcorp.com' do |lead|
       lead.update({ 'CustomField' => 'New Value', 'AnotherField' => 'New value' })
     end
   
+updating a lead, using id, email, etc.
+
+    new_values = { 'Firstname' => 'Jeanne' }
+    lead = client.get_leads :email, 'jane@scorp.com' 
+    # update using id
+    lead.update(new_values, :id)
+    # update using email
+    lead.update(new_values, :email)
+  
+
+## Set up
+
+    bundle install
+
 ## Examples
-An example script is provided in the example directory.
+
+An example script is provided in the example directory. First create the configuration file .mktorest
+which should contain your client id and key, and hostname, e.g.:
+
+    ---
+    :hostname: '215-CIJ-720.mktorest.com'
+    :client_id: 'f950fg3e-80g5-42cc-9dc4-5eb054cc0836
+    :client_secret: 'dnGn25KLrtgssy6ecurMPnqQx61vykje'
+
+You can run the example:
+  
+    bundle exec ruby examples/update_lead.rb
+
+
+Running it with no arguments will display the usage.    
 
 ## Contributing
 
