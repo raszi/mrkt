@@ -49,10 +49,10 @@ begin
 
   # find leads, updated fields.
   client.get_leads :email, email do |lead|
-    lead.update(values)
+    lead.update(values, :email)
   end
 
-rescue Exception=>e
+rescue =>e
   p "error: #{e.message}"
 end
 

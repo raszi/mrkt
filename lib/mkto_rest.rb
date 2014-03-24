@@ -29,7 +29,7 @@ module MktoRest
       @options = options
       body = MktoRest::HttpUtils.get("https://#{@host}/identity/oauth/token", args, @options)
       data = JSON.parse(body, { symbolize_names: true })
-      raise Exception.new(data[:error_description]) if data[:error]
+      raise RuntimeError.new(data[:error_description]) if data[:error]
       @token = data[:access_token]
       @token_type = data[:token_type]
       @valid_until = Time.now + data[:expires_in] 
@@ -49,7 +49,7 @@ module MktoRest
       body = MktoRest::HttpUtils.get("https://#{@host}/rest/v1/leads.json", args, @options)
       data = JSON.parse(body, { symbolize_names: true })
       @last_request_id = data[:requestId]
-      raise RuntimeError.new('API call failed.') if data[:success] == false
+      raise RuntimeError.new(data[:errors].to_s) if data[:success] == false
       leads = []
       data[:result].each do |lead_attributes|
         yield Lead.new(self, lead_attributes) 
@@ -73,7 +73,7 @@ module MktoRest
     def update_lead_by_id(id, values)
       data = {
         action: "updateOnly",
-        lookupField: 'id',
+        #lookupField: 'id',
         # bug prevents the use of this field lookupField: "id", 
         input: [
           {
