@@ -34,7 +34,7 @@ ARGV.each do |pair|
 end
 
 
-begin
+#begin
 
   client = MktoRest::Client.new(config[:hostname], config[:client_id], config[:client_secret])
 
@@ -43,17 +43,18 @@ begin
   client.authenticate
 
   # get lead data by email
-  client.get_leads :email, email do |lead|
-    p "id: #{lead.id}, email: #{lead.email}"
-  end
+  #client.get_leads :email, email do |lead|
+  #  p "id: #{lead.id}, email: #{lead.email}"
+  #end
 
   # find leads, updated fields.
   client.get_leads :email, email do |lead|
-    lead.update(values, :email)
+    p "updating lead id: #{lead.id}, email: #{lead.email}..."
+    p lead.update values
   end
 
-rescue =>e
-  p "error: #{e.message}"
-end
+#rescue =>e
+#  p "error: #{e.message}"
+#end
 
 

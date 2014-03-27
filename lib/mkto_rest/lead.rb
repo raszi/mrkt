@@ -18,12 +18,10 @@ module MktoRest
     end
 
     def update(args, attr = :id)
-      # the lead should be identified by the id not the email, but there's a bug 
-      # soppting use from looking a lead up by id
       if attr == :id 
-        @client.update self.id args
+        @client.update_lead_by_id self.id, args
       elsif attr == :email
-        @client.update self.email args
+        @client.update_lead_by_email self.email, args
       end
     end
 
