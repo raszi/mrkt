@@ -61,6 +61,14 @@ updating a lead, using id, email, etc.
 
     bundle install
 
+## Build and Install the gem
+
+    bundle exec rake install
+
+## Run Tests
+
+    bundle exec rake spec
+
 ## Examples
 
 An example script is provided in the example directory. First create the configuration file .mktorest
