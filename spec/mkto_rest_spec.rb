@@ -19,19 +19,26 @@ describe MktoRest do
   end
 
   describe "v1 API" do
-    # this section valiates that mkto_rest calls the APIs as they are dopcumented.
+    # this section tests that the gem code can parse the documented response correctly.
+    # repsonses samples are in responses_samples/*.json
     describe "authentication" do
-      it "uses connect HTTP GET body and headers" do
+      it "parses response" do
         set_authentication_stub_request(@hostname, @client_id, @client_key, @token)
         expect { @client.authenticate }.not_to raise_error
+        expect(@client.token).to_not be_nil
+        expect(@client.expires_in).to_not be_nil
+        expect(@client.valid_until).to_not be_nil
+        expect(@client.token_type).to_not be_nil
+        expect(@client.scope).to_not be_nil
       end  
     end
-    describe "getting leads" do
+    describe "leads operations" do
       it "uses correct HTTP GET body and headers" do
         set_get_leads_stub_request('email', 'john@acme.com', @hostname, @token) 
         expect { @authenticated_client.get_leads :email, 'john@acme.com' }.not_to raise_error
       end
     end
+
   end
 
   describe "lead" do

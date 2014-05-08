@@ -22,7 +22,7 @@ else
   exit 1
 end
 if ARGV.size < 2 or ARGV[0].include?('=')
-  print "#{__FILE__} <lead_email> <key1:value2> <key2:value2> ...\n    e.g.: #{__FILE__} john@acme.com CS-Login=john@acme.com CS-EmailNames=Production\n\n"
+  print "#{__FILE__} <lead_email> <key1=value2> <key2=value2> ...\n    e.g.: #{__FILE__} john@acme.com CS-Login=john@acme.com CS-EmailNames=Production\n\n"
   exit 1
 end
 
@@ -34,27 +34,25 @@ ARGV.each do |pair|
 end
 
 
-#begin
 
-  client = MktoRest::Client.new(config[:hostname], config[:client_id], config[:client_secret])
+client = MktoRest::Client.new(config[:hostname], config[:client_id], config[:client_secret])
 
-  client.debug = true #verbose output, helps debugging 
+#client.debug = true #verbose output, helps debugging 
 
-  client.authenticate
+client.authenticate
 
-  # get lead data by email
-  #client.get_leads :email, email do |lead|
-  #  p "id: #{lead.id}, email: #{lead.email}"
-  #end
 
-  # find leads, updated fields.
-  client.get_leads :email, email do |lead|
-    p "updating lead id: #{lead.id}, email: #{lead.email}..."
-    p lead.update values
-  end
+# find leads, updated fields.
+client.get_leads :email, email do |lead|
+  p "found lead #{lead.id}!"
+  p "#{lead.to_s}"
+  p lead.update values
+end
 
-#rescue =>e
-#  p "error: #{e.message}"
-#end
+client.get_leads :email, email do |lead|
+  p "found lead #{lead.id}!"
+  p "#{lead.to_s}"
+end
+
 
 

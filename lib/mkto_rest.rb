@@ -5,7 +5,7 @@ require "json"
 
 module MktoRest
   class Client
-    attr_reader :host, :client_id, :client_secret, :token, :valid_until, :token_type, :scope, :last_request_id
+    attr_reader :host, :client_id, :client_secret, :token, :expires_in,:valid_until, :token_type, :scope, :last_request_id
     def initialize(host, client_id, client_secret)
       @host = host
       @client_id = client_id
@@ -44,6 +44,7 @@ module MktoRest
       raise RuntimeError.new(data[:error_description]) if data[:error]
       @token = data[:access_token]
       @token_type = data[:token_type]
+      @expires_in = data[:expires_in]
       @valid_until = Time.now + data[:expires_in] 
       @scope = data[:scope]
     end

@@ -2,16 +2,26 @@
 
 
 def set_authentication_stub_request(hostname, client_id, client_key, token)
+  body = {
+    access_token: "e58af350-6c40-453f-8883-35f12d2e8742:qe",
+    token_type: "bearer",
+    expires_in: 86183,
+    scope: "ser@user.com"
+  }
+
   stub_request(:get, "https://#{hostname}/identity/oauth/token?client_id=#{client_id}&client_secret=#{client_key}&grant_type=client_credentials")
    .with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'})
    .to_return(:status => 200, 
-              :body => { access_token: token, token_type: 'bearer', expires_in: 86376, scope: 'user' }.to_json,
+              :body => body.to_json,
               :headers => {})
 end
 
+
+
 def set_get_leads_stub_request(type, email, hostname, token)
   url = "https://#{hostname}/rest/v1/leads.json?access_token=#{token}&filterType=#{type}&filterValues=#{email}"
-
+  
+   
   # expected body
   body = { 
     requestId: 1,

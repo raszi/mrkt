@@ -1,22 +1,24 @@
 # MktoRest
 
-TODO: Write a gem description
+This gem provides some level of abstraction to Marketo REST APIs. Please note that this gem is alpha quality. 
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'mkto_rest'
+    gem 'mkto_rest', path: "path_to_code"
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Or you can build the gem:
 
     $ gem install mkto_rest
 
+and include it in your app/gem's Gemfile (this works locally only):
+
+    gem 'mkto_rest'    
+
+
 ## Prerequisites
+
 Get the follwing from your Marketo admin:
 * hostname, i.e. \<munchkin_id\>.mktorest.com
 * client id, e.g. '4567e1cdf-0fae-4685-a914-5be45043f2d8'
