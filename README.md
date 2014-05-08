@@ -10,7 +10,7 @@ Add this line to your application's Gemfile:
 
 Or you can build the gem:
 
-    $ gem install mkto_rest
+    $ rake install mkto_rest
 
 and include it in your app/gem's Gemfile (this works locally only):
 
