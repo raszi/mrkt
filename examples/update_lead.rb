@@ -1,4 +1,7 @@
-require 'mkto_rest'
+$:.unshift(File.expand_path('../../lib/', __FILE__))
+require_relative '../lib/mkto_rest'
+# or require 'mkto_gem' if you installed the gem
+
 require 'yaml'
 
 =begin
@@ -18,7 +21,12 @@ config_path = File.expand_path(File.join(File.dirname(__FILE__),'..', '.mktorest
 if File.exists? config_path 
   config = YAML::load_file(config_path) 
 else
-  print "Set your hostname, client id and key in #{config_path}\n\n in this format\n#{{ hostname: '', client_id: '', client_secret: '' }.to_yaml}\n\n"
+  print <<-EOF
+"Set your hostname, client id and key in #{config_path} in this format:
+
+#{{ hostname: '', client_id: '', client_secret: '' }.to_yaml}
+
+EOF
   exit 1
 end
 if ARGV.size < 2 or ARGV[0].include?('=')
@@ -26,7 +34,7 @@ if ARGV.size < 2 or ARGV[0].include?('=')
   exit 1
 end
 
-email = ARGV.shift
+attr_v = ARGV.shift
 values = {}
 ARGV.each do |pair|
   k, v = pair.split('=')
@@ -35,23 +43,23 @@ end
 
 
 
-client = MktoRest::Client.new(config[:hostname], config[:client_id], config[:client_secret])
+client = MktoRest::Client.new(host: config[:hostname], client_id: config[:client_id], client_secret: config[:client_secret])
 
 #client.debug = true #verbose output, helps debugging 
 
 client.authenticate
 
-
 # find leads, updated fields.
-client.get_leads :email, email do |lead|
-  p "found lead #{lead.id}!"
-  p "#{lead.to_s}"
-  p lead.update values
+leads = client.get_leads :email, attr_v
+
+leads.each do |l|
+  p "found lead: #{l.to_s}"
+  p l.update values
 end
 
-client.get_leads :email, email do |lead|
-  p "found lead #{lead.id}!"
-  p "#{lead.to_s}"
+# using a block
+leads = client.get_leads :email, attr_v do |lead|
+  p "found lead #{lead.to_s}"
 end
 
 

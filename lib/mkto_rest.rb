@@ -6,10 +6,10 @@ require "json"
 module MktoRest
   class Client
     attr_reader :host, :client_id, :client_secret, :token, :expires_in,:valid_until, :token_type, :scope, :last_request_id
-    def initialize(host, client_id, client_secret)
-      @host = host
-      @client_id = client_id
-      @client_secret = client_secret
+    def initialize(options = {})
+      @host = options[:host]
+      @client_id = options[:client_id]
+      @client_secret = options[:client_secret]
       @options = {}
     end
 

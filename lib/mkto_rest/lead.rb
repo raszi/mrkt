@@ -26,8 +26,7 @@ module MktoRest
     end
 
     def to_s
-      #@vars.collect { |k| "#{k} => #{self.send(k)}" }.join(", ")
-      @vars.to_s
+      @vars.map { |k| "#{k} => #{self.send(k)}" }.join(", ")
     end
   end
 

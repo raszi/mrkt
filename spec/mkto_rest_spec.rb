@@ -11,8 +11,8 @@ describe MktoRest do
     @hostname = 'dummy.mktorest.com'
     @token = 'token'
 
-    @client = MktoRest::Client.new(@hostname, @client_id, @client_key)
-    @authenticated_client = MktoRest::Client.new(@hostname, @client_id, @client_key)
+    @client = MktoRest::Client.new(host: @hostname, client_id: @client_id, client_secret: @client_key)
+    @authenticated_client = MktoRest::Client.new(host: @hostname,client_id:  @client_id, client_secret: @client_key)
     @authenticated_client.__auth(@token)
 
     @lead1 = MktoRest::Lead.new(@authenticated_client, { name: 'john', email: 'john@acme.com', id: 1} )

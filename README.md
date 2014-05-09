@@ -52,11 +52,11 @@ fetch a lead and update one of its value:
 updating a lead, using id, email, etc.
 
     new_values = { 'Firstname' => 'Jeanne' }
-    lead = client.get_leads :email, 'jane@scorp.com' 
+    leads = client.get_leads :email, 'jane@scorp.com' 
     # update using id
-    lead.update(new_values, :id)
+    leads.first.update(new_values, :id)
     # update using email
-    lead.update(new_values, :email)
+    leads.first.update(new_values, :email)
   
 
 ## Set up
