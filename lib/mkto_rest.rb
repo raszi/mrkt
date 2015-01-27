@@ -11,6 +11,7 @@ module MktoRest
       @client_id = options[:client_id]
       @client_secret = options[:client_secret]
       @options = {}
+      @token = ''
     end
 
     #sets / unsets debug mode
@@ -50,7 +51,7 @@ module MktoRest
     end
 
     def get_leads(filtr, values = [], fields = [], &block)
-      raise RuntimeError.new("client not authenticated.") unless self.authenticated?
+      self.authenticate unless self.authenticated?
       # values can be a string or an array
       values = values.split() unless values.is_a? Array
       args = {
@@ -74,7 +75,7 @@ module MktoRest
     end
 
     def update_lead_by_email(email, values)
-
+      self.authenticate unless self.authenticated?
       data = {
         action: "updateOnly",
         lookupField: 'email',
@@ -87,6 +88,7 @@ module MktoRest
       post data
     end
     def update_lead_by_id(id, values)
+      self.authenticate unless self.authenticated?
       data = {
         action: "updateOnly",
         lookupField: 'id',
@@ -100,7 +102,7 @@ module MktoRest
     end
 
     def post(data)
-
+      self.authenticate unless self.authenticated?
       headers = {
         "Authorization" => "Bearer #{@token}"
       }

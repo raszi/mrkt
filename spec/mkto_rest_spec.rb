@@ -56,9 +56,6 @@ describe MktoRest do
   
   describe "client" do
     describe "get leads" do
-      it "should raise error if the client is not authenticated" do
-        expect { @client.get_leads :email, 'john@acme.com' }.to raise_error
-      end
       it "should return leads when no block is passed" do
         l = MktoRest::Lead.new(@authenticated_client, { id: 1, email: 'joe@acme.com'})
         set_get_leads_stub_request('email', l.email, @hostname, @token) 

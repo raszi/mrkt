@@ -19,7 +19,7 @@ and include it in your app/gem's Gemfile (this works locally only):
 
 ## Prerequisites
 
-Get the follwing from your Marketo admin:
+Get the following from your Marketo admin:
 * hostname, i.e. \<munchkin_id\>.mktorest.com
 * client id, e.g. '4567e1cdf-0fae-4685-a914-5be45043f2d8'
 * client secret, e.g. '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'
@@ -29,9 +29,9 @@ Get the follwing from your Marketo admin:
 Create a client and authenticate,
 
     client = MktoRest::Client.new(
-      '123-abc-123.mktorest.com',
-      '4567e1cdf-0fae-4685-a914-5be45043f2d8'', 
-      '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
+        host: '123-abc-123.mktorest.com', 
+        client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
+        client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
 
 If you need verbosity during troubleshooting, set the client to debug mode
 
@@ -73,15 +73,14 @@ updating a lead, using id, email, etc.
 
 ## Examples
 
-An example script is provided in the example directory. First create the configuration file .mktorest
-which should contain your client id and key, and hostname, e.g.:
+First create the configuration file .mktorest which should contain your client id and key, and hostname, e.g.:
 
     ---
     :hostname: '215-CIJ-720.mktorest.com'
     :client_id: 'f950fg3e-80g5-42cc-9dc4-5eb054cc0836
     :client_secret: 'dnGn25KLrtgssy6ecurMPnqQx61vykje'
 
-You can run the example:
+You can then run the example:
   
     bundle exec ruby examples/update_lead.rb
 
