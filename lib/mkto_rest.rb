@@ -74,7 +74,7 @@ module MktoRest
       leads
     end
 
-    def create_leads(leads, partition=nil)
+    def create_leads(leads, action="createOnly", partition=nil)
       # leads is an array of objects like:
       #   {
       #    "email":"kjashaedd-3@klooblept.com",
@@ -85,7 +85,7 @@ module MktoRest
 
       self.authenticate unless self.authenticated?
       data = {
-        action: "createOnly",
+        action: action,
         input: leads
       }
       data[:partitionName] = partition if partition
@@ -104,35 +104,33 @@ module MktoRest
             }.merge(values)
           ]
           }.to_json
-          post data
-        end
-        def update_lead_by_id(id, values)
-          self.authenticate unless self.authenticated?
-          data = {
-            action: "updateOnly",
-            lookupField: 'id',
-            input: [
-              {
-                id: id
-                }.merge(values)
-              ]
-              }.to_json
-              post data
-            end
+      post data
+    end
 
-            def post(data)
-              self.authenticate unless self.authenticated?
-              headers = {
-                "Authorization" => "Bearer #{@token}"
-              }
-              raise RuntimeError.new("client not authenticated.") unless self.authenticated?
-              body = MktoRest::HttpUtils.post("https://#{@host}/rest/v1/leads.json" + "?", headers, data, @options)
-              data = JSON.parse(body, { symbolize_names: true })
-              raise RuntimeError.new(data[:errors].to_s) if data[:success] == false
-              data
-            end
+    def update_lead_by_id(id, values)
+      self.authenticate unless self.authenticated?
+      data = {
+        action: "updateOnly",
+        lookupField: 'id',
+        input: [
+          {
+            id: id
+            }.merge(values)
+          ]
+          }.to_json
+      post data
+    end
 
-          end
-
-
-        end
+    def post(data)
+      self.authenticate unless self.authenticated?
+      headers = {
+        "Authorization" => "Bearer #{@token}"
+      }
+      raise RuntimeError.new("client not authenticated.") unless self.authenticated?
+      body = MktoRest::HttpUtils.post("https://#{@host}/rest/v1/leads.json" + "?", headers, data, @options)
+      data = JSON.parse(body, { symbolize_names: true })
+      raise RuntimeError.new(data[:errors].to_s) if data[:success] == false
+      data
+    end
+  end
+end
