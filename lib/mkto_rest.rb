@@ -88,7 +88,7 @@ module MktoRest
         action: "createOnly",
         input: leads
       }
-      data[:partition] = partition if partition
+      data[:partitionName] = partition if partition
       data = data.to_json
       post data
     end

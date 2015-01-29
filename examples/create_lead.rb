@@ -29,12 +29,11 @@ else
 EOF
   exit 1
 end
-if ARGV.size < 1
-  print "#{__FILE__} <lead_email> \n    e.g.: #{__FILE__} john@acme.com \n\n"
+if ARGV.size < 2
+  print "#{__FILE__} <email=email> <key1=value2> <key2=value2> ...\n    e.g.: #{__FILE__} email=john@acme.com CS-Login=john@acme.com CS-EmailNames=Production\n\n"
   exit 1
 end
 
-attr_v = ARGV.shift
 values = {}
 ARGV.each do |pair|
   k, v = pair.split('=')
@@ -45,13 +44,15 @@ end
 
 client = MktoRest::Client.new(host: config[:hostname], client_id: config[:client_id], client_secret: config[:client_secret])
 
-client.debug = true #verbose output, helps debugging
+#client.debug = true #verbose output, helps debugging
 
-# find leads, updated fields.
-client.get_leads :email, 'web@stryker.com' do |l|
-  p "id: #{l.id}, email: #{l.email}"
+client.authenticate
+
+# create leads
+leads = client.create_leads [values]
+
+leads.each do |l|
   p l
 end
-
 
 
