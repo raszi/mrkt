@@ -18,7 +18,22 @@ describe MktoRest do
     @lead1 = MktoRest::Lead.new(@authenticated_client, { name: 'john', email: 'john@acme.com', id: 1} )
   end
 
+
+
   describe "v1 API" do
+    context "#authenticated?" do
+      context "before authentication" do
+        it "should be false" do
+          expect(@client.authenticated?) == false
+        end
+      end
+      context "after authentication" do
+        it "should be true" do
+          expect(@authenticated_client.authenticated?) == true
+        end
+      end
+    end
+  
     # this section tests that the gem code can parse the documented response correctly.
     # repsonses samples are in responses_samples/*.json
     describe "authentication" do
@@ -42,15 +57,56 @@ describe MktoRest do
   end
 
   describe "lead" do
+    let(:sample_lead){
+      [{  
+         "email" => "kjashaedd-1@klooblept.com",
+         "firstName" => "Kataldar-1",
+         "postalCode" => "04828"
+      }]
+    }
+    let(:sample_leads) {
+      [{  
+         "email" => "kjashaedd-1@klooblept.com",
+         "firstName" => "Kataldar-1",
+         "postalCode" => "04828"
+      },
+      {  
+         "email" => "kjashaedd-2@klooblept.com",
+         "firstName" => "Kataldar-2",
+         "postalCode" => "04828"
+      },
+      {  
+         "email" => "kjashaedd-3@klooblept.com",
+         "firstName" => "Kataldar-3",
+         "postalCode" => "04828"
+      }]
+    }
+    let(:partition){ 'bizdev'}
+
     it "can be updated by id" do
       set_update_lead_stub_request(:id, 1, { 'someFieldX' => 'new_value' }, @hostname, @token)
-      
       @lead1.update({ 'someFieldX' => 'new_value' }, :id)
     end
     it "can be updated by email" do
       set_update_lead_stub_request(:email, @lead1.email, { 'someFieldX' => 'new_value' }, @hostname, @token)
       @lead1.update({ 'someFieldX' => 'new_value' }, :email)
     end
+
+    it "one can be created with email but w/out partition" do
+      set_create_leads_stub_request(sample_lead, @hostname, @token)
+      @authenticated_client.create_leads(sample_lead);
+    end
+
+    it "multiple leads can be created with emails but w/out partition" do
+      set_create_leads_stub_request(sample_leads, @hostname, @token)
+      @authenticated_client.create_leads(sample_leads);
+    end
+
+    it  "multiple can be created with email and partition" do
+      set_create_leads_stub_request(sample_leads, @hostname, @token, { :partition => partition })
+      @authenticated_client.create_leads(sample_leads, 'createOnly', partition);
+    end
+
   end
 
   

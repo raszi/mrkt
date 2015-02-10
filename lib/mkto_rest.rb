@@ -1,11 +1,11 @@
-require "mkto_rest/version"
-require "mkto_rest/http_utils"
-require "mkto_rest/lead"
+require_relative "mkto_rest/version"
+require_relative "mkto_rest/http_utils"
+require_relative "mkto_rest/lead"
 require "json"
 
 module MktoRest
   class Client
-    attr_reader :host, :client_id, :client_secret, :token, :expires_in,:valid_until, :token_type, :scope, :last_request_id
+    attr_reader :host, :client_id, :client_secret, :token, :expires_in, :valid_until, :token_type, :scope, :last_request_id
     def initialize(options = {})
       @host = options[:host]
       @client_id = options[:client_id]
