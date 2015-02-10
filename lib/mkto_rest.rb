@@ -19,7 +19,7 @@ module MktoRest
       MktoRest::HttpUtils.debug = bool
     end
 
-    def authenticated? 
+    def authenticated?
       return ! @token.empty?
     end
 
@@ -28,13 +28,13 @@ module MktoRest
       @token = token
     end
 
-    
-    # \options: 
+
+    # \options:
     #    open_timeout - http open timeout
     #    read_timeout - http read timeout
     def authenticate(options = {})
-      args = { 
-        grant_type: 'client_credentials', 
+      args = {
+        grant_type: 'client_credentials',
         client_id: @client_id,
         client_secret: @client_secret
       }
@@ -46,7 +46,7 @@ module MktoRest
       @token = data[:access_token]
       @token_type = data[:token_type]
       @expires_in = data[:expires_in]
-      @valid_until = Time.now + data[:expires_in] 
+      @valid_until = Time.now + data[:expires_in]
       @scope = data[:scope]
     end
 
@@ -67,11 +67,30 @@ module MktoRest
       raise RuntimeError.new(data[:errors].to_s) if data[:success] == false
       leads = []
       data[:result].each do |lead_attributes|
-        l = Lead.new(self, lead_attributes) 
+        l = Lead.new(self, lead_attributes)
         block.call l unless block.nil?
         leads << l
       end unless data[:result].empty?
       leads
+    end
+
+    def create_leads(leads, action="createOnly", partition=nil)
+      # leads is an array of objects like:
+      #   {
+      #    "email":"kjashaedd-3@klooblept.com",
+      #    "firstName":"Kataldar-3",
+      #    "postalCode":"04828"
+      #   }
+      # maximium length of leads = 300
+
+      self.authenticate unless self.authenticated?
+      data = {
+        action: action,
+        input: leads
+      }
+      data[:partitionName] = partition if partition
+      data = data.to_json
+      post data
     end
 
     def update_lead_by_email(email, values)
@@ -82,11 +101,12 @@ module MktoRest
         input: [
           {
             email: email,
-          }.merge(values)
-        ]
-      }.to_json
+            }.merge(values)
+          ]
+          }.to_json
       post data
     end
+
     def update_lead_by_id(id, values)
       self.authenticate unless self.authenticated?
       data = {
@@ -95,9 +115,9 @@ module MktoRest
         input: [
           {
             id: id
-          }.merge(values)
-        ]
-      }.to_json
+            }.merge(values)
+          ]
+          }.to_json
       post data
     end
 
@@ -112,8 +132,5 @@ module MktoRest
       raise RuntimeError.new(data[:errors].to_s) if data[:success] == false
       data
     end
-
   end
-
-
 end
