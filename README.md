@@ -58,6 +58,19 @@ updating a lead, using id, email, etc.
     # update using email
     leads.first.update(new_values, :email)
   
+  creating 2 new leads:
+
+      new_leads = [
+                    {
+                      email: 'jane@scorp.com',
+                      firstName: 'Jane Doe'
+                    },
+                    {
+                      email: 'joe@scorp.com',
+                      firstName: 'Joe Doe'
+                    }
+                  ]
+      client.create_leads new_leads
 
 ## Set up
 
