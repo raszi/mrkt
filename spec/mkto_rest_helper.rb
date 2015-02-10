@@ -16,6 +16,37 @@ def set_authentication_stub_request(hostname, client_id, client_key, token)
               :headers => {})
 end
 
+def set_create_leads_stub_request(leads, hostname, token, options = nil)
+  # Endpoint expects these headers
+  headers = { 
+    "Authorization" => "Bearer #{token}", 
+    'Content-Type'=>'application/json',
+    'Accept'=>'*/*', 
+    'User-Agent'=>'Ruby'
+  }
+  url = "https://#{hostname}/rest/v1/leads.json?"
+  # taken from dev.marekto.com
+  req_body = {  
+   "action" => "createOnly",
+   "input" => []
+  }
+  if options
+    req_body['partitionName'] = options[:partition] if options[:partition]
+    req_body['lookupField'] = options[:lookupField] if options[:lookupField]
+  end
+  leads.each do |l|
+    req_body["input"] << l
+  end
+
+  # talen from dev.marketo.com
+  resp_body = {
+   "requestId" => "e42b#14272d07d78",
+   "success" => true,
+   "result" => []
+  }
+  stub_request(:post, url).with(:headers => headers, :body => req_body.to_json)
+    .to_return(:status => 200, :body => resp_body.to_json, :headers => {})
+end
 
 
 def set_get_leads_stub_request(type, email, hostname, token)
@@ -35,7 +66,7 @@ def set_get_leads_stub_request(type, email, hostname, token)
   }
 
   stub_request(:get, url).with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'})
-    .to_return(:status => 200, :body => body.to_json, :headers => {})
+   .to_return(:status => 200, :body => body.to_json )
 end
 
 def set_update_lead_stub_request(type, value, fields, hostname, token)

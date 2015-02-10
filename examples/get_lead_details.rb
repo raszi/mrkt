@@ -48,8 +48,8 @@ client = MktoRest::Client.new(host: config[:hostname], client_id: config[:client
 #client.debug = true #verbose output, helps debugging
 
 # find leads, updated fields.
-client.get_leads :email, 'sammy@acme.com' do |lead|
-  p "id: #{l.id}, email: #{l.email}"
+client.get_leads :email, attr_v do |lead|
+  p "id: #{lead.id}, email: #{lead.email}"
 end
 
 
