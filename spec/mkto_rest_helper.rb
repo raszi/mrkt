@@ -11,22 +11,22 @@ def set_authentication_stub_request(hostname, client_id, client_key, token)
 
   stub_request(:get, "https://#{hostname}/identity/oauth/token?client_id=#{client_id}&client_secret=#{client_key}&grant_type=client_credentials")
    .with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'})
-   .to_return(:status => 200, 
+   .to_return(:status => 200,
               :body => body.to_json,
               :headers => {})
 end
 
 def set_create_leads_stub_request(leads, hostname, token, options = nil)
   # Endpoint expects these headers
-  headers = { 
-    "Authorization" => "Bearer #{token}", 
+  headers = {
+    "Authorization" => "Bearer #{token}",
     'Content-Type'=>'application/json',
-    'Accept'=>'*/*', 
+    'Accept'=>'*/*',
     'User-Agent'=>'Ruby'
   }
-  url = "https://#{hostname}/rest/v1/leads.json?"
+  url = "https://#{hostname}/rest/v1/leads.json"
   # taken from dev.marekto.com
-  req_body = {  
+  req_body = {
    "action" => "createOnly",
    "input" => []
   }
@@ -51,10 +51,10 @@ end
 
 def set_get_leads_stub_request(type, email, hostname, token)
   url = "https://#{hostname}/rest/v1/leads.json?access_token=#{token}&filterType=#{type}&filterValues=#{email}"
-  
-   
+
+
   # expected body
-  body = { 
+  body = {
     requestId: 1,
     success: true,
     result: [
@@ -79,24 +79,24 @@ def set_update_lead_stub_request(type, value, fields, hostname, token)
   }.to_json
 
   # Endpoint expects these headers
-  headers = { 
-    "Authorization" => "Bearer #{token}", 
+  headers = {
+    "Authorization" => "Bearer #{token}",
     'Content-Type'=>'application/json',
-    'Accept'=>'*/*', 
+    'Accept'=>'*/*',
     'User-Agent'=>'Ruby'
   }
 
   # response expected body
-  resp_body = { 
-    requestId: 1, 
+  resp_body = {
+    requestId: 1,
     success: true,
     result: [
-     { 
+     {
       type.to_s => value
      }
     ]}.to_json
 
-  stub_request(:post, "https://#{hostname}/rest/v1/leads.json?")
+  stub_request(:post, "https://#{hostname}/rest/v1/leads.json")
    .with(:headers => headers,:body => req_body)
    .to_return(:status => 200, :body => resp_body )
 end
