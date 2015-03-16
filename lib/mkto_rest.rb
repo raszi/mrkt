@@ -68,7 +68,7 @@ module MktoRest
       fail data[:errors].to_s if data[:success] == false
       data[:result].each_with_object([]) do |lead_attributes, leads|
         l = Lead.new(self, lead_attributes)
-        block.call l unless block.nil?
+        block.call(l) unless block.nil?
         leads << l
       end unless data[:result].empty?
     end
@@ -122,12 +122,10 @@ module MktoRest
 
     def post
       authenticate unless authenticated?
-      headers = {
-        'Authorization' => "Bearer #{@token}"
-      }
       fail 'client not authenticated.' unless authenticated?
+      headers = { 'Authorization' => "Bearer #{@token}" }
       data = yield.to_json
-      body = MktoRest::HttpUtils.post("https://#{@host}/rest/v1/leads.json?", headers, data, @options)
+      body = MktoRest::HttpUtils.post("https://#{@host}/rest/v1/leads.json", headers, data, @options)
       data = JSON.parse(body, symbolize_names: true)
       fail data[:errors].to_s if data[:success] == false
       data
