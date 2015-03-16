@@ -35,7 +35,7 @@ describe MktoRest do
     # repsonses samples are in responses_samples/*.json
     describe 'authentication' do
       it 'parses response' do
-        set_authentication_stub_request(@hostname, @client_id, @client_key, @token)
+        set_authentication_stub_request(@hostname, @client_id, @client_key)
         expect { @client.authenticate }.not_to raise_error
         expect(@client.token).to_not be_nil
         expect(@client.expires_in).to_not be_nil
