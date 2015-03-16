@@ -92,31 +92,17 @@ module MktoRest
       end
     end
 
-    def update_lead_by_email(email, values)
-      post do
-        data = {
-          action: 'updateOnly',
-          lookupField: 'email',
-          input: [
-            {
-              email: email
-            }.merge(values)
-          ]
-        }
-      end
-    end
-
-    def update_lead_by_id(id, values)
-      post do
-        {
-          action: 'updateOnly',
-          lookupField: 'id',
-          input: [
-            {
-              id: id
-            }.merge(values)
-          ]
-        }
+    %i(email id).each do |sym|
+      define_method("update_lead_by_#{sym}".to_sym) do |lookup_value, values|
+        post do
+          {
+            action: 'updateOnly',
+            lookupField: sym.to_s,
+            input: [
+              { sym => lookup_value }.merge(values)
+            ]
+          }
+        end
       end
     end
 
