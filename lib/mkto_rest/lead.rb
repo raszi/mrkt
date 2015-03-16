@@ -18,7 +18,7 @@ module MktoRest
     end
 
     def update(args, attr = :id)
-      if attr == :id 
+      if attr == :id
         @client.update_lead_by_id self.id, args
       elsif attr == :email
         @client.update_lead_by_email self.email, args
@@ -29,6 +29,4 @@ module MktoRest
       @vars.map { |k| "#{k} => #{self.send(k)}" }.join(", ")
     end
   end
-
-
 end
