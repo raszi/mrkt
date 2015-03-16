@@ -110,26 +110,23 @@ describe MktoRest do
   end
 
   describe 'client' do
+    let(:blk) { nil }
     let(:lead) { MktoRest::Lead.new(@authenticated_client, id: 1, email: 'joe@acme.com') }
     before { set_get_leads_stub_request('email', lead.email, @hostname, @token) }
 
     describe '#get_leads' do
-      let(:leads) { @authenticated_client.get_leads(:email, lead.email) }
+      let(:leads) { @authenticated_client.get_leads(:email, lead.email, &blk) }
 
       it 'should return leads' do
-        expect(leads.size).to eq(1)
+        expect(leads).to_not be_empty
       end
 
       context 'with a block given' do
+        let(:blk) { proc { |lead| lead.email.upcase! } }
         let(:new_email) { lead.email.upcase }
-        let(:leads) do
-          @authenticated_client.get_leads(:email, lead.email) do |lead|
-            lead.email.upcase!
-          end
-        end
 
         it 'should execute the block on each lead' do
-          expect(leads.size).to eq(1)
+          expect(leads).to_not be_empty
           expect(leads.first.email).to eq(new_email)
         end
       end
