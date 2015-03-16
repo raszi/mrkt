@@ -3,7 +3,7 @@ require 'net/https' unless defined? Net::HTTP
 
 module MktoRest
 
-  class HttpUtils    
+  class HttpUtils
 
     class << self; attr_accessor :debug; end
 
@@ -17,11 +17,11 @@ module MktoRest
       http.set_debug_output($stdout) if self.debug == true
       http.use_ssl = (uri.scheme == "https")
       http.open_timeout = options[:open_timeout] if options[:open_timeout]
-      http.read_timeout = options[:read_timeout] if options[:read_timeout] 
+      http.read_timeout = options[:read_timeout] if options[:read_timeout]
       resp = http.request(req)
       resp.body
     end
-    
+
     # \options:
     #   open_timeout - if non default timeout needs to be used
     #   read_timeout - if non default timeout needs to be used
@@ -34,7 +34,7 @@ module MktoRest
       http.set_debug_output($stdout) if self.debug == true
       http.use_ssl = (uri.scheme == "https")
       http.open_timeout = options[:open_timeout] if options[:open_timeout]
-      http.read_timeout = options[:read_timeout] if options[:read_timeout] 
+      http.read_timeout = options[:read_timeout] if options[:read_timeout]
       resp = http.request(req)
       resp.body
     end
