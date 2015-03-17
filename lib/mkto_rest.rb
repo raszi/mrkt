@@ -106,12 +106,16 @@ module MktoRest
       end
     end
 
-    def post
+    def associate_lead(id, cookie)
+      post("https://#{@host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie)}")
+    end
+
+    def post(url = "https://#{@host}/rest/v1/leads.json")
       authenticate unless authenticated?
       fail 'client not authenticated.' unless authenticated?
       headers = { 'Authorization' => "Bearer #{@token}" }
-      data = yield.to_json
-      body = MktoRest::HttpUtils.post("https://#{@host}/rest/v1/leads.json", headers, data, @options)
+      data = yield.to_json if block_given?
+      body = MktoRest::HttpUtils.post(url, headers, data, @options)
       data = JSON.parse(body, symbolize_names: true)
       fail data[:errors].to_s if data[:success] == false
       data

@@ -97,3 +97,22 @@ def set_update_lead_stub_request(type, value, fields, hostname, token)
     .with(headers: headers, body: req_body)
     .to_return(status: 200, body: resp_body)
 end
+
+def stub_associate_lead_request(hostname, id, cookie)
+  headers = {
+    'Accept' => '*/*',
+    'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+    'Authorization' => 'Bearer token',
+    'Content-Type' => 'application/json',
+    'User-Agent' => 'Ruby'
+  }
+
+  resp_body = {
+    requestId: 1,
+    success: true
+  }.to_json
+
+  stub_request(:post, "https://#{hostname}/rest/v1/leads/#{id}/associate.json?cookie=#{cookie}")
+    .with(body: nil, headers: headers)
+    .to_return(status: 200, body: resp_body)
+end

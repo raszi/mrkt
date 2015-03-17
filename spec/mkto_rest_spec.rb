@@ -110,11 +110,11 @@ describe MktoRest do
   end
 
   describe 'client' do
-    let(:blk) { nil }
     let(:lead) { MktoRest::Lead.new(@authenticated_client, id: 1, email: 'joe@acme.com') }
     before { set_get_leads_stub_request('email', lead.email, @hostname, @token) }
 
     describe '#get_leads' do
+      let(:blk) { nil }
       let(:leads) { @authenticated_client.get_leads(:email, lead.email, &blk) }
 
       it 'should return leads' do
@@ -129,6 +129,18 @@ describe MktoRest do
           expect(leads).to_not be_empty
           expect(leads.first.email).to eq(new_email)
         end
+      end
+    end
+
+    describe '#associate_lead' do
+      let(:id) { lead.id }
+      let(:cookie) { 'id:287-GTJ-838&token:_mch-marketo.com-1396310362214-46169' }
+      let(:association) { @authenticated_client.associate_lead(id, cookie) }
+
+      before { stub_associate_lead_request(@hostname, id, 'id:287-GTJ-838%26token:_mch-marketo.com-1396310362214-46169') }
+
+      it 'associates the lead' do
+        expect(association).to include(success: true)
       end
     end
   end
