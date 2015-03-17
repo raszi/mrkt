@@ -106,7 +106,8 @@ module MktoRest
     end
 
     def associate_lead(id, cookie)
-      post("https://#{@host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie)}")
+      authenticate unless authenticated?
+      post(nil, "https://#{@host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie, access_token: @token)}")
     end
 
     def post(data, url = "https://#{@host}/rest/v1/leads.json")

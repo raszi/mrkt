@@ -137,7 +137,7 @@ describe MktoRest do
       let(:cookie) { 'id:287-GTJ-838&token:_mch-marketo.com-1396310362214-46169' }
       let(:association) { @authenticated_client.associate_lead(id, cookie) }
 
-      before { stub_associate_lead_request(@hostname, id, 'id:287-GTJ-838%26token:_mch-marketo.com-1396310362214-46169') }
+      before { stub_associate_lead_request(@hostname, id, 'id:287-GTJ-838%26token:_mch-marketo.com-1396310362214-46169', @token) }
 
       it 'associates the lead' do
         expect(association).to include(success: true)
