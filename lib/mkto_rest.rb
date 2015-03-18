@@ -20,7 +20,11 @@ module MktoRest
     end
 
     def authenticated?
-      return ! @token.empty?
+      return !@token.empty? && token_valid?
+    end
+
+    def token_valid?
+      return Time.now < @valid_until
     end
 
     # used for testing only
