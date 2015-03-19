@@ -1,6 +1,7 @@
 require_relative 'mkto_rest/version'
 require_relative 'mkto_rest/http_utils'
 require_relative 'mkto_rest/lead'
+require_relative 'mkto_rest/errors'
 require 'json'
 
 module MktoRest
@@ -116,8 +117,14 @@ module MktoRest
       headers = { 'Authorization' => "Bearer #{@token}" }
       body = MktoRest::HttpUtils.post(url, headers, data.to_json, @options)
       data = JSON.parse(body, symbolize_names: true)
-      fail data[:errors].to_s if data[:success] == false
+      handle_errors(data[:errors]) if data[:success] == false
       data
+    end
+
+    def handle_errors(errors)
+      error = errors.first
+      return if error.nil?
+      raise MktoRest::Errors.find_by_response_code(error[:code].to_i), error[:message]
     end
   end
 end
