@@ -99,6 +99,26 @@ def set_update_lead_stub_request(type, value, fields, hostname, token)
 end
 
 def stub_associate_lead_request(hostname, id, cookie, token)
+  stub_associate_lead_request_with_body(hostname, id, cookie, token,
+    requestId: 1,
+    success: true
+  )
+end
+
+def stub_failed_associate_lead_request(hostname, id, cookie, token)
+  stub_associate_lead_request_with_body(hostname, id, cookie, token,
+    requestId: 2,
+    success: false,
+    errors: [
+      {
+        code: '601',
+        message: 'Unauthorized'
+      }
+    ]
+  )
+end
+
+def stub_associate_lead_request_with_body(hostname, id, cookie, token, body)
   headers = {
     'Accept' => '*/*',
     'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -107,12 +127,7 @@ def stub_associate_lead_request(hostname, id, cookie, token)
     'User-Agent' => 'Ruby'
   }
 
-  resp_body = {
-    requestId: 1,
-    success: true
-  }.to_json
-
   stub_request(:post, "https://#{hostname}/rest/v1/leads/#{id}/associate.json?cookie=#{cookie}&access_token=#{token}")
     .with(body: 'null', headers: headers)
-    .to_return(status: 200, body: resp_body)
+    .to_return(status: 200, body: body.to_json)
 end
