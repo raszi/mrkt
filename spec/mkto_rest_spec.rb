@@ -142,6 +142,14 @@ describe MktoRest do
       it 'associates the lead' do
         expect(association).to include(success: true)
       end
+
+      context 'with an unathorized request' do
+        before { stub_failed_associate_lead_request(@hostname, id, 'id:287-GTJ-838%26token:_mch-marketo.com-1396310362214-46169', @token) }
+
+        it 'raises a MktoRest::Errors::AccessTokenInvalid exception with the message' do
+          expect { association }.to raise_error(MktoRest::Errors::AccessTokenInvalid, 'Unauthorized')
+        end
+      end
     end
   end
 end
