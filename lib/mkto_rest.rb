@@ -23,16 +23,11 @@ module MktoRest
     end
 
     def authenticated?
-      !@token.empty? && token_valid?
+      !token.empty? && token_valid?
     end
 
     def token_valid?
-      return Time.now < @valid_until
-    end
-
-    # used for testing only
-    def __auth(token)
-      @token = token
+      valid_until && Time.now < valid_until
     end
 
     # \options:
@@ -61,7 +56,7 @@ module MktoRest
       # values can be a string or an array
       values = values.split unless values.is_a? Array
       args = {
-        access_token: @token,
+        access_token: token,
         filterType: filtr.to_s,
         filterValues: values.join(',')
       }
@@ -112,13 +107,13 @@ module MktoRest
 
     def associate_lead(id, cookie)
       authenticate unless authenticated?
-      post(nil, "https://#{@host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie, access_token: @token)}")
+      post(nil, "https://#{@host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie, access_token: token)}")
     end
 
     def post(data, url = "https://#{@host}/rest/v1/leads.json")
       authenticate unless authenticated?
       fail 'client not authenticated.' unless authenticated?
-      headers = { 'Authorization' => "Bearer #{@token}" }
+      headers = { 'Authorization' => "Bearer #{token}" }
       body = MktoRest::HttpUtils.post(url, headers, data.to_json, @options)
       data = JSON.parse(body, symbolize_names: true)
       handle_errors(data[:errors]) if data[:success] == false
