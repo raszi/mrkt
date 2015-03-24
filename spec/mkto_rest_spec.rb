@@ -84,6 +84,16 @@ describe MktoRest do
     end
     let(:partition) { 'bizdev' }
 
+
+    describe '#upsert_leads' do
+      let(:updated_leads) { authenticated_client.upsert_leads(sample_leads) }
+
+      it 'inserts or updates the given leads' do
+        set_create_leads_stub_request(sample_leads, hostname, token, action: 'createOrUpdate', upsert: true)
+        updated_leads
+      end
+    end
+
     it 'can be updated by id' do
       set_update_lead_stub_request(:id, 1, { 'someFieldX' => 'new_value' }, hostname, token)
       lead1.update({ 'someFieldX' => 'new_value' }, :id)

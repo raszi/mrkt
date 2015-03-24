@@ -25,10 +25,15 @@ def set_create_leads_stub_request(leads, hostname, token, options = nil)
   }
   url = "https://#{hostname}/rest/v1/leads.json"
   # taken from dev.marekto.com
+  preferred_action = options && options.include?(:action) ? options[:action] : 'createOnly'
   req_body = {
-    'action' => 'createOnly',
-    'input' => []
+    'action' => preferred_action
   }
+
+  req_body['lookupField'] = 'email' if options && options.include?(:upsert)
+
+  req_body['input'] = []
+
   if options
     req_body['partitionName'] = options[:partition] if options[:partition]
     req_body['lookupField'] = options[:lookupField] if options[:lookupField]
