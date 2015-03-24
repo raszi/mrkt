@@ -94,7 +94,7 @@ module MktoRest
     def upsert_leads(leads, lookupField = :email, action = 'createOrUpdate')
       post(
         action: action,
-        lookupField: sym.to_s,
+        lookupField: lookupField.to_s,
         input: leads
       )
     end
