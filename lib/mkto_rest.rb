@@ -24,7 +24,7 @@ module MktoRest
     end
 
     def token_valid?
-      return Time.now < @valid_until
+      @valid_until && Time.now < @valid_until
     end
 
     # used for testing only
