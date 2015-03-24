@@ -91,6 +91,14 @@ module MktoRest
       post(data)
     end
 
+    def upsert_leads(leads, lookupField = :email, action = 'createOrUpdate')
+      post(
+        action: action,
+        lookupField: sym.to_s,
+        input: leads
+      )
+    end
+
     %i(email id).each do |sym|
       define_method("update_lead_by_#{sym}".to_sym) do |lookup_value, values|
         post(
