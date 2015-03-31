@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mkto_rest (0.3.1.rc3)
+    mkto_rest (0.3.1.rc6)
 
 GEM
   remote: https://rubygems.org/
