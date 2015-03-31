@@ -32,10 +32,10 @@ class MktoRest::Errors
   }
 
   RESPONSE_CODE_TO_ERROR.values.each do |class_name|
-    const_set(class_name, Class.new(Exception))
+    const_set(class_name, Class.new(StandardError))
   end
 
-  Unknown = Class.new(Exception)
+  Unknown = Class.new(StandardError)
 
   def self.find_by_response_code(response_code)
     const_get(RESPONSE_CODE_TO_ERROR.fetch(response_code, 'Unknown'))
