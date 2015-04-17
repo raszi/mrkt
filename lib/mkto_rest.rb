@@ -28,8 +28,9 @@ module MktoRest
     end
 
     # used for testing only
-    def __auth(token)
+    def __auth(token, validity = nil)
       @token = token
+      @valid_until = validity || Time.now  + 3600
     end
 
 
