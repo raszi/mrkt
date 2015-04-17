@@ -65,7 +65,7 @@ module MktoRest
       fail 'response empty.' if body.nil?
       data = JSON.parse(body, symbolize_names: true)
       @last_request_id = data[:requestId]
-      fail data[:errors].to_s if data[:success] == false
+      fail data[:errors].to_s unless data[:success]
       data[:result].each_with_object([]) do |lead_attributes, leads|
         l = Lead.new(self, lead_attributes)
         block.call(l) unless block.nil?
@@ -124,7 +124,7 @@ module MktoRest
       headers = { 'Authorization' => "Bearer #{token}" }
       body = MktoRest::HttpUtils.post(url, headers, data.to_json, @options)
       data = JSON.parse(body, symbolize_names: true)
-      handle_errors(data[:errors]) if data[:success] == false
+      handle_errors(data[:errors]) unless data[:success]
       data
     end
 
