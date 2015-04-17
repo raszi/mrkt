@@ -51,8 +51,14 @@ module MktoRest
       @scope = data[:scope]
     end
 
-    def get_leads(filtr, values = [], fields = [], &block)
+    def authenticate!
       authenticate unless authenticated?
+      fail 'client not authenticated.' unless authenticated?
+    end
+
+    def get_leads(filtr, values = [], fields = [], &block)
+      authenticate!
+
       # values can be a string or an array
       values = values.split unless values.is_a? Array
       args = {
@@ -114,13 +120,12 @@ module MktoRest
     end
 
     def associate_lead(id, cookie)
-      authenticate unless authenticated?
       post(nil, "https://#{@host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie, access_token: token)}")
     end
 
     def post(data, url = "https://#{@host}/rest/v1/leads.json")
-      authenticate unless authenticated?
-      fail 'client not authenticated.' unless authenticated?
+      authenticate!
+
       headers = { 'Authorization' => "Bearer #{token}" }
       body = MktoRest::HttpUtils.post(url, headers, data.to_json, @options)
       data = JSON.parse(body, symbolize_names: true)
