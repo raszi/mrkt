@@ -33,6 +33,24 @@ describe MktoRest do
         end
       end
     end
+
+    describe "#token_valid" do
+      context "valid token" do
+        it "returns true" do
+          c = MktoRest::Client.new(host: @hostname, client_id: @client_id, client_secret: @client_key)
+          c.__auth(@token, Time.now + 10)
+          expect(c.token_valid?).to be_true
+        end
+      end
+      context "expired token" do
+        it "returns false" do
+          c = MktoRest::Client.new(host: @hostname, client_id: @client_id, client_secret: @client_key)
+          c.__auth(@token, Time.now - 10)
+          expect(c.token_valid?).to be_false
+        end
+      end
+
+    end
   
     # this section tests that the gem code can parse the documented response correctly.
     # repsonses samples are in responses_samples/*.json
