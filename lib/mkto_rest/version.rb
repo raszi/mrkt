@@ -1,3 +1,3 @@
 module MktoRest
-  VERSION = "0.3.1.rc6"
+  VERSION = '0.4.0'
 end
