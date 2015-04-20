@@ -8,10 +8,8 @@ module MktoRest
 
     def init_connection
       Faraday.new(url: "https://#{@host}") do |conn|
-        # Faraday.new(url: "http://localhost") do |conn|
         conn.request :multipart
         conn.request :url_encoded
-        # conn.request :mkto, client_id, client_secret
 
         conn.response :logger if @debug
         conn.response :mkto, content_type: /\bjson$/
