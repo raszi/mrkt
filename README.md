@@ -38,7 +38,9 @@ client = MktoRest::Client.new(
 
 If you need verbosity during troubleshooting, set the client to debug mode
 
-    client.debug = true
+```ruby
+client.debug = true
+```
 
 ### Get leads matching an email, print their id and email:
     
