@@ -2,14 +2,32 @@ PATH
   remote: .
   specs:
     mkto_rest (0.3.1.rc6)
+      faraday_middleware (~> 0.9.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.3.5)
+    addressable (2.3.8)
+    byebug (4.0.5)
+      columnize (= 0.9.0)
+    coderay (1.1.0)
+    columnize (0.9.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
+    method_source (0.8.2)
+    multipart-post (2.0.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.1.0)
+      byebug (~> 4.0)
+      pry (~> 0.10)
     rake (10.1.1)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
@@ -24,9 +42,10 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
-    safe_yaml (1.0.1)
-    webmock (1.17.4)
-      addressable (>= 2.2.7)
+    safe_yaml (1.0.4)
+    slop (3.6.0)
+    webmock (1.21.0)
+      addressable (>= 2.3.6)
       crack (>= 0.3.2)
 
 PLATFORMS
@@ -35,6 +54,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.3)
   mkto_rest!
-  rake
+  pry-byebug (~> 3.1.0)
+  rake (~> 10.0)
   rspec (~> 3.2)
-  webmock
+  webmock (~> 1.21.0)

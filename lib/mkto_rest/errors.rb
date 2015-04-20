@@ -1,4 +1,15 @@
 class MktoRest::Errors
+  class Error < StandardError
+  end
+
+  def self.create_class
+    Class.new(Error)
+  end
+
+  Unknown = create_class
+  EmptyResponse = create_class
+  AuthorizationError = create_class
+
   RESPONSE_CODE_TO_ERROR = {
     413  => 'RequestEntityTooLarge',
     600  => 'EmptyAccessToken',
@@ -32,12 +43,10 @@ class MktoRest::Errors
   }
 
   RESPONSE_CODE_TO_ERROR.values.each do |class_name|
-    const_set(class_name, Class.new(StandardError))
+    const_set(class_name, create_class)
   end
 
-  Unknown = Class.new(StandardError)
-
   def self.find_by_response_code(response_code)
-    const_get(RESPONSE_CODE_TO_ERROR.fetch(response_code, 'Unknown'))
+    const_get(RESPONSE_CODE_TO_ERROR.fetch(response_code, 'Error'))
   end
 end
