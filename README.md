@@ -20,6 +20,7 @@ and include it in your app/gem's Gemfile (this works locally only):
 ## Prerequisites
 
 Get the following from your Marketo admin:
+
 * hostname, i.e. \<munchkin_id\>.mktorest.com
 * client id, e.g. '4567e1cdf-0fae-4685-a914-5be45043f2d8'
 * client secret, e.g. '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'
@@ -28,10 +29,12 @@ Get the following from your Marketo admin:
 
 ### Create a client and authenticate,
 
-    client = MktoRest::Client.new(
-        host: '123-abc-123.mktorest.com', 
-        client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
-        client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
+```ruby
+client = MktoRest::Client.new(
+    host: '123-abc-123.mktorest.com', 
+    client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
+    client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
+```
 
 If you need verbosity during troubleshooting, set the client to debug mode
 
@@ -39,32 +42,42 @@ If you need verbosity during troubleshooting, set the client to debug mode
 
 ### Get leads matching an email, print their id and email:
     
-    response = client.get_leads :email, 'sammy@acme.com'
-    response.body[:result].each do |result|
-      p "id: #{result[:id]}, email: #{result[:email]}"
-    end
+```ruby
+response = client.get_leads :email, 'sammy@acme.com'
+response.body[:result].each do |result|
+  p "id: #{result[:id]}, email: #{result[:email]}"
+end
+```
 
 ### Create/Update leads
 
-    response = client.createupdate_leads([ email: 'sample@example.com', firstName: 'John' ], lookup_field: :email)
-    response.body[:result].each do |result|
-      p "id: #{result[:id]}, email: #{result[:email]}"
-    end
+```ruby
+response = client.createupdate_leads([ email: 'sample@example.com', firstName: 'John' ], lookup_field: :email)
+response.body[:result].each do |result|
+  p "id: #{result[:id]}, email: #{result[:email]}"
+end
+```
 
 
 ## Set up
 
-    bundle install
+```sh
+bundle install
+```
 
 
 ## Build and Install the gem
 
-    bundle exec rake install
+```sh
+bundle exec rake install
+```
 
 
 ## Run Tests
 
-    bundle exec rake spec
+```sh
+bundle exec rake spec
+```
 
 
 ## Examples
