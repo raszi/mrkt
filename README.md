@@ -26,7 +26,7 @@ Get the following from your Marketo admin:
 
 ## Usage
 
-Create a client and authenticate,
+### Create a client and authenticate,
 
     client = MktoRest::Client.new(
         host: '123-abc-123.mktorest.com', 
@@ -37,68 +37,40 @@ If you need verbosity during troubleshooting, set the client to debug mode
 
     client.debug = true
 
-get leads matching an email, print their id and email:
+### Get leads matching an email, print their id and email:
     
-    client.get_leads :email, 'sammy@acme.com' do |lead|
-      p "id: #{l.id}, email: #{l.email}"
+    response = client.get_leads :email, 'sammy@acme.com'
+    response.body[:result].each do |result|
+      p "id: #{result[:id]}, email: #{result[:email]}"
     end
 
-fetch a lead and update one of its value:
+### Create/Update leads
 
-    client.get_leads :email, 'john@bigcorp.com' do |lead|
-      lead.update({ 'CustomField' => 'New Value', 'AnotherField' => 'New value' })
+    response = client.createupdate_leads([ email: 'sample@example.com', firstName: 'John' ], lookup_field: :email)
+    response.body[:result].each do |result|
+      p "id: #{result[:id]}, email: #{result[:email]}"
     end
-  
-updating a lead, using id, email, etc.
 
-    new_values = { 'Firstname' => 'Jeanne' }
-    leads = client.get_leads :email, 'jane@scorp.com' 
-    # update using id
-    leads.first.update(new_values, :id)
-    # update using email
-    leads.first.update(new_values, :email)
-  
-  creating 2 new leads:
-
-      new_leads = [
-                    {
-                      email: 'jane@scorp.com',
-                      firstName: 'Jane Doe'
-                    },
-                    {
-                      email: 'joe@scorp.com',
-                      firstName: 'Joe Doe'
-                    }
-                  ]
-      client.create_leads new_leads
 
 ## Set up
 
     bundle install
 
+
 ## Build and Install the gem
 
     bundle exec rake install
+
 
 ## Run Tests
 
     bundle exec rake spec
 
+
 ## Examples
 
-First create the configuration file .mktorest which should contain your client id and key, and hostname, e.g.:
+Examples are in the `spec/` directory.
 
-    ---
-    :hostname: '215-CIJ-720.mktorest.com'
-    :client_id: 'f950fg3e-80g5-42cc-9dc4-5eb054cc0836
-    :client_secret: 'dnGn25KLrtgssy6ecurMPnqQx61vykje'
-
-You can then run the example:
-  
-    bundle exec ruby examples/update_lead.rb
-
-
-Running it with no arguments will display the usage.    
 
 ## Contributing
 
