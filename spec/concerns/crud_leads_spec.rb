@@ -108,13 +108,7 @@ describe MktoRest::CrudLeads do
     let(:id) { 1 }
     let(:cookie) { 'id:561-HYG-937&token:_mch-marketo.com-1427205775289-40768' }
     let(:request_stub) { {} }
-    let(:response_stub) do
-      {
-        requestId: 'c245#14cd6830ae2',
-        result: [],
-        success: true
-      }
-    end
+
     subject { client.associate_lead(id, cookie) }
 
     before do
@@ -123,6 +117,35 @@ describe MktoRest::CrudLeads do
         .to_return(json_stub(response_stub))
     end
 
-    it { is_expected.to be_success }
+    context 'with an existing lead id' do
+      let(:response_stub) do
+        {
+          requestId: 'c245#14cd6830ae2',
+          result: [],
+          success: true
+        }
+      end
+
+      it { is_expected.to be_success }
+    end
+
+    context 'with a non-existing lead id' do
+      let(:response_stub) do
+        {
+          requestId: 'c245#14cd6830ae2',
+          success: false,
+          errors: [
+            {
+              code: "1004",
+              message: "Lead '1' not found"
+            }
+          ]
+        }
+      end
+
+      it 'should raise an Error' do
+        expect { subject }.to raise_error(MktoRest::Errors::LeadNotFound)
+      end
+    end
   end
 end
