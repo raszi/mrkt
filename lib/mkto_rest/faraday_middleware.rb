@@ -9,5 +9,3 @@ module MktoRest
     Faraday::Response.register_middleware mkto: -> { MktoRest::FaradayMiddleware::Response }
   end
 end
-
-
