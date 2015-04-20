@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mkto_rest (0.3.1.rc6)
+    mkto_rest (0.4.0)
       faraday_middleware (~> 0.9.1)
 
 GEM
