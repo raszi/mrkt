@@ -37,7 +37,12 @@ module MktoRest
     end
 
     def associate_lead(id, cookie)
-      post("/rest/v1/leads/#{id}/associate.json", cookie: cookie)
+      params = Faraday::Utils::ParamsHash.new
+      params[:cookie] = cookie
+
+      post("/rest/v1/leads/#{id}/associate.json?#{params.to_query}") do |req|
+        json_payload(req, {})
+      end
     end
   end
 end

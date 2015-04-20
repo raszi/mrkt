@@ -103,4 +103,26 @@ describe MktoRest::CrudLeads do
 
     it { is_expected.to be_success }
   end
+
+  describe '#associate_lead' do
+    let(:id) { 1 }
+    let(:cookie) { 'id:561-HYG-937&token:_mch-marketo.com-1427205775289-40768' }
+    let(:request_stub) { {} }
+    let(:response_stub) do
+      {
+        requestId: 'c245#14cd6830ae2',
+        result: [],
+        success: true
+      }
+    end
+    subject { client.associate_lead(id, cookie) }
+
+    before do
+      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie)}")
+        .with(json_stub(request_stub))
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to be_success }
+  end
 end
