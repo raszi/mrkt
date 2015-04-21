@@ -14,13 +14,7 @@ module Mrkt
     end
 
     def authenticate
-      params = {
-        grant_type: 'client_credentials',
-        client_id: @client_id,
-        client_secret: @client_secret
-      }
-
-      connection.get('/identity/oauth/token', params).tap do |response|
+      connection.get('/identity/oauth/token', authentication_params).tap do |response|
         data = response.body
 
         @token = data.fetch(:access_token)
@@ -28,6 +22,14 @@ module Mrkt
         @valid_until = Time.now + data.fetch(:expires_in)
         @scope = data.fetch(:scope)
       end
+    end
+
+    def authentication_params
+      {
+        grant_type: 'client_credentials',
+        client_id: @client_id,
+        client_secret: @client_secret
+      }
     end
 
     def add_authorization(req)
