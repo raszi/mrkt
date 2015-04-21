@@ -53,7 +53,7 @@ client.debug = true
 ### Get leads matching an email, print their id and email
     
 ```ruby
-response = client.get_leads :email, 'sammy@acme.com'
+response = client.get_leads(:email, 'sammy@acme.com')
 response[:result].each do |result|
   p "id: #{result[:id]}, email: #{result[:email]}"
 end
@@ -62,7 +62,7 @@ end
 ### Create/Update leads
 
 ```ruby
-response = client.createupdate_leads([ email: 'sample@example.com', firstName: 'John' ], lookup_field: :email)
+response = client.createupdate_leads([{ email: 'sample@example.com', firstName: 'John' }], lookup_field: :email)
 response[:result].each do |result|
   p "id: #{result[:id]}, email: #{result[:email]}"
 end
