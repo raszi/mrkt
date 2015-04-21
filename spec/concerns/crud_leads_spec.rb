@@ -28,7 +28,7 @@ describe Mrkt::CrudLeads do
         .to_return(json_stub(response_stub))
     end
 
-    it { is_expected.to be_success }
+    it { is_expected.to eq(response_stub) }
   end
 
   describe '#createupdate_leads' do
@@ -72,7 +72,7 @@ describe Mrkt::CrudLeads do
         .to_return(json_stub(response_stub))
     end
 
-    it { is_expected.to be_success }
+    it { is_expected.to eq(response_stub) }
   end
 
   describe '#delete_leads' do
@@ -101,7 +101,7 @@ describe Mrkt::CrudLeads do
         .to_return(json_stub(response_stub))
     end
 
-    it { is_expected.to be_success }
+    it { is_expected.to eq(response_stub) }
   end
 
   describe '#associate_lead' do
@@ -126,7 +126,7 @@ describe Mrkt::CrudLeads do
         }
       end
 
-      it { is_expected.to be_success }
+      it { is_expected.to eq(response_stub) }
     end
 
     context 'with a non-existing lead id' do

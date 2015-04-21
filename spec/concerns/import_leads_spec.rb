@@ -35,7 +35,7 @@ describe Mrkt::ImportLeads do
       tempfile.unlink
     end
 
-    it { is_expected.to be_success }
+    it { is_expected.to eq(response_stub) }
   end
 
   describe '#import_lead_status' do
@@ -63,14 +63,12 @@ describe Mrkt::ImportLeads do
         .to_return(json_stub(response_stub))
     end
 
-    it { is_expected.to be_success }
+    it { is_expected.to eq(response_stub) }
   end
 
   describe '#import_lead_failures' do
     let(:id) { 1 }
-    let(:respose_stub) do
-
-    end
+    let(:response_stub) { '' }
     subject { client.import_lead_failures(1) }
 
     before do
@@ -78,14 +76,12 @@ describe Mrkt::ImportLeads do
         .to_return(headers: { content_length: 0 })
     end
 
-    it { is_expected.to be_success }
+    it { is_expected.to eq(response_stub) }
   end
 
   describe '#import_lead_warnings' do
     let(:id) { 1 }
-    let(:respose_stub) do
-
-    end
+    let(:response_stub) { '' }
     subject { client.import_lead_warnings(1) }
 
     before do
@@ -93,6 +89,6 @@ describe Mrkt::ImportLeads do
         .to_return(headers: { content_length: 0 })
     end
 
-    it { is_expected.to be_success }
+    it { is_expected.to eq(response_stub) }
   end
 end

@@ -28,10 +28,12 @@ module Mrkt
       define_method(http_method) do |path, payload = {}, &block|
         authenticate!
 
-        connection.send(http_method, path, payload) do |req|
+        resp = connection.send(http_method, path, payload) do |req|
           add_authorization(req)
           block.call(req) unless block.nil?
         end
+
+        resp.body
       end
     end
   end
