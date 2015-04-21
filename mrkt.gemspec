@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Mrkt::VERSION
   spec.authors       = ['KARASZI István', 'Jacques Lemieux']
   spec.email         = ['github@spam.raszi.hu', 'jalemieux@gmail.com']
-  spec.description   = 'Marketo REST API Facade'
-  spec.summary       = ''
-  spec.homepage      = ''
+  spec.summary       = 'Marketo REST API Facade'
+  spec.description   = 'This gem helps you to use the Marketo REST API'
+  spec.homepage      = 'https://github.com/raszi/mrkt'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
