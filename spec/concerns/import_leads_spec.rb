@@ -1,4 +1,5 @@
 require 'csv'
+require 'tempfile'
 
 describe Mrkt::ImportLeads do
   include_context 'initialized client'
