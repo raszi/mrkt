@@ -1,5 +1,8 @@
 # Mrkt
 
+[![Build Status](https://secure.travis-ci.org/raszi/mrkt.png)](http://travis-ci.org/raszi/mrkt)
+[![Gem Version](https://badge.fury.io/rb/mrkt.png)](http://badge.fury.io/rb/mrkt)
+
 This gem provides some level of abstraction to Marketo REST APIs. Please note that this gem is alpha quality. 
 
 
