@@ -1,4 +1,4 @@
-module MktoRest
+module Mrkt
   module CrudLeads
     def get_leads(filter_type, filter_values, fields: nil, batch_size: nil, next_page_token: nil)
       params = {

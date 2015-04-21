@@ -1,4 +1,4 @@
-describe MktoRest::Authentication do
+describe Mrkt::Authentication do
   include_context 'initialized client'
 
   describe '#authenticate' do
@@ -17,7 +17,7 @@ describe MktoRest::Authentication do
       end
 
       it 'should raise an Error' do
-        expect { subject }.to raise_error(MktoRest::Errors::Error, 'Bad client credentials')
+        expect { subject }.to raise_error(Mrkt::Errors::Error, 'Bad client credentials')
       end
     end
   end

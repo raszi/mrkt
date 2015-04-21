@@ -1,12 +1,12 @@
-require 'mkto_rest/version'
-require 'mkto_rest/errors'
+require 'mrkt/version'
+require 'mrkt/errors'
 
-require 'mkto_rest/concerns/connection'
-require 'mkto_rest/concerns/authentication'
-require 'mkto_rest/concerns/crud_leads'
-require 'mkto_rest/concerns/import_leads'
+require 'mrkt/concerns/connection'
+require 'mrkt/concerns/authentication'
+require 'mrkt/concerns/crud_leads'
+require 'mrkt/concerns/import_leads'
 
-module MktoRest
+module Mrkt
   class Client
     include Connection
     include Authentication

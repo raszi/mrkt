@@ -1,6 +1,6 @@
 require 'csv'
 
-describe MktoRest::ImportLeads do
+describe Mrkt::ImportLeads do
   include_context 'initialized client'
 
   describe '#import_lead' do

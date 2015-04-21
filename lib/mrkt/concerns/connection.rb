@@ -1,6 +1,6 @@
-require 'mkto_rest/faraday_middleware'
+require 'mrkt/faraday_middleware'
 
-module MktoRest
+module Mrkt
   module Connection
     def connection
       @connection ||= init_connection

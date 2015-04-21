@@ -1,39 +1,43 @@
-# MktoRest
+# Mrkt
 
 This gem provides some level of abstraction to Marketo REST APIs. Please note that this gem is alpha quality. 
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'mkto_rest', path: "path_to_code"
+```ruby
+gem 'mrkt'
+```
 
-Or you can build the gem:
+And then execute:
 
-    $ rake install mkto_rest
+    $ bundle
 
-and include it in your app/gem's Gemfile (this works locally only):
+Or install it yourself as:
 
-    gem 'mkto_rest'    
+    $ gem install mrkt
 
 
 ## Prerequisites
 
 Get the following from your Marketo admin:
 
-* hostname, i.e. \<munchkin_id\>.mktorest.com
-* client id, e.g. '4567e1cdf-0fae-4685-a914-5be45043f2d8'
-* client secret, e.g. '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'
+* hostname, i.e. `'123-abc-123.mktorest.com'`
+* client id, e.g. `'4567e1cdf-0fae-4685-a914-5be45043f2d8'`
+* client secret, e.g. `'7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'`
+
 
 ## Usage
 
-### Create a client and authenticate,
+### Create a client and authenticate
 
 ```ruby
-client = MktoRest::Client.new(
-    host: '123-abc-123.mktorest.com', 
-    client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
-    client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
+client = Mrkt::Client.new(
+  host: '123-abc-123.mktorest.com', 
+  client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
+  client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
 ```
 
 If you need verbosity during troubleshooting, set the client to debug mode
@@ -42,7 +46,7 @@ If you need verbosity during troubleshooting, set the client to debug mode
 client.debug = true
 ```
 
-### Get leads matching an email, print their id and email:
+### Get leads matching an email, print their id and email
     
 ```ruby
 response = client.get_leads :email, 'sammy@acme.com'
@@ -61,25 +65,9 @@ end
 ```
 
 
-## Set up
-
-```sh
-bundle install
-```
-
-
-## Build and Install the gem
-
-```sh
-bundle exec rake install
-```
-
-
 ## Run Tests
 
-```sh
-bundle exec rake spec
-```
+    $ bundle exec rspec
 
 
 ## Examples
@@ -89,8 +77,8 @@ Examples are in the `spec/` directory.
 
 ## Contributing
 
-1. Fork it
+1. Fork it ( https://github.com/raszi/mrkt/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+5. Create a new Pull Request

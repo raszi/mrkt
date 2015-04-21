@@ -1,3 +1,3 @@
-module MktoRest
+module Mrkt
   VERSION = '0.4.0'
 end

@@ -1,4 +1,4 @@
-describe MktoRest::CrudLeads do
+describe Mrkt::CrudLeads do
   include_context 'initialized client'
 
   describe '#get_leads' do
@@ -144,7 +144,7 @@ describe MktoRest::CrudLeads do
       end
 
       it 'should raise an Error' do
-        expect { subject }.to raise_error(MktoRest::Errors::LeadNotFound)
+        expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
       end
     end
   end

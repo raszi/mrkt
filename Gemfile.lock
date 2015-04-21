@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mkto_rest (0.4.0)
+    mrkt (0.4.0)
       faraday_middleware (~> 0.9.1)
 
 GEM
@@ -60,7 +60,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.3)
-  mkto_rest!
+  mrkt!
   pry-byebug (~> 3.1.0)
   rake (~> 10.0)
   rspec (~> 3.2)

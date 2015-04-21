@@ -6,7 +6,7 @@ end
 require 'bundler/setup'
 Bundler.setup
 
-require 'mkto_rest'
+require 'mrkt'
 
 Dir[File.expand_path('spec/support/**/*.rb')].each { |f| require f }
 

@@ -1,4 +1,4 @@
-class MktoRest::Errors
+class Mrkt::Errors
   class Error < StandardError
   end
 

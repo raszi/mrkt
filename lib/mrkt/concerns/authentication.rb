@@ -1,8 +1,8 @@
-module MktoRest
+module Mrkt
   module Authentication
     def authenticate!
       authenticate unless authenticated?
-      fail MktoRest::Errors::AuthorizationError, 'Client not authenticated' unless authenticated?
+      fail Mrkt::Errors::AuthorizationError, 'Client not authenticated' unless authenticated?
     end
 
     def authenticated?

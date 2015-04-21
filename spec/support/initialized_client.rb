@@ -9,7 +9,7 @@ shared_context 'initialized client' do
     { access_token: SecureRandom.uuid, token_type: 'bearer', expires_in: 2241, scope: 'RestClient' }
   end
 
-  subject(:client) { MktoRest::Client.new(host: host, client_id: client_id, client_secret: client_secret) }
+  subject(:client) { Mrkt::Client.new(host: host, client_id: client_id, client_secret: client_secret) }
 
   before do
     stub_request(:get, "https://#{host}/identity/oauth/token")
