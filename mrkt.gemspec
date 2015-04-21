@@ -28,4 +28,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 1.21.0'
   spec.add_development_dependency 'simplecov', '~> 0.10.0'
   spec.add_development_dependency 'pry-byebug', '~> 3.1.0'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.4.7'
+
+
+gem "codeclimate-test-reporter", require: false
 end
