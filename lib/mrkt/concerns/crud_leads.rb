@@ -12,7 +12,7 @@ module Mrkt
       get('/rest/v1/leads.json', params)
     end
 
-    def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil)
+    def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
       post('/rest/v1/leads.json') do |req|
         params = {
           action: action,
@@ -20,6 +20,7 @@ module Mrkt
         }
         params[:lookupField] = lookup_field if lookup_field
         params[:partitionName] = partition_name if partition_name
+        params[:asyncProcessing] = async_processing if async_processing
 
         json_payload(req, params)
       end
