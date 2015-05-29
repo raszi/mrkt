@@ -6,26 +6,26 @@ describe Mrkt::CrudLeads do
     let(:filter_values) { %w(user@example.com) }
     let(:response_stub) do
       {
-        requestId: 'c245#14cd6830ae2',
-        result: [
+        :requestId => 'c245#14cd6830ae2',
+        :result => [
           {
-            id: 1,
-            firstName: 'John',
-            lastName: 'Snow',
-            email: 'sample@exmaple.com',
-            updatedAt: '2015-04-20 05:46:13',
-            createdAt: '2015-04-20 05:46:13'
+            :id => 1,
+            :firstName => 'John',
+            :lastName => 'Snow',
+            :email => 'sample@exmaple.com',
+            :updatedAt => '2015-04-20 05:46:13',
+            :createdAt => '2015-04-20 05:46:13'
           }
         ],
-        success: true
+        :success => true
       }
     end
     subject { client.get_leads(filter_type, filter_values) }
 
     before do
-      stub_request(:get, "https://#{host}/rest/v1/leads.json")
-        .with(query: { filterType: filter_type, filterValues: filter_values.join(',') })
-        .to_return(json_stub(response_stub))
+      stub_request(:get, "https://#{host}/rest/v1/leads.json").
+        with(:query => { :filterType => filter_type, :filterValues => filter_values.join(',') }).
+        to_return(json_stub(response_stub))
     end
 
     it { is_expected.to eq(response_stub) }
@@ -34,42 +34,42 @@ describe Mrkt::CrudLeads do
   describe '#createupdate_leads' do
     let(:leads) do
       [
-        firstName: 'John',
-        lastName: 'Snow',
-        email: 'sample@example.com'
+        :firstName => 'John',
+        :lastName => 'Snow',
+        :email => 'sample@example.com'
       ]
     end
     let(:request_body) do
       {
-        action: 'createOrUpdate',
-        input: [
+        :action => 'createOrUpdate',
+        :input => [
           {
-            firstName: 'John',
-            lastName: 'Snow',
-            email: 'sample@example.com'
+            :firstName => 'John',
+            :lastName => 'Snow',
+            :email => 'sample@example.com'
           }
         ],
-        lookupField: 'email'
+        :lookupField => 'email'
       }
     end
     let(:response_stub) do
       {
-        requestId: 'c245#14cd6830ae2',
-        success: true,
-        result: [
+        :requestId => 'c245#14cd6830ae2',
+        :success => true,
+        :result => [
           {
-            id: 1,
-            status: 'created'
+            :id => 1,
+            :status => 'created'
           }
         ]
       }
     end
-    subject { client.createupdate_leads(leads, lookup_field: :email) }
+    subject { client.createupdate_leads(leads, :lookup_field => :email) }
 
     before do
-      stub_request(:post, "https://#{host}/rest/v1/leads.json")
-        .with(json_stub(request_body))
-        .to_return(json_stub(response_stub))
+      stub_request(:post, "https://#{host}/rest/v1/leads.json").
+        with(json_stub(request_body)).
+        to_return(json_stub(response_stub))
     end
 
     it { is_expected.to eq(response_stub) }
@@ -79,26 +79,26 @@ describe Mrkt::CrudLeads do
     let(:leads) { [1] }
     let(:request_body) do
       {
-        input: [
-          { id: 1 }
+        :input => [
+          { :id => 1 }
         ]
       }
     end
     let(:response_stub) do
       {
-        requestId: 'c245#14cd6830ae2',
-        result: [
-          { id: 4098, status: 'deleted' }
+        :requestId => 'c245#14cd6830ae2',
+        :result => [
+          { :id => 4098, :status => 'deleted' }
         ],
-        success: true
+        :success => true
       }
     end
     subject { client.delete_leads(leads) }
 
     before do
-      stub_request(:delete, "https://#{host}/rest/v1/leads.json")
-        .with(json_stub(request_body))
-        .to_return(json_stub(response_stub))
+      stub_request(:delete, "https://#{host}/rest/v1/leads.json").
+        with(json_stub(request_body)).
+        to_return(json_stub(response_stub))
     end
 
     it { is_expected.to eq(response_stub) }
@@ -112,17 +112,17 @@ describe Mrkt::CrudLeads do
     subject { client.associate_lead(id, cookie) }
 
     before do
-      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie)}")
-        .with(json_stub(request_stub))
-        .to_return(json_stub(response_stub))
+      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/associate.json?cookie=#{URI.encode(cookie)}").
+        with(json_stub(request_stub)).
+        to_return(json_stub(response_stub))
     end
 
     context 'with an existing lead id' do
       let(:response_stub) do
         {
-          requestId: 'c245#14cd6830ae2',
-          result: [],
-          success: true
+          :requestId => 'c245#14cd6830ae2',
+          :result => [],
+          :success => true
         }
       end
 
@@ -132,12 +132,12 @@ describe Mrkt::CrudLeads do
     context 'with a non-existing lead id' do
       let(:response_stub) do
         {
-          requestId: 'c245#14cd6830ae2',
-          success: false,
-          errors: [
+          :requestId => 'c245#14cd6830ae2',
+          :success => false,
+          :errors => [
             {
-              code: "1004",
-              message: "Lead '1' not found"
+              :code => "1004",
+              :message => "Lead '1' not found"
             }
           ]
         }

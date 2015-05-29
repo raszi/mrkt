@@ -26,9 +26,9 @@ module Mrkt
 
     def authentication_params
       {
-        grant_type: 'client_credentials',
-        client_id: @client_id,
-        client_secret: @client_secret
+        :grant_type => 'client_credentials',
+        :client_id => @client_id,
+        :client_secret => @client_secret
       }
     end
 

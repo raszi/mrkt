@@ -6,6 +6,6 @@ module Mrkt
   end
 
   if Faraday::Middleware.respond_to? :register_middleware
-    Faraday::Response.register_middleware mkto: -> { Mrkt::FaradayMiddleware::Response }
+    Faraday::Response.register_middleware :mkto => lambda { Mrkt::FaradayMiddleware::Response }
   end
 end

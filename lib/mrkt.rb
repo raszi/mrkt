@@ -24,9 +24,12 @@ module Mrkt
       @options = options
     end
 
-    %i(get post delete).each do |http_method|
-      define_method(http_method) do |path, payload = {}, &block|
+    [:get, :post, :delete].each do |http_method|
+      define_method(http_method) do |*args, &block|
         authenticate!
+
+        path = args[0]
+        payload = args[1] || {}
 
         resp = connection.send(http_method, path, payload) do |req|
           add_authorization(req)

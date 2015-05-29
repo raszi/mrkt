@@ -4,7 +4,7 @@ module Mrkt
   module FaradayMiddleware
     class Response < ::FaradayMiddleware::ParseJson
       define_parser do |body|
-        JSON.parse(body, symbolize_names: true) unless body.strip.empty?
+        JSON.parse(body, :symbolize_names => true) unless body.strip.empty?
       end
 
       def process_response(env)

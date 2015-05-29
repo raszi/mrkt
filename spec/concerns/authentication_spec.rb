@@ -11,8 +11,8 @@ describe Mrkt::Authentication do
     context 'when the token is invalid' do
       let(:authentication_stub) do
         {
-          error: 'invalid_client',
-          error_description: 'Bad client credentials'
+          :error => 'invalid_client',
+          :error_description => 'Bad client credentials'
         }
       end
 

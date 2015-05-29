@@ -1,9 +1,13 @@
 module Mrkt
   module CrudLeads
-    def get_leads(filter_type, filter_values, fields: nil, batch_size: nil, next_page_token: nil)
+    def get_leads(filter_type, filter_values, options = {})
+      fields = options.fetch(:fields, nil)
+      batch_size = options.fetch(:batch_size, nil)
+      next_page_token = options.fetch(:next_page_token, nil)
+
       params = {
-        filterType: filter_type,
-        filterValues: filter_values.join(',')
+        :filterType => filter_type,
+        :filterValues => filter_values.join(',')
       }
       params[:fields] = fields if fields
       params[:batchSize] = batch_size if batch_size
@@ -12,11 +16,16 @@ module Mrkt
       get('/rest/v1/leads.json', params)
     end
 
-    def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
+    def createupdate_leads(leads, options = {})
+      action = options.fetch(:action, 'createOrUpdate')
+      lookup_field = options.fetch(:lookup_field, nil)
+      partition_name = options.fetch(:partition_name, nil) 
+      async_processing = options.fetch(:async_processing, nil)
+
       post('/rest/v1/leads.json') do |req|
         params = {
-          action: action,
-          input: leads
+          :action => action,
+          :input => leads
         }
         params[:lookupField] = lookup_field if lookup_field
         params[:partitionName] = partition_name if partition_name
@@ -28,7 +37,7 @@ module Mrkt
 
     def delete_leads(leads)
       delete('/rest/v1/leads.json') do |req|
-        json_payload(req, input: leads.map { |lead_id| { id: lead_id } })
+        json_payload(req, :input => leads.map { |lead_id| { :id => lead_id } })
       end
     end
 
