@@ -1,13 +1,14 @@
 module Mrkt
   module ImportLeads
-    def import_lead(file, format = 'csv', lookup_field = nil, list_id = nil, partition_name = nil)
+    def import_lead(file, options = {})
       params = {
-        :format => format,
+        :format => options.fetch(:format, 'csv'),
         :file => Faraday::UploadIO.new(file, 'text/csv')
       }
-      params[:lookupField] = lookup_field if lookup_field
-      params[:listId] = list_id if list_id
-      params[:partitionName] = partition_name if partition_name
+
+      params[:lookupField] = options[:lookup_field]
+      params[:listId] = options[:list_id]
+      params[:partitionName] = options[:partition_name]
 
       post('/bulk/v1/leads.json', params)
     end
