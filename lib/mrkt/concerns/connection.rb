@@ -7,8 +7,10 @@ module Mrkt
     end
 
     def init_connection
-      # Provide CA certificates for use with HTTPS:
-      Faraday.new(:url => "https://#{@host}", :ssl => { :cert_store => OpenSSL::SSL::SSLContext::DEFAULT_CERT_STORE }) do |conn|
+      Faraday.new(:url => "https://#{@host}") do |conn|
+        # Provide CA certificates for use with HTTPS:
+        conn.ssl.cert_store = OpenSSL::SSL::SSLContext::DEFAULT_CERT_STORE
+
         conn.request :multipart
         conn.request :url_encoded
 
