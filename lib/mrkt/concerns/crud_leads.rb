@@ -32,11 +32,6 @@ module Mrkt
       end
     end
 
-    def json_payload(req, payload)
-      req.headers[:content_type] = 'application/json'
-      req.body = JSON.generate(payload)
-    end
-
     def associate_lead(id, cookie)
       params = Faraday::Utils::ParamsHash.new
       params[:cookie] = cookie
