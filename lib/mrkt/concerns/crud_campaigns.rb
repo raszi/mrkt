@@ -4,7 +4,7 @@ module Mrkt
       post("/rest/v1/campaigns/#{id}/trigger.json") do |req|
         params = {
           input: {
-            leads:  lead_ids.map { |id| { id: id } },
+            leads: map_lead_ids(lead_ids),
             tokens: tokens
           }
         }

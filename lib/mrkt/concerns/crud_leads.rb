@@ -28,7 +28,7 @@ module Mrkt
 
     def delete_leads(leads)
       delete('/rest/v1/leads.json') do |req|
-        json_payload(req, input: leads.map { |lead_id| { id: lead_id } })
+        json_payload(req, input: map_lead_ids(leads))
       end
     end
 

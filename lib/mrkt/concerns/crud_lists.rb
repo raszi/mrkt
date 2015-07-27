@@ -12,7 +12,7 @@ module Mrkt
     def add_leads_to_list(list_id, lead_ids)
       post("/rest/v1/lists/#{list_id}/leads.json") do |req|
         params = {
-          input: lead_ids.map { |lead_id| { id: lead_id } }
+          input: map_lead_ids(lead_ids)
         }
 
         json_payload(req, params)
