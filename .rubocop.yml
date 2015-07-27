@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+Documentation:
+  Enabled: false
+LineLength:
+  Enabled: true
+  Max: 120
+MethodLength:
+  Max: 20
+IndentHash:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
