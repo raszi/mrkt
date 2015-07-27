@@ -6,8 +6,8 @@ require 'mrkt/concerns/authentication'
 require 'mrkt/concerns/crud_helpers'
 require 'mrkt/concerns/crud_campaigns'
 require 'mrkt/concerns/crud_leads'
-require 'mrkt/concerns/import_leads'
 require 'mrkt/concerns/crud_lists'
+require 'mrkt/concerns/import_leads'
 
 module Mrkt
   class Client
@@ -16,8 +16,8 @@ module Mrkt
     include CrudHelpers
     include CrudCampaigns
     include CrudLeads
-    include ImportLeads
     include CrudLists
+    include ImportLeads
 
     attr_accessor :debug
 
