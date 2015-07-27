@@ -3,6 +3,8 @@ require 'mrkt/errors'
 
 require 'mrkt/concerns/connection'
 require 'mrkt/concerns/authentication'
+require 'mrkt/concerns/crud_helpers'
+require 'mrkt/concerns/crud_campaigns'
 require 'mrkt/concerns/crud_leads'
 require 'mrkt/concerns/import_leads'
 
@@ -10,6 +12,8 @@ module Mrkt
   class Client
     include Connection
     include Authentication
+    include CrudHelpers
+    include CrudCampaigns
     include CrudLeads
     include ImportLeads
 

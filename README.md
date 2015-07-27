@@ -68,6 +68,20 @@ response[:result].each do |result|
 end
 ```
 
+### Run a smart campaign on existing leads
+```ruby
+campaign_id = 42        # this is the ID of the campaign
+lead_ids    = [1, 2, 4] # these are the leads who receive the campaign
+tokens      = [{        # these tokens (optional) are then passed to the campaign
+                 name:  '{{my.message}}',
+                 value: 'Updated message'
+               }, {
+                 name:  '{{my.other token}}',
+                 value: 'Value for other token'
+               }]
+client.request_campaign(campaign_id, lead_ids, tokens) # tokens can be omited
+=> { requestId: 'e42b#14272d07d78', success: true }
+```
 
 ## Run Tests
 
