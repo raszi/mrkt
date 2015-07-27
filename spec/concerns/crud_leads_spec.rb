@@ -136,7 +136,7 @@ describe Mrkt::CrudLeads do
           success: false,
           errors: [
             {
-              code: "1004",
+              code: '1004',
               message: "Lead '1' not found"
             }
           ]

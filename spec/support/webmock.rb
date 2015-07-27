@@ -10,7 +10,7 @@ RSpec.configure do |config|
 
   if ENV['CODECLIMATE_REPO_TOKEN']
     config.after(:suite) do
-      WebMock.disable_net_connect!(allow: 'codeclimate.com') 
+      WebMock.disable_net_connect!(allow: 'codeclimate.com')
     end
   end
 end
