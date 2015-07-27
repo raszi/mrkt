@@ -14,7 +14,6 @@ describe Mrkt::CrudLists do
             email: 'sample@example.com',
             updatedAt: '2015-05-19 13:50:57',
             createdAt: '2015-05-19 13:50:57'
-
           }
         ],
         success: true
