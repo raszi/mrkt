@@ -12,6 +12,10 @@ module Mrkt
       get('/rest/v1/leads.json', params)
     end
 
+    def describe_lead
+      get('/rest/v1/leads/describe.json')
+    end
+
     def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
       post('/rest/v1/leads.json') do |req|
         params = {

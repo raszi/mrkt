@@ -31,6 +31,54 @@ describe Mrkt::CrudLeads do
     it { is_expected.to eq(response_stub) }
   end
 
+  describe '#describe_lead' do
+    let(:response_stub) do
+      {
+        "requestId":"37ca#1475b74e276",
+        "success":true,
+        "result":[
+          {
+            "id":2,
+            "displayName":"Company Name",
+            "dataType":"string",
+            "length":255,
+            "rest":{
+              "name":"company",
+              "readOnly":false
+            },
+            "soap":{
+              "name":"Company",
+              "readOnly":false
+            }
+          },
+          {
+            "id":3,
+            "displayName":"Site",
+            "dataType":"string",
+            "length":255,
+            "rest":{
+              "name":"site",
+              "readOnly":false
+            },
+            "soap":{
+              "name":"Site",
+              "readOnly":false
+            }
+          }
+        ]
+      }
+    end
+
+    subject { client.describe_lead }
+
+    before do
+      stub_request(:get, "https://#{host}/rest/v1/leads/describe.json")
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
+  end
+
   describe '#createupdate_leads' do
     let(:leads) do
       [

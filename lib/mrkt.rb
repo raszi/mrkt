@@ -3,6 +3,9 @@ require 'mrkt/errors'
 
 require 'mrkt/concerns/connection'
 require 'mrkt/concerns/authentication'
+require 'mrkt/concerns/activities'
+require 'mrkt/concerns/opportunities'
+require 'mrkt/concerns/paging_token'
 require 'mrkt/concerns/crud_helpers'
 require 'mrkt/concerns/crud_campaigns'
 require 'mrkt/concerns/crud_leads'
@@ -13,11 +16,14 @@ module Mrkt
   class Client
     include Connection
     include Authentication
+    include Activities
+    include PagingToken
     include CrudHelpers
     include CrudCampaigns
     include CrudLeads
     include CrudLists
     include ImportLeads
+    include Opportunities
 
     attr_accessor :debug
 
@@ -35,6 +41,7 @@ module Mrkt
         authenticate!
 
         resp = connection.send(http_method, path, payload) do |req|
+          req.options.params_encoder = Faraday::FlatParamsEncoder
           add_authorization(req)
           block.call(req) unless block.nil?
         end
