@@ -179,4 +179,43 @@ describe Mrkt::CustomObjects do
 
     it { is_expected.to eq(response_stub) }
   end
+
+  describe "#delete_custom_objects" do
+    let(:object_name) { 'device' }
+
+    let(:search_fields) do
+      { serialNumber: 'serial_number_1' }
+    end
+
+    let(:request_body) do
+      {
+        input: search_fields,
+        deleteBy: 'dedupeFields'
+      }
+    end
+
+    let(:response_stub) do
+      {
+        requestId: 'c245#14cd6830ae2',
+        success: true,
+        result: [
+          {
+            :seq=>0,
+            :status=>"deleted",
+            :marketoGUID=>"1fc49d4fcb86"
+          }
+        ]
+      }
+    end
+
+    subject { client.delete_custom_objects(object_name, search_fields) }
+
+    before do
+      stub_request(:post, "https://#{host}/rest/v1/customobjects/#{object_name}/delete.json")
+        .with(json_stub(request_body))
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
+  end
 end
