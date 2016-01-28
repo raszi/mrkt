@@ -21,7 +21,6 @@ module Mrkt
           action: action,
           dedupeBy: dedupe_by
         }
-
         json_payload(req, params)
       end
     end

@@ -131,4 +131,52 @@ describe Mrkt::CustomObjects do
       end
     end
   end
+
+  describe "#createupdate_custom_objects" do
+    let(:object_name) { 'device' }
+
+    let(:devices) do
+      [
+        {
+          serialNumber: 'serial_number_1',
+          description: 'device'
+        }
+      ]
+    end
+
+    let(:request_body) do
+      {
+        input: [
+          {
+            serialNumber: 'serial_number_1',
+            description: 'device'
+          }
+        ],
+        action: 'createOrUpdate',
+        dedupeBy: 'dedupeFields'
+      }
+    end
+
+    let(:response_stub) do
+      {
+        requestId: 'c245#14cd6830ae2',
+        success: true,
+        result: [
+          {
+            id: 1,
+            status: 'created'
+          }
+        ]
+      }
+    end
+    subject { client.createupdate_custom_objects(object_name, devices) }
+
+    before do
+      stub_request(:post, "https://#{host}/rest/v1/customobjects/#{object_name}.json")
+        .with(json_stub(request_body))
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
+  end
 end
