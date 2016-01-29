@@ -218,4 +218,43 @@ describe Mrkt::CustomObjects do
 
     it { is_expected.to eq(response_stub) }
   end
+
+  describe "#get_custom_objects" do
+    let(:object_name) { 'device'}
+
+    let(:filter_values) do
+      [ {serialNumber: 'serial_number_1'} ]
+    end
+
+    let(:request_body) do
+      {
+        input: filter_values,
+        filterType: 'dedupeFields'
+      }
+    end
+
+    let(:response_stub) do
+      {
+        :requestId=>"1490d#1528af5232",
+        :result=>[{
+          :seq=>0,
+          :marketoGUID=>"163b231LPr23200e570",
+          :serialNumber=>"serial_number_1",
+          :createdAt=>"2016-01-23T05:01:01Z",
+          :updatedAt=>"2016-01-29T00:26:00Z"
+        }],
+        :success=>true
+      }
+    end
+
+    subject { client.get_custom_objects(object_name, filter_values) }
+
+    before do
+      stub_request(:post, "https://#{host}/rest/v1/customobjects/#{object_name}.json?_method=GET")
+        .with(json_stub(request_body))
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
+  end
 end

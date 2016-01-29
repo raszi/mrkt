@@ -36,14 +36,13 @@ module Mrkt
       end
     end
 
-    def get_custom_objects(object_name, filter_type, filter_values: nil, fields: nil, next_page_token: nil, batch_size: nil)
-      post("/rest/v1/customobjects/#{object_name}.json") do |req|
+    def get_custom_objects(object_name, filter_values, filter_type: 'dedupeFields', fields: nil, next_page_token: nil, batch_size: nil)
+      post("/rest/v1/customobjects/#{object_name}.json?_method=GET") do |req|
         params = {
-          filterType: filter_type,
-          _method: 'GET'
+          input: filter_values,
+          filterType: filter_type
         }
 
-        params[:filterValues] = filter_values if filter_values
         params[:fields] = fields if fields
         params[:nextPageToken] = next_page_token if next_page_token
         params[:batchSize] = batch_size if batch_size
