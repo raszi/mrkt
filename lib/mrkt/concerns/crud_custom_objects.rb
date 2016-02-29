@@ -13,10 +13,10 @@ module Mrkt
       get("/rest/v1/customobjects/#{name}/describe.json")
     end
 
-    def createupdate_custom_objects(object_name, objects, action: 'createOrUpdate', dedupe_by: 'dedupeFields')
-      post("/rest/v1/customobjects/#{object_name}.json") do |req|
+    def createupdate_custom_objects(name, input, action: 'createOrUpdate', dedupe_by: 'dedupeFields')
+      post("/rest/v1/customobjects/#{name}.json") do |req|
         params = {
-          input: objects,
+          input: input,
           action: action,
           dedupeBy: dedupe_by
         }
