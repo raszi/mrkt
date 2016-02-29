@@ -24,10 +24,10 @@ module Mrkt
       end
     end
 
-    def delete_custom_objects(object_name, search_values, delete_by: 'dedupeFields')
-      post("/rest/v1/customobjects/#{object_name}/delete.json") do |req|
+    def delete_custom_objects(name, input, delete_by: 'dedupeFields')
+      post("/rest/v1/customobjects/#{name}/delete.json") do |req|
         params = {
-          input: search_values,
+          input: input,
           deleteBy: delete_by
         }
 
