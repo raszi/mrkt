@@ -38,22 +38,27 @@ describe Mrkt::CrudCustomObjects do
       }
     end
 
-    before do
-      stub_request(:get, "https://#{host}/rest/v1/customobjects.json")
-        .with(query: {names: object_names.join(',')})
-        .to_return(json_stub(response_stub))
-    end
+    context 'with no object names' do
+      before do
+        stub_request(:get, "https://#{host}/rest/v1/customobjects.json")
+          .to_return(json_stub(response_stub))
+      end
 
-    subject { client.get_list_of_custom_objects(object_names) }
-
-    context 'with empty object names' do
-      let(:object_names) { [] }
+      subject { client.get_list_of_custom_objects }
 
       it { is_expected.to eq(response_stub) }
     end
 
-    context 'with valid object names' do
-      let(:object_names) { %w(device_c manufacturer_c)  }
+    context 'with object names' do
+      let(:object_names) { %w(device_c manufacturer_c) }
+
+      before do
+        stub_request(:get, "https://#{host}/rest/v1/customobjects.json")
+          .with(query: {names: object_names.join(',')})
+          .to_return(json_stub(response_stub))
+      end
+
+      subject { client.get_list_of_custom_objects(object_names) }
 
       it { is_expected.to eq(response_stub) }
     end
