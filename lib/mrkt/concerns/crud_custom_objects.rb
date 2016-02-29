@@ -1,5 +1,5 @@
 module Mrkt
-  module CustomObjects
+  module CrudCustomObjects
     def get_list_of_custom_objects(object_names)
       params = {
         names: object_names.join(',')

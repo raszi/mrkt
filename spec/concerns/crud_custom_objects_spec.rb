@@ -1,4 +1,4 @@
-describe Mrkt::CustomObjects do
+describe Mrkt::CrudCustomObjects do
   include_context 'initialized client'
 
   describe '#get_list_of_custom_objects' do
