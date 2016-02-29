@@ -7,10 +7,10 @@ module Mrkt
       get('/rest/v1/customobjects.json', params)
     end
 
-    def describe_custom_object(object_name)
-      fail Mrkt::Errors::Unknown if !object_name || object_name.empty?
+    def describe_custom_object(name)
+      fail Mrkt::Errors::Unknown unless name
 
-      get("/rest/v1/customobjects/#{object_name}/describe.json")
+      get("/rest/v1/customobjects/#{name}/describe.json")
     end
 
     def createupdate_custom_objects(object_name, objects, action: 'createOrUpdate', dedupe_by: 'dedupeFields')

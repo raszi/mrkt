@@ -127,18 +127,10 @@ describe Mrkt::CrudCustomObjects do
     end
 
     context "when the object name is invalid" do
-      let(:object_name) {[]}
+      let(:object_name) { nil }
 
       it 'should raise an Error' do
         object_name = []
-        expect { subject }.to raise_error(Mrkt::Errors::Unknown)
-      end
-    end
-
-    context "when no object name given" do
-      let(:object_name) { nil }
-
-      it 'should raise error' do
         expect { subject }.to raise_error(Mrkt::Errors::Unknown)
       end
     end
