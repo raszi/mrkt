@@ -35,10 +35,10 @@ module Mrkt
       end
     end
 
-    def get_custom_objects(object_name, filter_values, filter_type: 'dedupeFields', fields: nil, next_page_token: nil, batch_size: nil)
-      post("/rest/v1/customobjects/#{object_name}.json?_method=GET") do |req|
+    def get_custom_objects(name, input, filter_type: 'dedupeFields', fields: nil, next_page_token: nil, batch_size: nil)
+      post("/rest/v1/customobjects/#{name}.json?_method=GET") do |req|
         params = {
-          input: filter_values,
+          input: input,
           filterType: filter_type
         }
 
