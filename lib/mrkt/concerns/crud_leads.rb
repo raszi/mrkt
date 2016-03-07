@@ -17,7 +17,7 @@ module Mrkt
     def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
       # see also: http://developers.marketo.com/documentation/rest/createupdate-leads/
       # > You can update a maximum of 300 leads with a single API call.
-      leads.each_slice(MAX_LEADS_SIZE) do |_leads|
+      leads.each_slice(MAX_LEADS_SIZE).map do |_leads|
         post('/rest/v1/leads.json') do |req|
           params = {
             action: action,
@@ -35,7 +35,7 @@ module Mrkt
     def delete_leads(leads)
       # see also: http://developers.marketo.com/documentation/rest/delete-lead/
       # > The max batch size for this endpoint is 300 leads.
-      leads.each_slice(MAX_LEADS_SIZE) do |_leads|
+      leads.each_slice(MAX_LEADS_SIZE).map do |_leads|
         delete('/rest/v1/leads.json') do |req|
           json_payload(req, input: map_lead_ids(_leads))
         end
