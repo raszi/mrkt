@@ -8,5 +8,9 @@ module Mrkt
 
       get('/rest/asset/v1/programs.json', params)
     end
+
+    def get_program_by_id(id)
+      get("/rest/asset/v1/program/#{id}.json")
+    end
   end
 end

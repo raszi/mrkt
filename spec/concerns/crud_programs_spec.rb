@@ -39,4 +39,50 @@ describe Mrkt::CrudPrograms do
 
     it { is_expected.to eq(response_stub) }
   end
+
+  describe '#get_program_by_id' do
+    let(:response_stub) do
+      {
+        success: true,
+        warnings: [],
+        errors: [],
+        requestId: '948f#14db037ec71',
+        result: [
+          {
+            id: 1107,
+            name: 'AAA2QueryProgramName',
+            description: 'AssetAPI: getProgram tests',
+            createdAt: '2015-05-21T22:45:13Z+0000',
+            updatedAt: '2015-05-21T22:45:13Z+0000',
+            url: 'https://app-devlocal1.marketo.com/#PG1107A1',
+            type: 'Default',
+            channel: 'Online Advertising',
+            folder: {
+              type: 'Folder',
+              value: 1910,
+              folderName: 'ProgramQueryTestFolder'
+            },
+            status: '',
+            workspace: 'Default',
+            tags: [
+              {
+                tagType: 'AAA1 Required Tag Type',
+                tagValue: 'AAA1 RT1'
+              }
+            ],
+            costs: nil
+          }
+        ]
+      }
+    end
+
+    subject { client.get_program_by_id(1107) }
+
+    before do
+      stub_request(:get, "https://#{host}/rest/asset/v1/program/1107.json")
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
+  end
 end
