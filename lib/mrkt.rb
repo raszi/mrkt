@@ -31,6 +31,11 @@ module Mrkt
       @client_id = options.fetch(:client_id)
       @client_secret = options.fetch(:client_secret)
 
+      @debug = options[:debug]
+
+      @logger = options[:logger]
+      @log_options = options[:log_options]
+
       @options = options
     end
 

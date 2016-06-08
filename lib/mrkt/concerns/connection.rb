@@ -11,7 +11,10 @@ module Mrkt
         conn.request :multipart
         conn.request :url_encoded
 
-        conn.response :logger if @debug
+        if @debug
+          conn.response :logger, @logger, (@log_options || {})
+        end
+
         conn.response :mkto, content_type: /\bjson$/
 
         conn.options.timeout = @options[:read_timeout] if @options.key?(:read_timeout)
