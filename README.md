@@ -64,7 +64,7 @@ Since the Marketo API provides API access keys with a validity of 3600 seconds, 
 client = Mrkt::Client.new(
   host: '123-abc-123.mktorest.com',
   client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8',
-  client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'),
+  client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt',
   retry_authentication: true,
   retry_authentication_count: 3, # default: 3
   retry_authentication_wait_seconds: 1, # default: 0
