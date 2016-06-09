@@ -50,6 +50,23 @@ If you need verbosity during troubleshooting, set the client to debug mode
 client.debug = true
 ```
 
+### Retry authentication
+
+Since the Marketo API provides API access keys with a validity of 3600 seconds, if you are running an hourly cronjob it's possible that your subsequent call receives the same key from the previous hour, which is then immediately expired. If this is the case, you can configure the client to retry until receiving a valid key:
+
+```ruby
+client = Mrkt::Client.new(
+  host: '123-abc-123.mktorest.com',
+  client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8',
+  client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'),
+  retry_authentication: true,
+  retry_authentication_count: 3, # default: 3
+  retry_authentication_wait_seconds: 1, # default: 0
+  )
+```
+
+This is turned off by default.
+
 ### Get leads matching an email, print their id and email
     
 ```ruby
