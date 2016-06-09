@@ -44,10 +44,16 @@ client = Mrkt::Client.new(
   client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
 ```
 
-If you need verbosity during troubleshooting, set the client to debug mode
+If you need verbosity during troubleshooting, enable debug mode:
 
 ```ruby
-client.debug = true
+client = Mrkt::Client.new(
+  host: '123-abc-123.mktorest.com', 
+  client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
+  client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt',
+  debug: true,
+  logger: ::Logger.new("log/marketo.log"), # optional, defaults to Faraday default of logging to STDOUT
+  log_options: {bodies: true}) # optional, defaults to Faraday default of only logging headers
 ```
 
 ### Retry authentication
