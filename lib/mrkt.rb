@@ -9,6 +9,7 @@ require 'mrkt/concerns/crud_leads'
 require 'mrkt/concerns/crud_lists'
 require 'mrkt/concerns/import_leads'
 require 'mrkt/concerns/crud_custom_objects'
+require 'mrkt/concerns/crud_custom_activities'
 require 'mrkt/concerns/crud_programs'
 
 module Mrkt
@@ -21,6 +22,7 @@ module Mrkt
     include CrudLists
     include ImportLeads
     include CrudCustomObjects
+    include CrudCustomActivities
     include CrudPrograms
 
     attr_accessor :debug
