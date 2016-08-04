@@ -31,6 +31,15 @@ module Mrkt
       @client_id = options.fetch(:client_id)
       @client_secret = options.fetch(:client_secret)
 
+      @retry_authentication = options.fetch(:retry_authentication, false)
+      @retry_authentication_count = options.fetch(:retry_authentication_count, 3).to_i
+      @retry_authentication_wait_seconds = options.fetch(:retry_authentication_wait_seconds, 0).to_i
+
+      @debug = options[:debug]
+
+      @logger = options[:logger]
+      @log_options = options[:log_options]
+
       @options = options
     end
 

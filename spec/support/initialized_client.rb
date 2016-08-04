@@ -12,7 +12,7 @@ shared_context 'initialized client' do
   subject(:client) { Mrkt::Client.new(host: host, client_id: client_id, client_secret: client_secret) }
 
   before do
-    stub_request(:get, "https://#{host}/identity/oauth/token")
+    @authentication_request_stub = stub_request(:get, "https://#{host}/identity/oauth/token")
       .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
       .to_return(json_stub(authentication_stub))
   end
