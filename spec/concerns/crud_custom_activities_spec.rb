@@ -90,15 +90,15 @@ describe Mrkt::CrudCustomObjects do
     end
 
     let(:activity_type_id) do
-      100000
+      100_000
     end
 
     let(:primary_attribute_value) do
-      "Friday"
+      'Friday'
     end
 
     let(:date) do
-      Time.now()
+      Time.now
     end
 
     context 'with no additional attributes' do
