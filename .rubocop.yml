@@ -13,3 +13,5 @@ IndentHash:
 
 Style/ClassAndModuleChildren:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
