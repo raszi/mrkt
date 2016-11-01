@@ -19,21 +19,16 @@ module Mrkt
         attributes: converted_attributes
       }]
       post("/rest/v1/activities/external.json") do |req|
-        params = {
-          input: input
-        }
-        json_payload(req, params)
+        json_payload(req, input: input)
       end
     end
 
     private
 
     def convert_attribute_hash(attributes)
-      converted_attributes = []
-      attributes.each do |key, value|
-        converted_attributes << { name: key, value: value }
+      attributes.map do |key, value|
+        { name: key, value: value }
       end
-      converted_attributes
     end
   end
 end
