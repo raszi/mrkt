@@ -4,41 +4,43 @@ describe Mrkt::CrudCustomObjects do
   describe '#get_list_of_custom_activity_types' do
     let(:response_stub) do
       {
-        requestId: "14ff3#1579a716c12",
+        requestId: '14ff3#1579a716c12',
         result: [
           {
             id: 1,
-            name: "Visit Webpage",
-            description: "User visits a web page",
+            name: 'Visit Webpage',
+            description: 'User visits a web page',
             primaryAttribute: {
-              name: "Webpage ID",
-              dataType: "integer"
+              name: 'Webpage ID',
+              dataType: 'integer'
             },
-            attributes: [{
-                name: "Client IP Address",
-                dataType: "string"
+            attributes: [
+              {
+                name: 'Client IP Address',
+                dataType: 'string'
               },
               {
-                name: "Query Parameters",
-                dataType: "string"
+                name: 'Query Parameters',
+                dataType: 'string'
               }
             ]
           },
           {
             id: 1,
-            name: "Visit Webpage",
-            description: "User visits a web page",
+            name: 'Visit Webpage',
+            description: 'User visits a web page',
             primaryAttribute: {
-              name: "Webpage ID",
-              dataType: "integer"
+              name: 'Webpage ID',
+              dataType: 'integer'
             },
-            attributes: [{
-                name: "Client IP Address",
-                dataType: "string"
+            attributes: [
+              {
+                name: 'Client IP Address',
+                dataType: 'string'
               },
               {
-                name: "Query Parameters",
-                dataType: "string"
+                name: 'Query Parameters',
+                dataType: 'string'
               }
             ]
           }
@@ -53,7 +55,7 @@ describe Mrkt::CrudCustomObjects do
           .to_return(json_stub(response_stub))
       end
 
-      subject { client.get_list_of_custom_activity_types() }
+      subject { client.get_list_of_custom_activity_types }
 
       it { is_expected.to eq(response_stub) }
     end
@@ -65,20 +67,20 @@ describe Mrkt::CrudCustomObjects do
         requestId: 'c245#14cd6830ae2',
         result: [
           {
-            activityDate: "string",
+            activityDate: 'string',
             activityTypeId: 0,
-            apiName: "string",
+            apiName: 'string',
             attributes: [
               {
-                apiName: "string",
-                name: "string",
+                apiName: 'string',
+                name: 'string',
                 value: {}
               }
             ],
             id: 0,
             leadId: 0,
-            primaryAttributeValue: "string",
-            status: "created"
+            primaryAttributeValue: 'string',
+            status: 'created'
           }
         ],
         success: true

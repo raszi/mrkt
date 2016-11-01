@@ -5,7 +5,7 @@ module Mrkt
 
       authenticate
 
-      if !authenticated? and @retry_authentication
+      if !authenticated? && @retry_authentication
         @retry_authentication_count.times do
           sleep(@retry_authentication_wait_seconds) if @retry_authentication_wait_seconds > 0
           authenticate
