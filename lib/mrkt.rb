@@ -4,6 +4,7 @@ require 'mrkt/errors'
 require 'mrkt/concerns/connection'
 require 'mrkt/concerns/authentication'
 require 'mrkt/concerns/crud_helpers'
+require 'mrkt/concerns/crud_activities'
 require 'mrkt/concerns/crud_campaigns'
 require 'mrkt/concerns/crud_leads'
 require 'mrkt/concerns/crud_lists'
@@ -17,6 +18,7 @@ module Mrkt
     include Connection
     include Authentication
     include CrudHelpers
+    include CrudActivities
     include CrudCampaigns
     include CrudLeads
     include CrudLists
