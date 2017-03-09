@@ -151,19 +151,19 @@ describe Mrkt::CrudLeads do
 
   describe '#merge_leads' do
     let(:id) { 1 }
-    let(:losing_lead_ids){[2,3,4]}
-    let(:request_stub) { {} }
+    let(:losing_lead_ids) { [2, 3, 4] }
 
     subject { client.merge_leads(id, losing_lead_ids) }
 
     before do
-      params =  Faraday::Utils::ParamsHash.new()
 
-      params[:leadIds] = losing_lead_ids.join(",") if losing_lead_ids
-      params[:mergeInCRM] = false
+      params = {
+        leadIds: losing_lead_ids.join(','),
+        mergeInCRM: false
+      }
 
-      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/merge.json?#{params.to_query}")
-        .with(json_stub(request_stub))
+      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/merge.json")
+        .with(json_stub(params))
         .to_return(json_stub(response_stub))
     end
 
