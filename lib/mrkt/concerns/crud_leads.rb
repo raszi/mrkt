@@ -40,5 +40,16 @@ module Mrkt
         json_payload(req, {})
       end
     end
+
+    def merge_leads(winning_lead_id, losing_lead_ids, merge_in_crm: false)
+      params = Faraday::Utils::ParamsHash.new
+      params[:mergeInCRM] = merge_in_crm
+      params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
+
+      post("/rest/v1/leads/#{winning_lead_id}/merge.json#{params.to_query}") do |req|
+        json_payload(req,{})
+      end
+    end
+
   end
 end

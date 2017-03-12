@@ -148,4 +148,52 @@ describe Mrkt::CrudLeads do
       end
     end
   end
+
+  describe '#merge_leads' do
+    let(:id) { 1 }
+    let(:losing_lead_ids) { [2, 3, 4] }
+    let(:request_stub) { {} }
+
+    subject { client.merge_leads(id, losing_lead_ids) }
+
+    before do
+      params = Faraday::Utils::ParamsHash.new
+      params[:mergeInCRM] = false
+      params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
+
+      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/merge.json#{params.to_query}")
+        .with(json_stub(request_stub))
+        .to_return(json_stub(response_stub))
+    end
+
+    context 'with existing leads' do
+      let(:response_stub) do
+        {
+          requestId: 'c245#14cd6830ae2',
+          success: true
+        }
+      end
+
+      it { is_expected.to eq(response_stub) }
+    end
+
+    context 'with a non-existing lead id' do
+      let(:response_stub) do
+        {
+          requestId: 'c245#14cd6830ae2',
+          success: false,
+          errors: [
+            {
+              code: '1004',
+              message: "Lead '1' not found"
+            }
+          ]
+        }
+      end
+
+      it 'should raise an Error' do
+        expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
+      end
+    end
+  end
 end
