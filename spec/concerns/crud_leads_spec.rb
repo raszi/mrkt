@@ -161,7 +161,7 @@ describe Mrkt::CrudLeads do
       params[:mergeInCRM] = false
       params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
 
-      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/merge.json#{params.to_query}")
+      stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/merge.json?#{params.to_query}")
         .with(json_stub(request_stub))
         .to_return(json_stub(response_stub))
     end
