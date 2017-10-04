@@ -39,8 +39,8 @@ Get the following from your Marketo admin:
 
 ```ruby
 client = Mrkt::Client.new(
-  host: '123-abc-123.mktorest.com', 
-  client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
+  host: '123-abc-123.mktorest.com',
+  client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8',
   client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
 ```
 
@@ -48,8 +48,8 @@ If you need verbosity during troubleshooting, enable debug mode:
 
 ```ruby
 client = Mrkt::Client.new(
-  host: '123-abc-123.mktorest.com', 
-  client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8', 
+  host: '123-abc-123.mktorest.com',
+  client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8',
   client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt',
   debug: true,
   logger: ::Logger.new("log/marketo.log"), # optional, defaults to Faraday default of logging to STDOUT
