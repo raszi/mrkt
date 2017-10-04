@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/raszi/mrkt/badges/gpa.svg)](https://codeclimate.com/github/raszi/mrkt)
 [![Test Coverage](https://codeclimate.com/github/raszi/mrkt/badges/coverage.svg)](https://codeclimate.com/github/raszi/mrkt)
 
-This gem provides some level of abstraction to Marketo REST APIs. Please note that this gem is alpha quality. 
+This gem provides some level of abstraction to Marketo REST APIs. Please note that this gem is alpha quality.
 
 
 ## Installation
