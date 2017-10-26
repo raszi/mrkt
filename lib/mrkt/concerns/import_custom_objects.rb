@@ -1,12 +1,12 @@
 module Mrkt
   module ImportCustomObjects
-    def import_custom_objects(file, format = 'csv', api_name:)
+    def import_custom_objects(file, api_name, format = 'csv')
       params = {
         format: format,
         file: Faraday::UploadIO.new(file, 'text/csv')
       }
 
-      post('/bulk/v1/customobjects/#{api_name}/import.json')
+      post('/bulk/v1/customobjects/#{api_name}/import.json', params)
     end
 
     def import_custom_objects_status(id, api_name)
