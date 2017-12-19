@@ -72,7 +72,7 @@ describe Mrkt::CrudLeads do
         .to_return(json_stub(response_stub))
     end
 
-    it { is_expected.to eq(response_stub) }
+    it { is_expected.to eq([response_stub]) }
   end
 
   describe '#delete_leads' do
@@ -101,7 +101,7 @@ describe Mrkt::CrudLeads do
         .to_return(json_stub(response_stub))
     end
 
-    it { is_expected.to eq(response_stub) }
+    it { is_expected.to eq([response_stub]) }
   end
 
   describe '#associate_lead' do
