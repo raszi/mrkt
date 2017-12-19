@@ -13,7 +13,7 @@ module Mrkt
         end
       end
 
-      fail Mrkt::Errors::AuthorizationError, 'Client not authenticated' unless authenticated?
+      raise Mrkt::Errors::AuthorizationError, 'Client not authenticated' unless authenticated?
     end
 
     def authenticated?
