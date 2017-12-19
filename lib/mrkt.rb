@@ -9,6 +9,7 @@ require 'mrkt/concerns/crud_campaigns'
 require 'mrkt/concerns/crud_leads'
 require 'mrkt/concerns/crud_lists'
 require 'mrkt/concerns/import_leads'
+require 'mrkt/concerns/import_custom_objects'
 require 'mrkt/concerns/crud_custom_objects'
 require 'mrkt/concerns/crud_custom_activities'
 require 'mrkt/concerns/crud_programs'
@@ -23,6 +24,7 @@ module Mrkt
     include CrudLeads
     include CrudLists
     include ImportLeads
+    include ImportCustomObjects
     include CrudCustomObjects
     include CrudCustomActivities
     include CrudPrograms
