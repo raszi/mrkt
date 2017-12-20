@@ -8,7 +8,7 @@ module Mrkt
     end
 
     def describe_custom_object(name)
-      fail Mrkt::Errors::Unknown unless name
+      raise Mrkt::Errors::Unknown unless name
 
       get("/rest/v1/customobjects/#{name}/describe.json")
     end

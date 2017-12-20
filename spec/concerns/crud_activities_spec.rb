@@ -204,8 +204,8 @@ describe Mrkt::CrudActivities do
     end
 
     context 'specifying arrays values as empty strings' do
-      let(:activity_type_ids) { "" }
-      let(:lead_ids) { "" }
+      let(:activity_type_ids) { '' }
+      let(:lead_ids) { '' }
       subject do
         client.get_activities(token, activity_type_ids: activity_type_ids, lead_ids: lead_ids)
       end
