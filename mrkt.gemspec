@@ -27,7 +27,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.2'
   spec.add_development_dependency 'webmock', '~> 3.1'
-  spec.add_development_dependency 'pry-byebug', '>= 3.4', '< 3.5'
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 1.0'
   spec.add_development_dependency 'rubocop', '~> 0.52.0'
+  # Ruby 2.0 compatibility
+  spec.add_development_dependency 'pry-byebug', '>= 3.4', '< 3.5'
+  spec.add_development_dependency 'public_suffix', '>= 2.0', '< 3.0'
 end
