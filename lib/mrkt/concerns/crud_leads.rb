@@ -13,7 +13,7 @@ module Mrkt
     end
 
     def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
-      post('/rest/v1/leads.json') do |req|
+      json_post('/rest/v1/leads.json') do
         params = {
           action: action,
           input: leads
@@ -22,7 +22,7 @@ module Mrkt
         params[:partitionName] = partition_name if partition_name
         params[:asyncProcessing] = async_processing if async_processing
 
-        json_payload(req, params)
+        params
       end
     end
 
@@ -36,9 +36,7 @@ module Mrkt
       params = Faraday::Utils::ParamsHash.new
       params[:cookie] = cookie
 
-      post("/rest/v1/leads/#{id}/associate.json?#{params.to_query}") do |req|
-        json_payload(req, {})
-      end
+      json_post("/rest/v1/leads/#{id}/associate.json?#{params.to_query}")
     end
 
     def merge_leads(winning_lead_id, losing_lead_ids, merge_in_crm: false)
@@ -46,9 +44,7 @@ module Mrkt
       params[:mergeInCRM] = merge_in_crm
       params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
 
-      post("/rest/v1/leads/#{winning_lead_id}/merge.json?#{params.to_query}") do |req|
-        json_payload(req, {})
-      end
+      json_post("/rest/v1/leads/#{winning_lead_id}/merge.json?#{params.to_query}")
     end
   end
 end
