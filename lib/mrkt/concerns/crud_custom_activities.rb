@@ -19,8 +19,9 @@ module Mrkt
         primaryAttributeValue: primary_attribute_value,
         attributes: converted_attributes
       }]
-      post('/rest/v1/activities/external.json') do |req|
-        json_payload(req, input: input)
+
+      post_json('/rest/v1/activities/external.json') do
+        { input: input }
       end
     end
 
