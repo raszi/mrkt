@@ -3,7 +3,7 @@ describe Mrkt::CrudLeads do
 
   describe '#get_leads' do
     let(:filter_type) { 'email' }
-    let(:filter_values) { %w(user@example.com) }
+    let(:filter_values) { %w[user@example.com] }
     let(:response_stub) do
       {
         requestId: 'c245#14cd6830ae2',
