@@ -12,13 +12,13 @@ MethodLength:
 IndentHash:
   Enabled: false
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Naming/AccessorMethodName:
+  Enabled: false
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
-
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/FrozenStringLiteralComment:
