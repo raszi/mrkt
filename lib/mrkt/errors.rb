@@ -42,7 +42,7 @@ class Mrkt::Errors
     1014 => 'FailedToCreateObject'
   }
 
-  RESPONSE_CODE_TO_ERROR.values.each do |class_name|
+  RESPONSE_CODE_TO_ERROR.each_value do |class_name|
     const_set(class_name, create_class)
   end
 
