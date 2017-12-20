@@ -38,7 +38,8 @@ GEM
       byebug (>= 9.0, < 9.1)
       pry (~> 0.10)
     public_suffix (2.0.5)
-    rainbow (3.0.0)
+    rainbow (2.2.2)
+      rake
     rake (12.3.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
@@ -82,6 +83,7 @@ DEPENDENCIES
   mrkt!
   pry-byebug (>= 3.4, < 3.5)
   public_suffix (>= 2.0, < 3.0)
+  rainbow (>= 2.2, < 3.0)
   rake (~> 12.3)
   rspec (~> 3.2)
   rubocop (~> 0.52.0)
