@@ -13,7 +13,7 @@ module Mrkt
     end
 
     def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
-      json_post('/rest/v1/leads.json') do
+      post_json('/rest/v1/leads.json') do
         params = {
           action: action,
           input: leads
@@ -36,7 +36,7 @@ module Mrkt
       params = Faraday::Utils::ParamsHash.new
       params[:cookie] = cookie
 
-      json_post("/rest/v1/leads/#{id}/associate.json?#{params.to_query}")
+      post_json("/rest/v1/leads/#{id}/associate.json?#{params.to_query}")
     end
 
     def merge_leads(winning_lead_id, losing_lead_ids, merge_in_crm: false)
@@ -44,7 +44,7 @@ module Mrkt
       params[:mergeInCRM] = merge_in_crm
       params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
 
-      json_post("/rest/v1/leads/#{winning_lead_id}/merge.json?#{params.to_query}")
+      post_json("/rest/v1/leads/#{winning_lead_id}/merge.json?#{params.to_query}")
     end
   end
 end

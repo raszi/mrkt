@@ -4,7 +4,7 @@ module Mrkt
       lead_ids.map { |id| { id: id } }
     end
 
-    def json_post(url)
+    def post_json(url)
       post(url) do |req|
         payload = block_given? ? yield(req) : {}
         json_payload(req, payload)

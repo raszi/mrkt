@@ -14,7 +14,7 @@ module Mrkt
     end
 
     def createupdate_custom_objects(name, input, action: 'createOrUpdate', dedupe_by: 'dedupeFields')
-      json_post("/rest/v1/customobjects/#{name}.json") do
+      post_json("/rest/v1/customobjects/#{name}.json") do
         {
           input: input,
           action: action,
@@ -24,7 +24,7 @@ module Mrkt
     end
 
     def delete_custom_objects(name, input, delete_by: 'dedupeFields')
-      json_post("/rest/v1/customobjects/#{name}/delete.json") do
+      post_json("/rest/v1/customobjects/#{name}/delete.json") do
         {
           input: input,
           deleteBy: delete_by
@@ -33,7 +33,7 @@ module Mrkt
     end
 
     def get_custom_objects(name, input, filter_type: 'dedupeFields', fields: nil, next_page_token: nil, batch_size: nil)
-      json_post("/rest/v1/customobjects/#{name}.json?_method=GET") do
+      post_json("/rest/v1/customobjects/#{name}.json?_method=GET") do
         params = {
           input: input,
           filterType: filter_type

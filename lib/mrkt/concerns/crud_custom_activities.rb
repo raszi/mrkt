@@ -20,7 +20,7 @@ module Mrkt
         attributes: converted_attributes
       }]
 
-      json_post('/rest/v1/activities/external.json') do
+      post_json('/rest/v1/activities/external.json') do
         { input: input }
       end
     end
