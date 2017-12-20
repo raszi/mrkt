@@ -12,6 +12,10 @@ MethodLength:
 IndentHash:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/FrozenStringLiteralComment:
