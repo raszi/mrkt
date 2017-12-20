@@ -16,6 +16,9 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/FrozenStringLiteralComment:
