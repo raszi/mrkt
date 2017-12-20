@@ -162,7 +162,9 @@ describe Mrkt::CrudCustomObjects do
         }
       end
 
-      subject { client.create_custom_activity(lead_id, activity_type_id, primary_attribute_value, attributes: attributes, date: date) }
+      subject do
+        client.create_custom_activity(lead_id, activity_type_id, primary_attribute_value, attributes: attributes, date: date)
+      end
 
       it { is_expected.to eq(response_stub) }
     end

@@ -1,16 +1,26 @@
 AllCops:
+  TargetRubyVersion: 2.0
   Exclude:
     - 'bin/**/*'
 Documentation:
   Enabled: false
 LineLength:
   Enabled: true
-  Max: 120
+  Max: 128
 MethodLength:
   Max: 20
 IndentHash:
   Enabled: false
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Naming/AccessorMethodName:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+Metrics/ParameterLists:
+  Max: 6
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/FrozenStringLiteralComment:

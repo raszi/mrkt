@@ -55,7 +55,7 @@ describe Mrkt::CrudCustomObjects do
     end
 
     context 'with object names' do
-      let(:object_names) { %w(device_c manufacturer_c) }
+      let(:object_names) { %w[device_c manufacturer_c] }
 
       before do
         stub_request(:get, "https://#{host}/rest/v1/customobjects.json")

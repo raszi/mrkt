@@ -11,9 +11,7 @@ module Mrkt
         conn.request :multipart
         conn.request :url_encoded
 
-        if @debug
-          conn.response :logger, @logger, (@log_options || {})
-        end
+        conn.response :logger, @logger, (@log_options || {}) if @debug
 
         conn.response :mkto, content_type: /\bjson$/
 

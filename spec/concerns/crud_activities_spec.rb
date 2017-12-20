@@ -110,7 +110,7 @@ describe Mrkt::CrudActivities do
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/activities.json")
-        .with(query: { nextPageToken: URI.encode(token) })
+        .with(query: { nextPageToken: token })
         .to_return(json_stub(response_stub))
     end
 
@@ -152,7 +152,7 @@ describe Mrkt::CrudActivities do
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities.json")
           .with(query: {
-            nextPageToken: URI.encode(token),
+            nextPageToken: token,
             activityTypeIds: activity_type_ids.join(',')
           })
           .to_return(json_stub(response_stub))
@@ -196,7 +196,7 @@ describe Mrkt::CrudActivities do
 
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities.json")
-          .with(query: { nextPageToken: URI.encode(token), leadIds: lead_ids.join(',') })
+          .with(query: { nextPageToken: token, leadIds: lead_ids.join(',') })
           .to_return(json_stub(response_stub))
       end
 
@@ -212,7 +212,7 @@ describe Mrkt::CrudActivities do
 
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities.json")
-          .with(query: { nextPageToken: URI.encode(token) })
+          .with(query: { nextPageToken: token })
           .to_return(json_stub(response_stub))
       end
 
@@ -227,7 +227,7 @@ describe Mrkt::CrudActivities do
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities.json")
           .with(query: {
-            nextPageToken: URI.encode(token),
+            nextPageToken: token,
             activityTypeIds: activity_type_ids.join(','),
             leadIds: lead_ids.join(',')
           })

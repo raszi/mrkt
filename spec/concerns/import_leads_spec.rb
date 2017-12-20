@@ -22,8 +22,8 @@ describe Mrkt::ImportLeads do
 
     before do
       CSV.open(tempfile, 'wb') do |csv|
-        csv << %w(email firstName lastName)
-        csv << %w(sample@example.com John Snow)
+        csv << %w[email firstName lastName]
+        csv << %w[sample@example.com John Snow]
       end
 
       stub_request(:post, "https://#{host}/bulk/v1/leads.json")

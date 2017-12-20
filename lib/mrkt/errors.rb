@@ -40,9 +40,9 @@ class Mrkt::Errors
     1012 => 'InvalidCookieValue',
     1013 => 'ObjectNotFound',
     1014 => 'FailedToCreateObject'
-  }
+  }.freeze
 
-  RESPONSE_CODE_TO_ERROR.values.each do |class_name|
+  RESPONSE_CODE_TO_ERROR.each_value do |class_name|
     const_set(class_name, create_class)
   end
 
