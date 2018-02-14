@@ -13,6 +13,7 @@ describe Mrkt::CrudCampaigns do
          value: 'Value for other token'
        }]
     end
+
     subject { client.request_campaign(id, lead_ids, tokens) }
 
     before do
@@ -68,4 +69,45 @@ describe Mrkt::CrudCampaigns do
       end
     end
   end
+
+  describe '#schedule_campaign' do
+    let(:id) { 42 }
+
+    subject { client.schedule_campaign(id) }
+
+    before do
+      stub_request(:post, "https://#{host}/rest/v1/campaigns/#{id}/schedule.json")
+        .to_return(json_stub(response_stub))
+    end
+
+    context 'with an invalid campaign id' do
+      let(:response_stub) do
+        {
+          requestId: 'a2b#9a4567d34f',
+          success:   false,
+          errors:    [{
+                        code:    '1013',
+                        message: 'Campaign not found'
+                      }]
+        }
+      end
+
+      it 'should raise an Error' do
+        expect { subject }.to raise_error(Mrkt::Errors::ObjectNotFound)
+      end
+    end
+
+    context 'with valid campaign id' do
+      let(:response_stub) do
+        {
+          requestId: 'e42b#14272d07d78',
+          success:   true,
+          :result=>[{:id=>1254}]
+        }
+      end
+
+      it { is_expected.to eq(response_stub) }
+    end
+  end
+
 end
