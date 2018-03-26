@@ -84,7 +84,7 @@ describe Mrkt::CrudCampaigns do
     subject { client.update_email(id, email_subject) }
 
     before do
-      stub_request(:post, "https://#{host}/rest/asset/v1/email/#{id}/content.json?subject={'type':'Text','value':'#{email_subject}'}")
+      stub_request(:post, URI.encode("https://#{host}/rest/asset/v1/email/#{id}/content.json?subject={'type':'Text','value':'#{email_subject}'}"))
         .to_return(json_stub(response_stub))
     end
 
