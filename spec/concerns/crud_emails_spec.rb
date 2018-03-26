@@ -1,6 +1,42 @@
 describe Mrkt::CrudCampaigns do
   include_context 'initialized client'
 
+  describe '#get_email_by_id' do
+    let(:id) { 42 }
+
+    subject { client.get_email_by_id(id) }
+
+    before do
+      stub_request(:get, "https://#{host}/rest/asset/v1/email/#{id}.json")
+        .to_return(json_stub(response_stub))
+    end
+
+    context 'with invalid email id' do
+      let(:response_stub) do
+        {
+          requestId: '7cdc#14eb6ae8a86',
+          success:   true,
+          warnings:  ["No assets found for the given search criteria."]
+        }
+      end
+
+      it { is_expected.to eq(response_stub) }
+    end
+
+    context 'for valid email id' do
+      let(:response_stub) do
+        {
+          requestId: 'e42b#14272d07d78',
+          success:   true
+        }
+      end
+
+      it { is_expected.to eq(response_stub) }
+    end
+  end
+
+
+
   describe '#approve_email_draft' do
     let(:id) { 42 }
 

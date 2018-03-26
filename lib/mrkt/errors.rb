@@ -48,7 +48,6 @@ class Mrkt::Errors
   end
 
   def self.find_by_response_code(response_code)
-    puts response_code.inspect
     const_get(RESPONSE_CODE_TO_ERROR.fetch(response_code, 'Error'))
   end
 end
