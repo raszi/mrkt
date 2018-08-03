@@ -237,4 +237,43 @@ describe Mrkt::CrudActivities do
       it { is_expected.to eq(response_stub) }
     end
   end
+
+  describe '#get_deleted_leads' do
+    let(:token) { '4GAX7YNCIJKO2VAED5LH5PQIYPUM7WCVKTQWEDMP2L24AXZT54LA====' }
+    let(:response_stub) do
+      {
+        requestId: '8105#1650074c30c',
+        result:  [
+          {
+            id: 12_751,
+            marketoGUID: '12751',
+            leadId: 277,
+            activityDate: '2018-08-03T14:58:53Z',
+            activityTypeId: 37,
+            campaignId: 5227,
+            primaryAttributeValueId: 277,
+            primaryAttributeValue: 'Delete Me',
+            attributes:  [
+              {
+                name: 'Campaign',
+                value: 'Run Action Delete Lead 2018-08-03 04:58:50 pm'
+              }
+            ]
+          }
+        ],
+        success: true,
+        nextPageToken: 'XQH6SLHODNIM7CY6MKJ6GAOR3JYOQXIN3THAHKYZXSOYN4HOPR2Q====',
+        moreResult: false
+      }
+    end
+    subject { client.get_deleted_leads(token) }
+
+    before do
+      stub_request(:get, "https://#{host}/rest/v1/activities/deletedleads.json")
+        .with(query: { nextPageToken: token })
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
+  end
 end
