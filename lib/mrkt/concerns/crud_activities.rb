@@ -20,6 +20,13 @@ module Mrkt
       get('/rest/v1/activities.json', params)
     end
 
+    def get_deleted_leads(next_page_token)
+      params = {
+        nextPageToken: next_page_token
+      }
+      get('/rest/v1/activities/deletedleads.json', params)
+    end
+
     private
 
     def blank?(value)
