@@ -13,6 +13,7 @@ require 'mrkt/concerns/import_custom_objects'
 require 'mrkt/concerns/crud_custom_objects'
 require 'mrkt/concerns/crud_custom_activities'
 require 'mrkt/concerns/crud_programs'
+require 'mrkt/concerns/crud_emails'
 
 module Mrkt
   class Client
@@ -28,6 +29,7 @@ module Mrkt
     include CrudCustomObjects
     include CrudCustomActivities
     include CrudPrograms
+    include CrudEmails
 
     attr_accessor :debug
 

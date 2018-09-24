@@ -25,6 +25,7 @@ class Mrkt::Errors
     610  => 'RequestedResourceNotFound',
     611  => 'System',
     612  => 'InvalidContentType',
+    702  => 'NoDataFound',
     703  => 'DisabledFeature',
     1001 => 'TypeMismatch',
     1002 => 'MissingParamater',
