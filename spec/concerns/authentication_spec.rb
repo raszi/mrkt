@@ -8,6 +8,22 @@ describe Mrkt::Authentication do
       it { is_expected.to be_success }
     end
 
+    context 'on a unexpected non json response' do
+      before do
+        @authentication_request_stub = stub_request(:get, "https://#{host}/identity/oauth/token")
+          .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
+          .to_return(
+            status: 500,
+            headers: { content_type: 'text/plain' },
+            body: 'something wrong',
+          )
+      end
+
+      it 'should raise an Error' do
+        expect { subject }.to raise_error(Mrkt::Errors::Unknown)
+      end
+    end
+
     context 'when the token is invalid' do
       let(:authentication_stub) do
         {
