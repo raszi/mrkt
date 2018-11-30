@@ -13,6 +13,7 @@ module Mrkt
 
         conn.response :logger, @logger, (@log_options || {}) if @debug
         conn.response :mkto, content_type: /\bjson$/
+        conn.response :mkto_exceptional_response
 
         conn.options.timeout = @options[:read_timeout] if @options.key?(:read_timeout)
         conn.options.open_timeout = @options[:open_timeout] if @options.key?(:open_timeout)
