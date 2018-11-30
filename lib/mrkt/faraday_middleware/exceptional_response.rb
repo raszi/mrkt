@@ -5,7 +5,7 @@ module Mrkt
     # there is possibility that servers could respond with non json response
     # unexpectedly.
     class ExceptionalResponse < Faraday::Response::Middleware
-      ServerErrorStatuses = 500...600
+      ServerErrorStatuses = 400...600
 
       def on_complete(env)
         # Nothing to do by this handler if response content type is like json
