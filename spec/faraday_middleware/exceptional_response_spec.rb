@@ -1,5 +1,5 @@
 describe Mrkt::FaradayMiddleware::ExceptionalResponse do
-	before do
+  before do
     response = lambda { |env|
       [status, {'Content-Type' => content_type}, body]
     }
