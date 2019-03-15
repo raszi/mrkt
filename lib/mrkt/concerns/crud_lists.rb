@@ -14,5 +14,11 @@ module Mrkt
         { input: map_lead_ids(lead_ids) }
       end
     end
+
+    def remove_leads_from_list(list_id, lead_ids)
+      delete("/rest/v1/lists/#{list_id}/leads.json") do |req|
+        json_payload(req, input: map_lead_ids(lead_ids))
+      end
+    end
   end
 end
