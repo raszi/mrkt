@@ -63,4 +63,37 @@ describe Mrkt::CrudLists do
 
     it { is_expected.to eq(response_stub) }
   end
+
+  describe '#remove_leads_from_list' do
+    let(:list_id) { '1001' }
+    let(:lead_ids) { ['1'] }
+    let(:request_body) do
+      {
+        input: [
+          { id: '1' }
+        ]
+      }
+    end
+    let(:response_stub) do
+      {
+        requestId: '10de4#1697e81c821',
+        result: [
+          {
+            id: 1,
+            status: 'removed'
+          }
+        ],
+        success: true
+      }
+    end
+    subject { client.remove_leads_from_list(list_id, lead_ids) }
+
+    before do
+      stub_request(:delete, "https://#{host}/rest/v1/lists/#{list_id}/leads.json")
+        .with(json_stub(request_body))
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
+  end
 end
