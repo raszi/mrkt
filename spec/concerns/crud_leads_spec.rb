@@ -1,6 +1,60 @@
 describe Mrkt::CrudLeads do
   include_context 'initialized client'
 
+  describe 'get_lead_by_id' do
+    subject { client.get_lead_by_id(id, fields: fields) }
+
+    let(:id) { 200 }
+
+    let(:fields_query) { fields ? "fields=#{fields.join(',')}" : nil }
+
+    before do
+      stub_request(:get, "https://#{host}/rest/v1/lead/#{id}.json?#{fields_query}")
+        .to_return(json_stub(response_stub))
+    end
+
+    context 'when no fields are given' do
+      let(:fields) { nil }
+      let(:response_stub) do
+        {
+          requestId: '1134#169a69aae86',
+          result: [
+            {
+              id: id,
+              firstName: 'John',
+              lastName: 'Snow',
+              email: 'jfrost@mrkt.com',
+              updatedAt: '2019-03-19T20:39:23Z',
+              createdAt: '2019-03-14T13:41:37Z'
+            }
+          ],
+          success: true
+        }
+      end
+
+      it { is_expected.to eq(response_stub) }
+    end
+
+    context 'when an array of fields is given' do
+      let(:fields) { ['email', 'dateOfBirth'] }
+      let(:response_stub) do
+        {
+          requestId: '33dd#169a6b5ba65',
+          result: [
+            {
+              id: id,
+              email: 'jfrost@mrkt.com',
+              dateOfBirth: '1813-03-15'
+            }
+          ],
+          success: true
+        }
+      end
+
+      it { is_expected.to eq(response_stub) }
+    end
+  end
+
   describe '#get_leads' do
     let(:filter_type) { 'email' }
     let(:filter_values) { %w[user@example.com] }
@@ -195,5 +249,53 @@ describe Mrkt::CrudLeads do
         expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
       end
     end
+  end
+
+  describe '#describe_lead' do
+    let(:response_stub) do
+      {
+        requestId: '5c9e#169a68fa806',
+        result: [
+          {
+            id: 4,
+            displayName: 'Company Name',
+            dataType: 'string',
+            length: 255,
+            rest: {
+              name: 'company',
+              readOnly: false
+            },
+            soap: {
+              name: 'Company',
+              readOnly: false
+            }
+          },
+          {
+            id: 56,
+            displayName: 'Email Address',
+            dataType: 'email',
+            length: 255,
+            rest: {
+              name: 'email',
+              readOnly: false
+            },
+            soap: {
+              name: 'Email',
+              readOnly: false
+            }
+          },
+        ],
+        success: true
+      }
+    end
+
+    subject { client.describe_lead }
+
+    before do
+      stub_request(:get, "https://#{host}/rest/v1/leads/describe.json")
+        .to_return(json_stub(response_stub))
+    end
+
+    it { is_expected.to eq(response_stub) }
   end
 end
