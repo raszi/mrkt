@@ -36,7 +36,7 @@ describe Mrkt::CrudLeads do
     end
 
     context 'when an array of fields is given' do
-      let(:fields) { ['email', 'dateOfBirth'] }
+      let(:fields) { %w[email dateOfBirth] }
       let(:response_stub) do
         {
           requestId: '33dd#169a6b5ba65',
@@ -283,7 +283,7 @@ describe Mrkt::CrudLeads do
               name: 'Email',
               readOnly: false
             }
-          },
+          }
         ],
         success: true
       }
