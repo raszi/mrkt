@@ -53,13 +53,19 @@ module Mrkt
       @options = options
     end
 
+    def merge_params(params, optional)
+      params.merge(optional.keep_if { |_key, value| value })
+    end
+
     %i[get post delete].each do |http_method|
-      define_method(http_method) do |path, payload = {}, &block|
+      define_method(http_method) do |path, params = {}, optional = {}, &block|
         authenticate!
+
+        payload = merge_params(params, optional)
 
         resp = connection.send(http_method, path, payload) do |req|
           add_authorization(req)
-          block.call(req) unless block.nil?
+          block&.call(req)
         end
 
         resp.body

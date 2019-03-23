@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.0
+  TargetRubyVersion: 2.3
   Exclude:
     - 'bin/**/*'
 Documentation:
@@ -12,6 +12,10 @@ MethodLength:
 IndentHash:
   Enabled: false
 
+Layout/AlignHash:
+  Enabled: false
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 Naming/AccessorMethodName:

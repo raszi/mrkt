@@ -6,9 +6,12 @@ module Mrkt
           name: name,
           parent: JSON.generate(parent)
         }
-        params[:description] = description if description
 
-        req.body = params
+        optional = {
+          description: description
+        }
+
+        req.body = merge_params(params, optional)
       end
     end
 
@@ -23,11 +26,14 @@ module Mrkt
       params = {
         name: name
       }
-      params[:type] = type if type
-      params[:root] = JSON.generate(root) if root
-      params[:workSpace] = work_space if work_space
 
-      get('/rest/asset/v1/folder/byName.json', params)
+      optional = {
+        root: root&.to_json,
+        type: type,
+        workSpace: work_space
+      }
+
+      get('/rest/asset/v1/folder/byName.json', params, optional)
     end
 
     def delete_folder(id)
