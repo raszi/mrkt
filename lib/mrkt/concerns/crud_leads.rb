@@ -1,5 +1,12 @@
 module Mrkt
   module CrudLeads
+    def get_lead_by_id(id, fields: nil)
+      params = {}
+      params[:fields] = fields.join(',') if fields
+
+      get("/rest/v1/lead/#{id}.json", params)
+    end
+
     def get_leads(filter_type, filter_values, fields: nil, batch_size: nil, next_page_token: nil)
       params = {
         filterType: filter_type,
@@ -45,6 +52,10 @@ module Mrkt
       params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
 
       post_json("/rest/v1/leads/#{winning_lead_id}/merge.json?#{params.to_query}")
+    end
+
+    def describe_lead
+      get('/rest/v1/leads/describe.json')
     end
   end
 end

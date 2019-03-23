@@ -20,9 +20,9 @@ describe Mrkt::CrudAssetStaticLists do
     subject { client.create_static_list(name, folder, description: description) }
 
     let(:name) { 'Test Static List Name' }
-    let(:folder) {
+    let(:folder) do
       { id: 14, type: 'Folder' }
-    }
+    end
     let(:description) { 'Provided description' }
     let(:response_stub) do
       {
@@ -146,7 +146,7 @@ describe Mrkt::CrudAssetStaticLists do
           success: true,
           errors: [],
           warnings: [
-            "No assets found for the given search criteria."
+            'No assets found for the given search criteria.'
           ]
         }
       end

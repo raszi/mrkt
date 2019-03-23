@@ -17,7 +17,7 @@ module Mrkt
     end
 
     def get_static_list_by_name(name)
-      get("/rest/asset/v1/staticList/byName.json", {name: name})
+      get('/rest/asset/v1/staticList/byName.json', name: name)
     end
 
     def delete_static_list(id)
