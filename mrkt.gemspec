@@ -19,8 +19,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '~> 2.0'
 
-  spec.add_dependency 'faraday', '> 0.9.0', '< 0.14.0'
-  spec.add_dependency 'faraday_middleware', '> 0.9.0', '< 0.13.0'
+  spec.add_dependency 'faraday', '> 0.9.0', '< 0.16.0'
+  spec.add_dependency 'faraday_middleware', '> 0.9.0', '< 0.16.0'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake', '~> 12.3'
@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 3.1'
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 1.0'
   spec.add_development_dependency 'rubocop', '~> 0.50.0'
+
   # Ruby 2.0 compatibility
   spec.add_development_dependency 'pry-byebug', '>= 3.4', '< 3.5'
   spec.add_development_dependency 'public_suffix', '>= 2.0', '< 3.0'
