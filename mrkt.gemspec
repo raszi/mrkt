@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   # Ruby 2.0 compatibility
   spec.add_development_dependency 'pry-byebug', '>= 3.4', '< 3.5'
   spec.add_development_dependency 'public_suffix', '>= 2.0', '< 3.0'
+  spec.add_development_dependency 'parallel', '~> 1.13', '< 1.14'
 end
