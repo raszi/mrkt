@@ -30,9 +30,9 @@ describe Mrkt::CrudAssetFolders do
     subject { client.create_folder(name, parent, description: description) }
 
     let(:name) { 'Test Folder Name' }
-    let(:parent) {
+    let(:parent) do
       { id: 5, type: 'Folder' }
-    }
+    end
     let(:description) { 'Optional folder description' }
     let(:response_stub) do
       {
@@ -99,7 +99,7 @@ describe Mrkt::CrudAssetFolders do
           success: true,
           errors: [],
           warnings: [
-            "No assets found for the given search criteria."
+            'No assets found for the given search criteria.'
           ]
         }
       end
@@ -173,7 +173,7 @@ describe Mrkt::CrudAssetFolders do
           success: true,
           errors: [],
           warnings: [
-            "No assets found for the given search criteria."
+            'No assets found for the given search criteria.'
           ]
         }
       end
@@ -259,7 +259,7 @@ describe Mrkt::CrudAssetFolders do
           errors: [
             {
               code: '702',
-              message: "75 Folder not found"
+              message: '75 Folder not found'
             }
           ]
         }

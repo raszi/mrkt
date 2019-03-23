@@ -27,7 +27,7 @@ module Mrkt
       params[:root] = JSON.generate(root) if root
       params[:workSpace] = work_space if work_space
 
-      get("/rest/asset/v1/folder/byName.json", params)
+      get('/rest/asset/v1/folder/byName.json', params)
     end
 
     def delete_folder(id)
