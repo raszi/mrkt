@@ -1,10 +1,11 @@
 module Mrkt
   module CrudLeads
     def get_lead_by_id(id, fields: nil)
-      params = {}
-      params[:fields] = fields.join(',') if fields
+      optional = {
+        fields: fields&.join(',')
+      }
 
-      get("/rest/v1/lead/#{id}.json", params)
+      get("/rest/v1/lead/#{id}.json", {}, optional)
     end
 
     def get_leads(filter_type, filter_values, fields: nil, batch_size: nil, next_page_token: nil)
@@ -12,11 +13,14 @@ module Mrkt
         filterType: filter_type,
         filterValues: filter_values.join(',')
       }
-      params[:fields] = fields if fields
-      params[:batchSize] = batch_size if batch_size
-      params[:nextPageToken] = next_page_token if next_page_token
 
-      get('/rest/v1/leads.json', params)
+      optional = {
+        fields: fields,
+        batchSize: batch_size,
+        nextPageToken: next_page_token
+      }
+
+      get('/rest/v1/leads.json', params, optional)
     end
 
     def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
@@ -25,11 +29,14 @@ module Mrkt
           action: action,
           input: leads
         }
-        params[:lookupField] = lookup_field if lookup_field
-        params[:partitionName] = partition_name if partition_name
-        params[:asyncProcessing] = async_processing if async_processing
 
-        params
+        optional = {
+          lookupField: lookup_field,
+          partitionName: partition_name,
+          asyncProcessing: async_processing
+        }
+
+        merge_params(params, optional)
       end
     end
 

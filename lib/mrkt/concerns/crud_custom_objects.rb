@@ -39,11 +39,13 @@ module Mrkt
           filterType: filter_type
         }
 
-        params[:fields] = fields if fields
-        params[:nextPageToken] = next_page_token if next_page_token
-        params[:batchSize] = batch_size if batch_size
+        optional = {
+          fields: fields,
+          nextPageToken: next_page_token,
+          batchSize: batch_size
+        }
 
-        params
+        merge_params(params, optional)
       end
     end
   end

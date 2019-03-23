@@ -5,11 +5,14 @@ module Mrkt
         format: format,
         file: Faraday::UploadIO.new(file, 'text/csv')
       }
-      params[:lookupField] = lookup_field if lookup_field
-      params[:listId] = list_id if list_id
-      params[:partitionName] = partition_name if partition_name
 
-      post('/bulk/v1/leads.json', params)
+      optional = {
+        lookupField: lookup_field,
+        listId: list_id,
+        partitionName: partition_name
+      }
+
+      post('/bulk/v1/leads.json', params, optional)
     end
 
     def import_lead_status(id)

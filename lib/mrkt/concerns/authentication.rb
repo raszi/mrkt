@@ -20,7 +20,7 @@ module Mrkt
 
     def retry_authentication
       @retry_authentication_count.times do
-        sleep(@retry_authentication_wait_seconds) if @retry_authentication_wait_seconds > 0
+        sleep(@retry_authentication_wait_seconds) if @retry_authentication_wait_seconds.positive?
         authenticate
 
         break if authenticated?

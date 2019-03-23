@@ -1,12 +1,13 @@
 module Mrkt
   module CrudLists
     def get_leads_by_list(list_id, fields: nil, batch_size: nil, next_page_token: nil)
-      params = {}
-      params[:fields] = fields if fields
-      params[:batchSize] = batch_size if batch_size
-      params[:nextPageToken] = next_page_token if next_page_token
+      optional = {
+        fields: fields,
+        batchSize: batch_size,
+        nextPageToken: next_page_token
+      }
 
-      get("/rest/v1/list/#{list_id}/leads.json", params)
+      get("/rest/v1/list/#{list_id}/leads.json", {}, optional)
     end
 
     def add_leads_to_list(list_id, lead_ids)

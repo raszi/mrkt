@@ -6,9 +6,12 @@ module Mrkt
           name: name,
           folder: JSON.generate(folder)
         }
-        params[:description] = description if description
 
-        req.body = params
+        optional = {
+          description: description
+        }
+
+        req.body = merge_params(params, optional)
       end
     end
 
