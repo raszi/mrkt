@@ -39,15 +39,27 @@ module Mrkt
     end
 
     def authentication_params
-      {
-        grant_type: 'client_credentials',
-        client_id: @client_id,
-        client_secret: @client_secret
-      }
+      merge_params(required_authentication_params, optional_authentication_params)
     end
 
     def add_authorization(req)
       req.headers[:authorization] = "Bearer #{@token}"
+    end
+
+    private
+
+    def optional_authentication_params
+      {
+          partner_id: @partner_id
+      }
+    end
+
+    def required_authentication_params
+      {
+          grant_type: 'client_credentials',
+          client_id: @client_id,
+          client_secret: @client_secret
+      }
     end
   end
 end

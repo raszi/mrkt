@@ -29,6 +29,35 @@ describe Mrkt::Authentication do
       expect(client.authenticated?).to be true
     end
 
+    context 'with optional partner_id client option' do
+      before { remove_request_stub(@authentication_request_stub) }
+
+      let(:partner_id) { SecureRandom.uuid }
+
+      let(:client_options) do
+        {
+            host: host,
+            client_id: client_id,
+            client_secret: client_secret,
+            partner_id: partner_id
+        }
+      end
+
+      subject(:client) { Mrkt::Client.new(client_options) }
+
+      before do
+        stub_request(:get, "https://#{host}/identity/oauth/token")
+            .with(query: { client_id: client_id, client_secret: client_secret, partner_id: partner_id, grant_type: 'client_credentials' })
+            .to_return(json_stub(authentication_stub))
+      end
+
+      it 'should authenticate and then be authenticated?' do
+        expect(client.authenticated?).to_not be true
+        client.authenticate!
+        expect(client.authenticated?).to be true
+      end
+    end
+
     context 'when the token has expired and @retry_authentication = true' do
       before { remove_request_stub(@authentication_request_stub) }
 
