@@ -42,7 +42,9 @@ Get the following from your Marketo admin:
 client = Mrkt::Client.new(
   host: '123-abc-123.mktorest.com',
   client_id:  '4567e1cdf-0fae-4685-a914-5be45043f2d8',
-  client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt')
+  client_secret: '7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt',
+  partner_id: '335b1c91511b8d8b49c7bbf66f53288f16f37b60_a0147938d3135f8ddb5a75850ea3c39313fd23c4' # optional 
+)
 ```
 
 If you need verbosity during troubleshooting, enable debug mode:
