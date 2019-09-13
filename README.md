@@ -32,6 +32,7 @@ Get the following from your Marketo admin:
 * hostname, i.e. `'123-abc-123.mktorest.com'`
 * client id, e.g. `'4567e1cdf-0fae-4685-a914-5be45043f2d8'`
 * client secret, e.g. `'7Gn0tuiHZiDHnzeu9P14uDQcSx9xIPPt'`
+* partner id, e.g. `'335b1c91511b8d8b49c7bbf66f53288f16f37b60_a0147938d3135f8ddb5a75850ea3c39313fd23c4'` (optional)
 
 
 ## Usage
