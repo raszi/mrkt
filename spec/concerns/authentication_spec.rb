@@ -36,10 +36,10 @@ describe Mrkt::Authentication do
 
       let(:client_options) do
         {
-            host: host,
-            client_id: client_id,
-            client_secret: client_secret,
-            partner_id: partner_id
+          host: host,
+          client_id: client_id,
+          client_secret: client_secret,
+          partner_id: partner_id
         }
       end
 
@@ -47,8 +47,8 @@ describe Mrkt::Authentication do
 
       before do
         stub_request(:get, "https://#{host}/identity/oauth/token")
-            .with(query: { client_id: client_id, client_secret: client_secret, partner_id: partner_id, grant_type: 'client_credentials' })
-            .to_return(json_stub(authentication_stub))
+          .with(query: { client_id: client_id, client_secret: client_secret, partner_id: partner_id, grant_type: 'client_credentials' })
+          .to_return(json_stub(authentication_stub))
       end
 
       it 'should authenticate and then be authenticated?' do
