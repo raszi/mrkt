@@ -43,11 +43,20 @@ describe Mrkt::Authentication do
         }
       end
 
+      let(:query) do
+        {
+          client_id: client_id,
+          client_secret: client_secret,
+          partner_id: partner_id,
+          grant_type: 'client_credentials'
+        }
+      end
+
       subject(:client) { Mrkt::Client.new(client_options) }
 
       before do
         stub_request(:get, "https://#{host}/identity/oauth/token")
-          .with(query: { client_id: client_id, client_secret: client_secret, partner_id: partner_id, grant_type: 'client_credentials' })
+          .with(query: query)
           .to_return(json_stub(authentication_stub))
       end
 
