@@ -50,15 +50,15 @@ module Mrkt
 
     def optional_authentication_params
       {
-          partner_id: @partner_id
+        partner_id: @partner_id
       }
     end
 
     def required_authentication_params
       {
-          grant_type: 'client_credentials',
-          client_id: @client_id,
-          client_secret: @client_secret
+        grant_type: 'client_credentials',
+        client_id: @client_id,
+        client_secret: @client_secret
       }
     end
   end
