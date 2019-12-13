@@ -1,6 +1,6 @@
 module Mrkt
   module CrudCampaigns
-    def request_campaign(id, lead_ids, tokens = {})
+    def request_campaign(id, lead_ids, tokens = [])
       post_json("/rest/v1/campaigns/#{id}/trigger.json") do
         {
           input: {
