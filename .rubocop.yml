@@ -2,30 +2,34 @@ AllCops:
   TargetRubyVersion: 2.3
   Exclude:
     - 'bin/**/*'
-Documentation:
-  Enabled: false
-LineLength:
-  Enabled: true
-  Max: 128
-MethodLength:
-  Max: 20
-IndentHash:
-  Enabled: false
 
-Layout/AlignHash:
-  Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false
+Layout/HashAlignment:
+  Enabled: false
+Layout/LineLength:
+  Max: 128
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
-Naming/AccessorMethodName:
-  Enabled: false
+
+Metrics/AbcSize:
+  Max: 17
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+Metrics/MethodLength:
+  Max: 20
 Metrics/ParameterLists:
   Max: 6
+
+Naming/AccessorMethodName:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
