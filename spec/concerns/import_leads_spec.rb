@@ -5,7 +5,7 @@ describe Mrkt::ImportLeads do
   include_context 'initialized client'
 
   describe '#import_lead' do
-    let(:tempfile) { Tempfile.new(['import-leads', 'csv']) }
+    let(:tempfile) { Tempfile.new(%w[import-leads csv]) }
     let(:response_stub) do
       {
         requestId: 'c245#14cd6830ae2',
