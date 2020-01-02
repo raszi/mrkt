@@ -8,7 +8,9 @@ Bundler.setup
 
 require 'mrkt'
 
-Dir[File.expand_path('spec/support/**/*.rb')].each { |f| require f }
+Dir[File.expand_path('spec/support/**/*.rb')].sort.each do |file|
+  require file
+end
 
 RSpec.configure do |config|
   config.default_formatter = :doc if config.files_to_run.one?
