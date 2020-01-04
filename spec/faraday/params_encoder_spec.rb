@@ -19,6 +19,6 @@ describe Mrkt::Faraday::ParamsEncoder do
 
     subject { described_class.decode(value) }
 
-    it { is_expected.to eq({ 'foo' => 'foo' , 'bar' => 'bar' }) }
+    it { is_expected.to eq('foo' => 'foo', 'bar' => 'bar') }
   end
 end
