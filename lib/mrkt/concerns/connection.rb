@@ -1,4 +1,4 @@
-require 'mrkt/faraday_middleware'
+require 'mrkt/faraday'
 
 module Mrkt
   module Connection
@@ -7,7 +7,7 @@ module Mrkt
     end
 
     def init_connection
-      Faraday.new(url: "https://#{@host}") do |conn|
+      ::Faraday.new(options) do |conn|
         conn.request :multipart
         conn.request :url_encoded
 
@@ -17,8 +17,17 @@ module Mrkt
         conn.options.timeout = @options[:read_timeout] if @options.key?(:read_timeout)
         conn.options.open_timeout = @options[:open_timeout] if @options.key?(:open_timeout)
 
-        conn.adapter @options.fetch(:adapter, Faraday.default_adapter)
+        conn.adapter @options.fetch(:adapter, ::Faraday.default_adapter)
       end
+    end
+
+    def options
+      {
+        url: "https://#{@host}",
+        request: {
+          params_encoder: Mrkt::Faraday::ParamsEncoder
+        }
+      }
     end
   end
 end

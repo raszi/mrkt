@@ -3,7 +3,7 @@ module Mrkt
     def import_lead(file, format = 'csv', lookup_field: nil, list_id: nil, partition_name: nil)
       params = {
         format: format,
-        file: Faraday::UploadIO.new(file, 'text/csv')
+        file: ::Faraday::UploadIO.new(file, 'text/csv')
       }
 
       optional = {
