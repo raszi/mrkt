@@ -4,10 +4,9 @@ env:
     - COVERAGE=on
 language: ruby
 rvm:
-  - 2.3.6
-  - 2.4.3
-  - 2.5.0
-  - 2.6.0
+  - 2.5
+  - 2.6
+  - 2.7
 before_install:
   - gem update --system
   - bundle update --bundler
