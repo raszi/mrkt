@@ -3,7 +3,7 @@ module Mrkt
     class ParamsEncoder
       class << self
         def encode(hash)
-          new_hash = hash.map { |k, v| [k, encode_value(v)] }.to_h
+          new_hash = hash.transform_values { |v| encode_value(v) }
           ::Faraday::NestedParamsEncoder.encode(new_hash)
         end
 
