@@ -1,11 +1,7 @@
-require 'faraday'
+require 'mrkt/faraday_middleware/response'
 
 module Mrkt
-  module FaradayMiddleware
-    autoload :Response, 'mrkt/faraday_middleware/response'
-  end
-
-  if Faraday::Middleware.respond_to? :register_middleware
-    Faraday::Response.register_middleware mkto: -> { Mrkt::FaradayMiddleware::Response }
+  if ::Faraday::Middleware.respond_to?(:register_middleware)
+    ::Faraday::Response.register_middleware(mkto: Mrkt::FaradayMiddleware::Response)
   end
 end

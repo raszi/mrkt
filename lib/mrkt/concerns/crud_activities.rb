@@ -13,8 +13,8 @@ module Mrkt
         nextPageToken: next_page_token
       }
 
-      params[:activityTypeIds] = activity_type_ids.join(',') unless blank?(activity_type_ids)
-      params[:leadIds] = lead_ids.join(',') unless blank?(lead_ids)
+      params[:activityTypeIds] = activity_type_ids unless blank?(activity_type_ids)
+      params[:leadIds] = lead_ids unless blank?(lead_ids)
 
       get('/rest/v1/activities.json', params)
     end

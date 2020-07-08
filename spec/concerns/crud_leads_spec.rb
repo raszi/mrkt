@@ -211,7 +211,7 @@ describe Mrkt::CrudLeads do
     subject { client.merge_leads(id, losing_lead_ids) }
 
     before do
-      params = Faraday::Utils::ParamsHash.new
+      params = ::Faraday::Utils::ParamsHash.new
       params[:mergeInCRM] = false
       params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
 

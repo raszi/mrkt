@@ -3,7 +3,7 @@ module Mrkt
     def import_custom_object(file, custom_object, format = 'csv')
       params = {
         format: format,
-        file: Faraday::UploadIO.new(file, 'text/csv')
+        file: ::Faraday::UploadIO.new(file, 'text/csv')
       }
 
       post("/bulk/v1/customobjects/#{custom_object}/import.json", params)

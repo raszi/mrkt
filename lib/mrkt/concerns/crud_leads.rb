@@ -2,7 +2,7 @@ module Mrkt
   module CrudLeads
     def get_lead_by_id(id, fields: nil)
       optional = {
-        fields: fields&.join(',')
+        fields: fields
       }
 
       get("/rest/v1/lead/#{id}.json", {}, optional)
@@ -11,7 +11,7 @@ module Mrkt
     def get_leads(filter_type, filter_values, fields: nil, batch_size: nil, next_page_token: nil)
       params = {
         filterType: filter_type,
-        filterValues: filter_values.join(',')
+        filterValues: filter_values
       }
 
       optional = {
@@ -47,18 +47,20 @@ module Mrkt
     end
 
     def associate_lead(id, cookie)
-      params = Faraday::Utils::ParamsHash.new
-      params[:cookie] = cookie
+      params = Mrkt::Faraday::ParamsEncoder.encode(cookie: cookie)
 
-      post_json("/rest/v1/leads/#{id}/associate.json?#{params.to_query}")
+      post_json("/rest/v1/leads/#{id}/associate.json?#{params}")
     end
 
     def merge_leads(winning_lead_id, losing_lead_ids, merge_in_crm: false)
-      params = Faraday::Utils::ParamsHash.new
-      params[:mergeInCRM] = merge_in_crm
-      params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
+      params = {}
 
-      post_json("/rest/v1/leads/#{winning_lead_id}/merge.json?#{params.to_query}")
+      params[:mergeInCRM] = merge_in_crm
+      params[:leadIds] = losing_lead_ids if losing_lead_ids
+
+      query_params = Mrkt::Faraday::ParamsEncoder.encode(params)
+
+      post_json("/rest/v1/leads/#{winning_lead_id}/merge.json?#{query_params}")
     end
 
     def describe_lead

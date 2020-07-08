@@ -2,7 +2,7 @@ module Mrkt
   module CrudCustomObjects
     def get_list_of_custom_objects(names = nil)
       params = {}
-      params[:names] = names.join(',') if names
+      params[:names] = names if names
 
       get('/rest/v1/customobjects.json', params)
     end
