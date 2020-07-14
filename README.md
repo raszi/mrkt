@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/raszi/mrkt/badges/gpa.svg)](https://codeclimate.com/github/raszi/mrkt)
 [![Test Coverage](https://codeclimate.com/github/raszi/mrkt/badges/coverage.svg)](https://codeclimate.com/github/raszi/mrkt)
 [![Gem Version](https://badge.fury.io/rb/mrkt.svg)](https://badge.fury.io/rb/mrkt)
+[![Total Downloads](https://badgen.net/rubygems/dt/mrkt)](https://rubygems.org/gems/mrkt)
 
 This gem provides some level of abstraction to Marketo REST APIs. Please note that this gem is alpha quality.
 
