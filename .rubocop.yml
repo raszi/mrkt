@@ -3,9 +3,8 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'vendor/**/*'
+  NewCops: enable
 
-Layout/EmptyLinesAroundAttributeAccessor:
-  Enabled: true
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/FirstHashElementIndentation:
@@ -16,20 +15,10 @@ Layout/LineLength:
   Max: 128
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Lint/DeprecatedOpenSSLConstant:
-  Enabled: true
-Lint/MixedRegexpCaptureTypes:
-  Enabled: true
-Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
-  Enabled: true
 
 Metrics/AbcSize:
-  Max: 17
+  Exclude:
+    - 'lib/mrkt/concerns/connection.rb'
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
@@ -41,31 +30,9 @@ Metrics/ParameterLists:
 Naming/AccessorMethodName:
   Enabled: false
 
-Style/AccessorGrouping:
-  Enabled: true
-Style/BisectedAttrAccessor:
-  Enabled: true
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/Documentation:
   Enabled: false
-Style/ExponentialNotation:
-  Enabled: true
 Style/FrozenStringLiteralComment:
   Enabled: false
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
-Style/RedundantAssignment:
-  Enabled: true
-Style/RedundantFetchBlock:
-  Enabled: true
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-Style/RedundantRegexpEscape:
-  Enabled: true
-Style/SlicingWithRange:
-  Enabled: true
