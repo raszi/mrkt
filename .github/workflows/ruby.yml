@@ -1,0 +1,41 @@
+name: Ruby
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby: [2.5, 2.6, 2.7, 3.0]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Update the RubyGems system software
+        run: gem update --system
+
+      - name: Update Bundler
+        run: bundle update --bundler
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run tests and publish coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          COVERAGE: on
+          CC_TEST_REPORTER_ID: 45cd2174f49b570406e294ff393d456c4ae8532cf16dd6430abb06d8a0722a28
+        with:
+          coverageCommand: bundle exec rspec
