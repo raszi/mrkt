@@ -26,11 +26,11 @@ describe Mrkt::CrudCampaigns do
       let(:response_stub) do
         {
           requestId: 'a9b#14eb6771358',
-          success:   false,
-          errors:    [{
-                        code:    '1013',
-                        message: 'Campaign not found'
-                      }]
+          success: false,
+          errors: [{
+            code:    '1013',
+            message: 'Campaign not found'
+          }]
         }
       end
 
@@ -44,11 +44,11 @@ describe Mrkt::CrudCampaigns do
         let(:response_stub) do
           {
             requestId: '7cdc#14eb6ae8a86',
-            success:   false,
-            errors:    [{
-                          code:    '1004',
-                          message: 'Lead [1234] not found'
-                        }]
+            success: false,
+            errors: [{
+              code:    '1004',
+              message: 'Lead [1234] not found'
+            }]
           }
         end
 
