@@ -1,5 +1,5 @@
 describe Mrkt::CrudAssetFolders do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   let(:response_folder_result) do
     {
@@ -65,7 +65,7 @@ describe Mrkt::CrudAssetFolders do
   end
 
   describe '#get_folder_by_id' do
-    subject { client.get_folder_by_id(id, type: type) }
+    subject(:action) { client.get_folder_by_id(id, type: type) }
 
     let(:id) { 77 }
 
@@ -123,14 +123,14 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::TypeMismatch)
+      it 'raises an Error' do
+        expect { action }.to raise_error(Mrkt::Errors::TypeMismatch)
       end
     end
   end
 
   describe '#get_folder_by_name' do
-    subject { client.get_folder_by_name(name, type: type, root: root, work_space: work_space) }
+    subject(:action) { client.get_folder_by_name(name, type: type, root: root, work_space: work_space) }
 
     let(:name) { 'Test Folder Name' }
     let(:type) { 'Folder' }
@@ -196,8 +196,8 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::System)
+      it 'raises an Error' do
+        expect { action }.to raise_error(Mrkt::Errors::System)
       end
     end
 
@@ -216,14 +216,14 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::UnspecifiedAction)
+      it 'raises an Error' do
+        expect { action }.to raise_error(Mrkt::Errors::UnspecifiedAction)
       end
     end
   end
 
   describe '#delete_folder' do
-    subject { client.delete_folder(id) }
+    subject(:action) { client.delete_folder(id) }
 
     let(:id) { 75 }
 
@@ -265,8 +265,8 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::RecordNotFound)
+      it 'raises an Error' do
+        expect { action }.to raise_error(Mrkt::Errors::RecordNotFound)
       end
     end
   end

@@ -1,10 +1,12 @@
 require 'tempfile'
 
 describe Mrkt::ImportCustomObjects do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
   let(:custom_object) { 'car_c' }
 
   describe '#import_custom_object' do
+    subject { client.import_custom_object(file, custom_object) }
+
     let(:file) { StringIO.new }
     let(:response_stub) do
       {
@@ -19,7 +21,6 @@ describe Mrkt::ImportCustomObjects do
         ]
       }
     end
-    subject { client.import_custom_object(file, custom_object) }
 
     before do
       stub_request(:post, "https://#{host}/bulk/v1/customobjects/#{custom_object}/import.json")
@@ -31,6 +32,8 @@ describe Mrkt::ImportCustomObjects do
   end
 
   describe '#import_custom_object_status' do
+    subject { client.import_custom_object_status(1, custom_object) }
+
     let(:id) { 1 }
     let(:response_stub) do
       {
@@ -51,7 +54,6 @@ describe Mrkt::ImportCustomObjects do
         success: true
       }
     end
-    subject { client.import_custom_object_status(1, custom_object) }
 
     before do
       stub_request(:get, "https://#{host}/bulk/v1/customobjects/#{custom_object}/import/#{id}/status.json")
@@ -62,9 +64,10 @@ describe Mrkt::ImportCustomObjects do
   end
 
   describe '#import_custom_object_failures' do
+    subject { client.import_custom_object_failures(1, custom_object) }
+
     let(:id) { 1 }
     let(:response_stub) { '' }
-    subject { client.import_custom_object_failures(1, custom_object) }
 
     before do
       stub_request(:get, "https://#{host}/bulk/v1/customobjects/#{custom_object}/import/#{id}/failures.json")
@@ -75,9 +78,10 @@ describe Mrkt::ImportCustomObjects do
   end
 
   describe '#import_custom_object_warnings' do
+    subject { client.import_custom_object_warnings(1, custom_object) }
+
     let(:id) { 1 }
     let(:response_stub) { '' }
-    subject { client.import_custom_object_warnings(1, custom_object) }
 
     before do
       stub_request(:get, "https://#{host}/bulk/v1/customobjects/#{custom_object}/import/#{id}/warnings.json")

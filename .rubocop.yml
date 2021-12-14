@@ -1,4 +1,6 @@
-require: rubocop-rake
+require:
+  - rubocop-rake
+  - rubocop-rspec
 
 AllCops:
   TargetRubyVersion: 2.5
@@ -24,6 +26,7 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - '**/*.gemspec'
 Metrics/MethodLength:
   Max: 20
 Metrics/ParameterLists:
@@ -31,6 +34,16 @@ Metrics/ParameterLists:
 
 Naming/AccessorMethodName:
   Enabled: false
+
+RSpec/FilePath:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/concerns/authentication_spec.rb'
 
 Style/ClassAndModuleChildren:
   Enabled: false

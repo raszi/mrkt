@@ -17,6 +17,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = %w[lib]
 
+  spec.metadata['rubygems_mfa_required'] = 'true'
+
   spec.required_ruby_version = '>= 2.5'
 
   spec.add_dependency 'faraday', '~> 1.0'
@@ -29,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.2'
   spec.add_development_dependency 'rubocop', '~> 1.23.0'
   spec.add_development_dependency 'rubocop-rake', '~> 0.6.0'
+  spec.add_development_dependency 'rubocop-rspec', '~> 2.6'
   spec.add_development_dependency 'simplecov', '~> 0.21.2'
   spec.add_development_dependency 'webmock', '~> 3.1'
 end

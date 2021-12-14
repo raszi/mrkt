@@ -1,10 +1,10 @@
 describe Mrkt::Authentication do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#authenticate' do
-    subject { client.authenticate }
+    subject(:action) { client.authenticate }
 
-    context 'on a successful response' do
+    context 'with on a successful response' do
       it { is_expected.to be_success }
     end
 
@@ -16,21 +16,28 @@ describe Mrkt::Authentication do
         }
       end
 
-      it 'should raise an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::Error, 'Bad client credentials')
+      it 'raises an Error' do
+        expect { action }.to raise_error(Mrkt::Errors::Error, 'Bad client credentials')
       end
     end
   end
 
   describe '#authenticate!' do
-    it 'should authenticate and then be authenticated?' do
-      expect(client.authenticated?).to_not be true
+    it 'authenticates the client' do
+      expect(client.authenticated?).not_to be true
+
       client.authenticate!
       expect(client.authenticated?).to be true
     end
 
     context 'with optional partner_id client option' do
-      before { remove_request_stub(@authentication_request_stub) }
+      subject(:client) { Mrkt::Client.new(client_options) }
+
+      before do
+        stub_request(:get, "https://#{host}/identity/oauth/token")
+          .with(query: query)
+          .to_return(json_stub(authentication_stub))
+      end
 
       let(:partner_id) { SecureRandom.uuid }
 
@@ -52,23 +59,22 @@ describe Mrkt::Authentication do
         }
       end
 
-      subject(:client) { Mrkt::Client.new(client_options) }
-
-      before do
-        stub_request(:get, "https://#{host}/identity/oauth/token")
-          .with(query: query)
-          .to_return(json_stub(authentication_stub))
-      end
-
-      it 'should authenticate and then be authenticated?' do
-        expect(client.authenticated?).to_not be true
+      it 'authenticates the client' do
+        expect(client.authenticated?).not_to be true
         client.authenticate!
         expect(client.authenticated?).to be true
       end
     end
 
     context 'when the token has expired and @retry_authentication = true' do
-      before { remove_request_stub(@authentication_request_stub) }
+      subject(:client) { Mrkt::Client.new(client_options) }
+
+      before do
+        stub_request(:get, "https://#{host}/identity/oauth/token")
+          .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
+          .to_return(json_stub(expired_authentication_stub)).times(3).then
+          .to_return(json_stub(valid_authentication_stub))
+      end
 
       let(:retry_count) { 3 }
 
@@ -90,17 +96,8 @@ describe Mrkt::Authentication do
         }
       end
 
-      subject(:client) { Mrkt::Client.new(client_options) }
-
-      before do
-        stub_request(:get, "https://#{host}/identity/oauth/token")
-          .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
-          .to_return(json_stub(expired_authentication_stub)).times(3).then
-          .to_return(json_stub(valid_authentication_stub))
-      end
-
-      it 'should retry until getting valid token and then be authenticated?' do
-        expect(client.authenticated?).to_not be true
+      it 'retries until it gets a valid token' do
+        expect(client.authenticated?).not_to be true
         client.authenticate!
         expect(client.authenticated?).to be true
       end
@@ -108,8 +105,8 @@ describe Mrkt::Authentication do
       context 'when retry_authentication_count is low' do
         let(:retry_count) { 2 }
 
-        it 'should stop retrying after @retry_authentication_count tries and then raise an error' do
-          expect(client.authenticated?).to_not be true
+        it 'stops retrying after a while' do
+          expect(client.authenticated?).not_to be true
 
           expect { client.authenticate! }.to raise_error(Mrkt::Errors::Error, 'Client not authenticated')
         end
@@ -120,11 +117,11 @@ describe Mrkt::Authentication do
   describe '#authenticated?' do
     subject { client.authenticated? }
 
-    context 'before authentication' do
+    context 'when authentication has not been done' do
       it { is_expected.to be_falsey }
     end
 
-    context 'after authentication' do
+    context 'when authentication has been done' do
       before { client.authenticate }
 
       it { is_expected.to be_truthy }

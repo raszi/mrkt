@@ -1,7 +1,9 @@
 describe Mrkt::CrudCampaigns do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#request_campaign' do
+    subject(:action) { client.request_campaign(id, lead_ids, tokens) }
+
     let(:id) { 42 }
     let(:lead_ids) { [1234, 5678] }
     let(:tokens) do
@@ -13,7 +15,6 @@ describe Mrkt::CrudCampaigns do
          value: 'Value for other token'
        }]
     end
-    subject { client.request_campaign(id, lead_ids, tokens) }
 
     before do
       stub_request(:post, "https://#{host}/rest/v1/campaigns/#{id}/trigger.json")
@@ -25,16 +26,16 @@ describe Mrkt::CrudCampaigns do
       let(:response_stub) do
         {
           requestId: 'a9b#14eb6771358',
-          success:   false,
-          errors:    [{
-                        code:    '1013',
-                        message: 'Campaign not found'
-                      }]
+          success: false,
+          errors: [{
+            code:    '1013',
+            message: 'Campaign not found'
+          }]
         }
       end
 
-      it 'should raise an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::ObjectNotFound)
+      it 'raises an Error' do
+        expect { action }.to raise_error(Mrkt::Errors::ObjectNotFound)
       end
     end
 
@@ -43,20 +44,20 @@ describe Mrkt::CrudCampaigns do
         let(:response_stub) do
           {
             requestId: '7cdc#14eb6ae8a86',
-            success:   false,
-            errors:    [{
-                          code:    '1004',
-                          message: 'Lead [1234] not found'
-                        }]
+            success: false,
+            errors: [{
+              code:    '1004',
+              message: 'Lead [1234] not found'
+            }]
           }
         end
 
-        it 'should raise an Error' do
-          expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
+        it 'raises an Error' do
+          expect { action }.to raise_error(Mrkt::Errors::LeadNotFound)
         end
       end
 
-      context 'for valid lead ids' do
+      context 'with valid lead ids' do
         let(:response_stub) do
           {
             requestId: 'e42b#14272d07d78',
