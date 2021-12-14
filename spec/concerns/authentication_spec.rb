@@ -4,7 +4,7 @@ describe Mrkt::Authentication do
   describe '#authenticate' do
     subject(:action) { client.authenticate }
 
-    context 'on a successful response' do
+    context 'with on a successful response' do
       it { is_expected.to be_success }
     end
 
@@ -25,6 +25,7 @@ describe Mrkt::Authentication do
   describe '#authenticate!' do
     it 'authenticates and then be authenticated?' do
       expect(client.authenticated?).not_to be true
+
       client.authenticate!
       expect(client.authenticated?).to be true
     end
@@ -120,11 +121,11 @@ describe Mrkt::Authentication do
   describe '#authenticated?' do
     subject { client.authenticated? }
 
-    context 'before authentication' do
+    context 'when authentication has not been done' do
       it { is_expected.to be_falsey }
     end
 
-    context 'after authentication' do
+    context 'when authentication has been done' do
       before { client.authenticate }
 
       it { is_expected.to be_truthy }

@@ -119,7 +119,7 @@ describe Mrkt::CrudActivities do
 
     it { is_expected.to eq(response_stub) }
 
-    context 'specifying activity type ids' do
+    context 'when specifying activity type ids' do
       subject { client.get_activities(token, activity_type_ids: activity_type_ids) }
 
       let(:response_stub) do
@@ -165,7 +165,7 @@ describe Mrkt::CrudActivities do
       it { is_expected.to eq(response_stub) }
     end
 
-    context 'specifying lead ids' do
+    context 'when specifying lead ids' do
       subject { client.get_activities(token, lead_ids: lead_ids) }
 
       let(:response_stub) do
@@ -208,7 +208,7 @@ describe Mrkt::CrudActivities do
       it { is_expected.to eq(response_stub) }
     end
 
-    context 'specifying arrays values as empty strings' do
+    context 'when specifying arrays values as empty strings' do
       subject do
         client.get_activities(token, activity_type_ids: activity_type_ids, lead_ids: lead_ids)
       end
@@ -225,7 +225,7 @@ describe Mrkt::CrudActivities do
       it { is_expected.to eq(response_stub) }
     end
 
-    context 'specifying all options' do
+    context 'when specifying all options' do
       subject do
         client.get_activities(token, activity_type_ids: activity_type_ids, lead_ids: lead_ids)
       end

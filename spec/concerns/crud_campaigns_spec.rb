@@ -57,7 +57,7 @@ describe Mrkt::CrudCampaigns do
         end
       end
 
-      context 'for valid lead ids' do
+      context 'with valid lead ids' do
         let(:response_stub) do
           {
             requestId: 'e42b#14272d07d78',

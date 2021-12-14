@@ -49,7 +49,7 @@ describe Mrkt::CrudCustomObjects do
       }
     end
 
-    context 'all activities' do
+    context 'with all activities' do
       subject { client.get_list_of_custom_activity_types }
 
       before do
