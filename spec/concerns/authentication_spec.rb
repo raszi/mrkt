@@ -34,8 +34,6 @@ describe Mrkt::Authentication do
       subject(:client) { Mrkt::Client.new(client_options) }
 
       before do
-        remove_request_stub(@authentication_request_stub)
-
         stub_request(:get, "https://#{host}/identity/oauth/token")
           .with(query: query)
           .to_return(json_stub(authentication_stub))
@@ -72,8 +70,6 @@ describe Mrkt::Authentication do
       subject(:client) { Mrkt::Client.new(client_options) }
 
       before do
-        remove_request_stub(@authentication_request_stub)
-
         stub_request(:get, "https://#{host}/identity/oauth/token")
           .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
           .to_return(json_stub(expired_authentication_stub)).times(3).then
