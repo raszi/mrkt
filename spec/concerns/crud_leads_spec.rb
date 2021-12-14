@@ -162,7 +162,7 @@ describe Mrkt::CrudLeads do
   end
 
   describe '#associate_lead' do
-    subject { client.associate_lead(id, cookie) }
+    subject(:action) { client.associate_lead(id, cookie) }
 
     let(:id) { 1 }
     let(:cookie) { 'id:561-HYG-937&token:_mch-marketo.com-1427205775289-40768' }
@@ -201,13 +201,13 @@ describe Mrkt::CrudLeads do
       end
 
       it 'raises an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
+        expect { action }.to raise_error(Mrkt::Errors::LeadNotFound)
       end
     end
   end
 
   describe '#merge_leads' do
-    subject { client.merge_leads(id, losing_lead_ids) }
+    subject(:action) { client.merge_leads(id, losing_lead_ids) }
 
     let(:id) { 1 }
     let(:losing_lead_ids) { [2, 3, 4] }
@@ -249,7 +249,7 @@ describe Mrkt::CrudLeads do
       end
 
       it 'raises an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
+        expect { action }.to raise_error(Mrkt::Errors::LeadNotFound)
       end
     end
   end

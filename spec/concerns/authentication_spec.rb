@@ -2,7 +2,7 @@ describe Mrkt::Authentication do
   include_context 'initialized client'
 
   describe '#authenticate' do
-    subject { client.authenticate }
+    subject(:action) { client.authenticate }
 
     context 'on a successful response' do
       it { is_expected.to be_success }
@@ -17,7 +17,7 @@ describe Mrkt::Authentication do
       end
 
       it 'raises an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::Error, 'Bad client credentials')
+        expect { action }.to raise_error(Mrkt::Errors::Error, 'Bad client credentials')
       end
     end
   end

@@ -70,7 +70,7 @@ describe Mrkt::CrudCustomObjects do
   end
 
   describe '#describe_custom_object' do
-    subject { client.describe_custom_object(object_name) }
+    subject(:action) { client.describe_custom_object(object_name) }
 
     let(:response_stub) do
       {
@@ -141,7 +141,7 @@ describe Mrkt::CrudCustomObjects do
       let(:object_name) { nil }
 
       it 'raises an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::Unknown)
+        expect { action }.to raise_error(Mrkt::Errors::Unknown)
       end
     end
   end

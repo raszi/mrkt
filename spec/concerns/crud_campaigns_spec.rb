@@ -2,7 +2,7 @@ describe Mrkt::CrudCampaigns do
   include_context 'initialized client'
 
   describe '#request_campaign' do
-    subject { client.request_campaign(id, lead_ids, tokens) }
+    subject(:action) { client.request_campaign(id, lead_ids, tokens) }
 
     let(:id) { 42 }
     let(:lead_ids) { [1234, 5678] }
@@ -35,7 +35,7 @@ describe Mrkt::CrudCampaigns do
       end
 
       it 'raises an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::ObjectNotFound)
+        expect { action }.to raise_error(Mrkt::Errors::ObjectNotFound)
       end
     end
 
@@ -53,7 +53,7 @@ describe Mrkt::CrudCampaigns do
         end
 
         it 'raises an Error' do
-          expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
+          expect { action }.to raise_error(Mrkt::Errors::LeadNotFound)
         end
       end
 

@@ -55,7 +55,7 @@ describe Mrkt::CrudAssetStaticLists do
   end
 
   describe '#get_static_list_by_id' do
-    subject { client.get_static_list_by_id(id) }
+    subject(:action) { client.get_static_list_by_id(id) }
 
     let(:id) { response_static_list_result[:id] }
     let(:response_stub) do
@@ -107,7 +107,7 @@ describe Mrkt::CrudAssetStaticLists do
       end
 
       it 'raises an Error' do
-        expect { subject }.to raise_error(Mrkt::Errors::RecordNotFound)
+        expect { action }.to raise_error(Mrkt::Errors::RecordNotFound)
       end
     end
   end
