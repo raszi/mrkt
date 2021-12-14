@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mrkt (1.2.0)
+    mrkt (1.2.1)
       faraday (~> 1.0)
       faraday_middleware (~> 1.0)
 
