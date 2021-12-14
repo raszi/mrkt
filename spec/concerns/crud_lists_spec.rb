@@ -1,5 +1,5 @@
 describe Mrkt::CrudLists do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#get_leads_by_list' do
     subject { client.get_leads_by_list(list_id) }

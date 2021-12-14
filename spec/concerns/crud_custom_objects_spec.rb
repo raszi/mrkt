@@ -1,5 +1,5 @@
 describe Mrkt::CrudCustomObjects do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#get_list_of_custom_objects' do
     let(:response_stub) do

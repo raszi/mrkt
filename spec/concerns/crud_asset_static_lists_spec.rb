@@ -1,5 +1,5 @@
 describe Mrkt::CrudAssetStaticLists do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   let(:response_static_list_result) do
     {

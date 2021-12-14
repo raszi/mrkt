@@ -1,5 +1,5 @@
 describe Mrkt::CrudProgramMembers do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#describe_program_members' do
     subject { client.describe_program_members }

@@ -1,5 +1,5 @@
 describe Mrkt::CrudCampaigns do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#request_campaign' do
     subject(:action) { client.request_campaign(id, lead_ids, tokens) }

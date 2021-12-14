@@ -1,5 +1,5 @@
 describe Mrkt::CrudPrograms do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#browse_programs' do
     subject { client.browse_programs }

@@ -2,7 +2,7 @@ require 'csv'
 require 'tempfile'
 
 describe Mrkt::ImportLeads do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#import_lead' do
     subject { client.import_lead(tempfile) }

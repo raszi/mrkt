@@ -1,5 +1,5 @@
 describe Mrkt::Authentication do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#authenticate' do
     subject(:action) { client.authenticate }

@@ -1,5 +1,5 @@
 describe Mrkt::CrudActivities do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe '#get_activity_types' do
     subject { client.get_activity_types }

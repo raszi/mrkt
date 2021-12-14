@@ -1,7 +1,7 @@
 require 'securerandom'
 require 'json'
 
-shared_context 'initialized client' do
+shared_context 'with an initialized client' do
   subject(:client) { Mrkt::Client.new(host: host, client_id: client_id, client_secret: client_secret) }
 
   let(:host) { '0-KBZ-0.mktorest.com' }

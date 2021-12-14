@@ -1,5 +1,5 @@
 describe Mrkt::CrudLeads do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
 
   describe 'get_lead_by_id' do
     subject { client.get_lead_by_id(id, fields: fields) }

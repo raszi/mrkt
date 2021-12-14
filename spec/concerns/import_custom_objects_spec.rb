@@ -1,7 +1,7 @@
 require 'tempfile'
 
 describe Mrkt::ImportCustomObjects do
-  include_context 'initialized client'
+  include_context 'with an initialized client'
   let(:custom_object) { 'car_c' }
 
   describe '#import_custom_object' do
