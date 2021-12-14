@@ -23,7 +23,7 @@ describe Mrkt::Authentication do
   end
 
   describe '#authenticate!' do
-    it 'authenticates and then be authenticated?' do
+    it 'authenticates the client' do
       expect(client.authenticated?).not_to be true
 
       client.authenticate!
@@ -61,7 +61,7 @@ describe Mrkt::Authentication do
         }
       end
 
-      it 'authenticates and then be authenticated?' do
+      it 'authenticates the client' do
         expect(client.authenticated?).not_to be true
         client.authenticate!
         expect(client.authenticated?).to be true
@@ -100,7 +100,7 @@ describe Mrkt::Authentication do
         }
       end
 
-      it 'retries until getting valid token and then be authenticated?' do
+      it 'retries until it gets a valid token' do
         expect(client.authenticated?).not_to be true
         client.authenticate!
         expect(client.authenticated?).to be true
@@ -109,7 +109,7 @@ describe Mrkt::Authentication do
       context 'when retry_authentication_count is low' do
         let(:retry_count) { 2 }
 
-        it 'stops retrying after @retry_authentication_count tries and then raise an error' do
+        it 'stops retrying after a while' do
           expect(client.authenticated?).not_to be true
 
           expect { client.authenticate! }.to raise_error(Mrkt::Errors::Error, 'Client not authenticated')
