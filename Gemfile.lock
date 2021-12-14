@@ -82,6 +82,8 @@ GEM
       parser (>= 3.0.1.1)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
+    rubocop-rspec (2.6.0)
+      rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     simplecov (0.21.2)
@@ -108,6 +110,7 @@ DEPENDENCIES
   rspec (~> 3.2)
   rubocop (~> 1.23.0)
   rubocop-rake (~> 0.6.0)
+  rubocop-rspec (~> 2.6)
   simplecov (~> 0.21.2)
   webmock (~> 3.1)
 
