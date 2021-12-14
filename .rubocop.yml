@@ -35,6 +35,16 @@ Metrics/ParameterLists:
 Naming/AccessorMethodName:
   Enabled: false
 
+RSpec/FilePath:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/concerns/authentication_spec.rb'
+
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/Documentation:
