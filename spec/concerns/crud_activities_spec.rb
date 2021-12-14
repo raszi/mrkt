@@ -2,6 +2,8 @@ describe Mrkt::CrudActivities do
   include_context 'initialized client'
 
   describe '#get_activity_types' do
+    subject { client.get_activity_types }
+
     let(:response_stub) do
       {
         requestId: 'c245#14cd6830ae2',
@@ -29,7 +31,6 @@ describe Mrkt::CrudActivities do
         success: true
       }
     end
-    subject { client.get_activity_types }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/activities/types.json")
@@ -40,6 +41,8 @@ describe Mrkt::CrudActivities do
   end
 
   describe '#get_paging_token' do
+    subject { client.get_paging_token(since_datetime) }
+
     let(:since_datetime) { Time.utc(2017, 1, 1, 4, 30) }
     let(:response_stub) do
       {
@@ -48,7 +51,6 @@ describe Mrkt::CrudActivities do
         nextPageToken: '4GAX7YNCIJKO2VAED5LH5PQIYPUM7WCVKTQWEDMP2L24AXZT54LA===='
       }
     end
-    subject { client.get_paging_token(since_datetime) }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/activities/pagingtoken.json")
@@ -60,6 +62,8 @@ describe Mrkt::CrudActivities do
   end
 
   describe '#get_activities' do
+    subject { client.get_activities(token) }
+
     let(:activity_type_ids) { [1, 2] }
     let(:lead_ids) { [100, 102] }
     let(:token) { '4GAX7YNCIJKO2VAED5LH5PQIYPUM7WCVKTQWEDMP2L24AXZT54LA====' }
@@ -106,7 +110,6 @@ describe Mrkt::CrudActivities do
         moreResult: false
       }
     end
-    subject { client.get_activities(token) }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/activities.json")
@@ -117,6 +120,8 @@ describe Mrkt::CrudActivities do
     it { is_expected.to eq(response_stub) }
 
     context 'specifying activity type ids' do
+      subject { client.get_activities(token, activity_type_ids: activity_type_ids) }
+
       let(:response_stub) do
         {
           data: {
@@ -147,7 +152,6 @@ describe Mrkt::CrudActivities do
           moreResult: false
         }
       end
-      subject { client.get_activities(token, activity_type_ids: activity_type_ids) }
 
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities.json")
@@ -162,6 +166,8 @@ describe Mrkt::CrudActivities do
     end
 
     context 'specifying lead ids' do
+      subject { client.get_activities(token, lead_ids: lead_ids) }
+
       let(:response_stub) do
         {
           data: {
@@ -192,7 +198,6 @@ describe Mrkt::CrudActivities do
           moreResult: false
         }
       end
-      subject { client.get_activities(token, lead_ids: lead_ids) }
 
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities.json")
@@ -204,11 +209,12 @@ describe Mrkt::CrudActivities do
     end
 
     context 'specifying arrays values as empty strings' do
-      let(:activity_type_ids) { '' }
-      let(:lead_ids) { '' }
       subject do
         client.get_activities(token, activity_type_ids: activity_type_ids, lead_ids: lead_ids)
       end
+
+      let(:activity_type_ids) { '' }
+      let(:lead_ids) { '' }
 
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities.json")
@@ -239,6 +245,8 @@ describe Mrkt::CrudActivities do
   end
 
   describe '#get_deleted_leads' do
+    subject { client.get_deleted_leads(token) }
+
     let(:token) { '4GAX7YNCIJKO2VAED5LH5PQIYPUM7WCVKTQWEDMP2L24AXZT54LA====' }
     let(:response_stub) do
       {
@@ -266,7 +274,6 @@ describe Mrkt::CrudActivities do
         moreResult: false
       }
     end
-    subject { client.get_deleted_leads(token) }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/activities/deletedleads.json")

@@ -44,17 +44,19 @@ describe Mrkt::CrudCustomObjects do
     end
 
     context 'with no object names' do
+      subject { client.get_list_of_custom_objects }
+
       before do
         stub_request(:get, "https://#{host}/rest/v1/customobjects.json")
           .to_return(json_stub(response_stub))
       end
 
-      subject { client.get_list_of_custom_objects }
-
       it { is_expected.to eq(response_stub) }
     end
 
     context 'with object names' do
+      subject { client.get_list_of_custom_objects(object_names) }
+
       let(:object_names) { %w[device_c manufacturer_c] }
 
       before do
@@ -63,13 +65,13 @@ describe Mrkt::CrudCustomObjects do
           .to_return(json_stub(response_stub))
       end
 
-      subject { client.get_list_of_custom_objects(object_names) }
-
       it { is_expected.to eq(response_stub) }
     end
   end
 
   describe '#describe_custom_object' do
+    subject { client.describe_custom_object(object_name) }
+
     let(:response_stub) do
       {
         requestId: 'eeef#152858b17d2',
@@ -129,8 +131,6 @@ describe Mrkt::CrudCustomObjects do
         .to_return(json_stub(response_stub))
     end
 
-    subject { client.describe_custom_object(object_name) }
-
     context 'when the object name is valid' do
       let(:object_name) { :device_c }
 
@@ -140,13 +140,15 @@ describe Mrkt::CrudCustomObjects do
     context 'when the object name is invalid' do
       let(:object_name) { nil }
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::Unknown)
       end
     end
   end
 
   describe '#createupdate_custom_objects' do
+    subject { client.createupdate_custom_objects(object_name, devices) }
+
     let(:object_name) { 'device' }
 
     let(:devices) do
@@ -178,8 +180,6 @@ describe Mrkt::CrudCustomObjects do
       }
     end
 
-    subject { client.createupdate_custom_objects(object_name, devices) }
-
     before do
       stub_request(:post, "https://#{host}/rest/v1/customobjects/#{object_name}.json")
         .with(json_stub(request_body))
@@ -190,6 +190,8 @@ describe Mrkt::CrudCustomObjects do
   end
 
   describe '#delete_custom_objects' do
+    subject { client.delete_custom_objects(object_name, search_fields) }
+
     let(:object_name) { 'device' }
 
     let(:search_fields) do
@@ -215,8 +217,6 @@ describe Mrkt::CrudCustomObjects do
       }
     end
 
-    subject { client.delete_custom_objects(object_name, search_fields) }
-
     before do
       stub_request(:post, "https://#{host}/rest/v1/customobjects/#{object_name}/delete.json")
         .with(json_stub(request_body))
@@ -227,6 +227,8 @@ describe Mrkt::CrudCustomObjects do
   end
 
   describe '#get_custom_objects' do
+    subject { client.get_custom_objects(object_name, filter_values) }
+
     let(:object_name) { 'device' }
 
     let(:filter_values) do
@@ -255,8 +257,6 @@ describe Mrkt::CrudCustomObjects do
         success: true
       }
     end
-
-    subject { client.get_custom_objects(object_name, filter_values) }
 
     before do
       stub_request(:post, "https://#{host}/rest/v1/customobjects/#{object_name}.json?_method=GET")

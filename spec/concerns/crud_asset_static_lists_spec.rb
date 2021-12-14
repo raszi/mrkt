@@ -106,7 +106,7 @@ describe Mrkt::CrudAssetStaticLists do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::RecordNotFound)
       end
     end

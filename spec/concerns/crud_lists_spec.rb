@@ -2,6 +2,8 @@ describe Mrkt::CrudLists do
   include_context 'initialized client'
 
   describe '#get_leads_by_list' do
+    subject { client.get_leads_by_list(list_id) }
+
     let(:list_id) { '1001' }
     let(:response_stub) do
       {
@@ -20,8 +22,6 @@ describe Mrkt::CrudLists do
       }
     end
 
-    subject { client.get_leads_by_list(list_id) }
-
     before do
       stub_request(:get, "https://#{host}/rest/v1/list/#{list_id}/leads.json")
         .with(query: {})
@@ -32,6 +32,8 @@ describe Mrkt::CrudLists do
   end
 
   describe '#add_leads_to_list' do
+    subject { client.add_leads_to_list(list_id, lead_ids) }
+
     let(:list_id) { '1001' }
     let(:lead_ids) { ['1'] }
     let(:request_body) do
@@ -53,7 +55,6 @@ describe Mrkt::CrudLists do
         success: true
       }
     end
-    subject { client.add_leads_to_list(list_id, lead_ids) }
 
     before do
       stub_request(:post, "https://#{host}/rest/v1/lists/#{list_id}/leads.json")
@@ -65,6 +66,8 @@ describe Mrkt::CrudLists do
   end
 
   describe '#remove_leads_from_list' do
+    subject { client.remove_leads_from_list(list_id, lead_ids) }
+
     let(:list_id) { '1001' }
     let(:lead_ids) { ['1'] }
     let(:request_body) do
@@ -86,7 +89,6 @@ describe Mrkt::CrudLists do
         success: true
       }
     end
-    subject { client.remove_leads_from_list(list_id, lead_ids) }
 
     before do
       stub_request(:delete, "https://#{host}/rest/v1/lists/#{list_id}/leads.json")

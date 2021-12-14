@@ -2,6 +2,8 @@ describe Mrkt::CrudPrograms do
   include_context 'initialized client'
 
   describe '#browse_programs' do
+    subject { client.browse_programs }
+
     let(:response_stub) do
       {
         success: true,
@@ -30,8 +32,6 @@ describe Mrkt::CrudPrograms do
       }
     end
 
-    subject { client.browse_programs }
-
     before do
       stub_request(:get, "https://#{host}/rest/asset/v1/programs.json")
         .to_return(json_stub(response_stub))
@@ -41,6 +41,8 @@ describe Mrkt::CrudPrograms do
   end
 
   describe '#get_program_by_id' do
+    subject { client.get_program_by_id(1107) }
+
     let(:response_stub) do
       {
         success: true,
@@ -75,8 +77,6 @@ describe Mrkt::CrudPrograms do
         ]
       }
     end
-
-    subject { client.get_program_by_id(1107) }
 
     before do
       stub_request(:get, "https://#{host}/rest/asset/v1/program/1107.json")

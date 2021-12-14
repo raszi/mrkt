@@ -16,20 +16,22 @@ describe Mrkt::Authentication do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::Error, 'Bad client credentials')
       end
     end
   end
 
   describe '#authenticate!' do
-    it 'should authenticate and then be authenticated?' do
-      expect(client.authenticated?).to_not be true
+    it 'authenticates and then be authenticated?' do
+      expect(client.authenticated?).not_to be true
       client.authenticate!
       expect(client.authenticated?).to be true
     end
 
     context 'with optional partner_id client option' do
+      subject(:client) { Mrkt::Client.new(client_options) }
+
       before { remove_request_stub(@authentication_request_stub) }
 
       let(:partner_id) { SecureRandom.uuid }
@@ -52,22 +54,22 @@ describe Mrkt::Authentication do
         }
       end
 
-      subject(:client) { Mrkt::Client.new(client_options) }
-
       before do
         stub_request(:get, "https://#{host}/identity/oauth/token")
           .with(query: query)
           .to_return(json_stub(authentication_stub))
       end
 
-      it 'should authenticate and then be authenticated?' do
-        expect(client.authenticated?).to_not be true
+      it 'authenticates and then be authenticated?' do
+        expect(client.authenticated?).not_to be true
         client.authenticate!
         expect(client.authenticated?).to be true
       end
     end
 
     context 'when the token has expired and @retry_authentication = true' do
+      subject(:client) { Mrkt::Client.new(client_options) }
+
       before { remove_request_stub(@authentication_request_stub) }
 
       let(:retry_count) { 3 }
@@ -90,8 +92,6 @@ describe Mrkt::Authentication do
         }
       end
 
-      subject(:client) { Mrkt::Client.new(client_options) }
-
       before do
         stub_request(:get, "https://#{host}/identity/oauth/token")
           .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
@@ -99,8 +99,8 @@ describe Mrkt::Authentication do
           .to_return(json_stub(valid_authentication_stub))
       end
 
-      it 'should retry until getting valid token and then be authenticated?' do
-        expect(client.authenticated?).to_not be true
+      it 'retries until getting valid token and then be authenticated?' do
+        expect(client.authenticated?).not_to be true
         client.authenticate!
         expect(client.authenticated?).to be true
       end
@@ -108,8 +108,8 @@ describe Mrkt::Authentication do
       context 'when retry_authentication_count is low' do
         let(:retry_count) { 2 }
 
-        it 'should stop retrying after @retry_authentication_count tries and then raise an error' do
-          expect(client.authenticated?).to_not be true
+        it 'stops retrying after @retry_authentication_count tries and then raise an error' do
+          expect(client.authenticated?).not_to be true
 
           expect { client.authenticate! }.to raise_error(Mrkt::Errors::Error, 'Client not authenticated')
         end

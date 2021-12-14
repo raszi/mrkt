@@ -6,8 +6,8 @@ describe Mrkt::Errors do
       context 'known' do
         let(:code) { 413 }
 
-        it 'should return the mapped error class' do
-          is_expected.to eq(Mrkt::Errors::RequestEntityTooLarge)
+        it 'returns the mapped error class' do
+          expect(subject).to eq(Mrkt::Errors::RequestEntityTooLarge)
         end
       end
 

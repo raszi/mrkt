@@ -5,6 +5,8 @@ describe Mrkt::ImportLeads do
   include_context 'initialized client'
 
   describe '#import_lead' do
+    subject { client.import_lead(tempfile) }
+
     let(:tempfile) { Tempfile.new(%w[import-leads csv]) }
     let(:response_stub) do
       {
@@ -18,7 +20,6 @@ describe Mrkt::ImportLeads do
         ]
       }
     end
-    subject { client.import_lead(tempfile) }
 
     before do
       CSV.open(tempfile, 'wb') do |csv|
@@ -39,6 +40,8 @@ describe Mrkt::ImportLeads do
   end
 
   describe '#import_lead_status' do
+    subject { client.import_lead_status(1) }
+
     let(:id) { 1 }
     let(:response_stub) do
       {
@@ -56,7 +59,6 @@ describe Mrkt::ImportLeads do
         success: true
       }
     end
-    subject { client.import_lead_status(1) }
 
     before do
       stub_request(:get, "https://#{host}/bulk/v1/leads/batch/#{id}.json")
@@ -67,9 +69,10 @@ describe Mrkt::ImportLeads do
   end
 
   describe '#import_lead_failures' do
+    subject { client.import_lead_failures(1) }
+
     let(:id) { 1 }
     let(:response_stub) { '' }
-    subject { client.import_lead_failures(1) }
 
     before do
       stub_request(:get, "https://#{host}/bulk/v1/leads/batch/#{id}/failures.json")
@@ -80,9 +83,10 @@ describe Mrkt::ImportLeads do
   end
 
   describe '#import_lead_warnings' do
+    subject { client.import_lead_warnings(1) }
+
     let(:id) { 1 }
     let(:response_stub) { '' }
-    subject { client.import_lead_warnings(1) }
 
     before do
       stub_request(:get, "https://#{host}/bulk/v1/leads/batch/#{id}/warnings.json")

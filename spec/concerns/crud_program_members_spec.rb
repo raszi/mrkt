@@ -2,6 +2,8 @@ describe Mrkt::CrudProgramMembers do
   include_context 'initialized client'
 
   describe '#describe_program_members' do
+    subject { client.describe_program_members }
+
     let(:response_stub) do
       {
         requestId: 'c245#14cd6830ae2',
@@ -38,7 +40,6 @@ describe Mrkt::CrudProgramMembers do
         success: true
       }
     end
-    subject { client.describe_program_members }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/programs/members/describe.json")
@@ -49,6 +50,8 @@ describe Mrkt::CrudProgramMembers do
   end
 
   describe '#createupdate_program_members' do
+    subject { client.createupdate_program_members(program_id, lead_ids, status) }
+
     let(:program_id) { 123 }
     let(:lead_ids) { [1, 2, 3] }
     let(:status) { 'Registered' }
@@ -85,7 +88,6 @@ describe Mrkt::CrudProgramMembers do
           success: true
       }
     end
-    subject { client.createupdate_program_members(program_id, lead_ids, status) }
 
     before do
       stub_request(:post, "https://#{host}/rest/v1/programs/#{program_id}/members/status.json")
@@ -97,6 +99,8 @@ describe Mrkt::CrudProgramMembers do
   end
 
   describe '#get_program_members' do
+    subject { client.get_program_members(program_id, filter_type, filter_values) }
+
     let(:filter_type) { 'leadId' }
     let(:filter_values) { [1, 2] }
     let(:program_id) { 1014 }
@@ -125,7 +129,6 @@ describe Mrkt::CrudProgramMembers do
         moreResult: false
     }
     end
-    subject { client.get_program_members(program_id, filter_type, filter_values) }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/programs/#{program_id}/members.json")

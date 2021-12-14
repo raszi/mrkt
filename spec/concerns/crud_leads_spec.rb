@@ -56,6 +56,8 @@ describe Mrkt::CrudLeads do
   end
 
   describe '#get_leads' do
+    subject { client.get_leads(filter_type, filter_values) }
+
     let(:filter_type) { 'email' }
     let(:filter_values) { %w[user@example.com] }
     let(:response_stub) do
@@ -74,7 +76,6 @@ describe Mrkt::CrudLeads do
         success: true
       }
     end
-    subject { client.get_leads(filter_type, filter_values) }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/leads.json")
@@ -86,6 +87,8 @@ describe Mrkt::CrudLeads do
   end
 
   describe '#createupdate_leads' do
+    subject { client.createupdate_leads(leads, lookup_field: :email) }
+
     let(:leads) do
       [
         firstName: 'John',
@@ -118,7 +121,6 @@ describe Mrkt::CrudLeads do
         ]
       }
     end
-    subject { client.createupdate_leads(leads, lookup_field: :email) }
 
     before do
       stub_request(:post, "https://#{host}/rest/v1/leads.json")
@@ -130,6 +132,8 @@ describe Mrkt::CrudLeads do
   end
 
   describe '#delete_leads' do
+    subject { client.delete_leads(leads) }
+
     let(:leads) { [1] }
     let(:request_body) do
       {
@@ -147,7 +151,6 @@ describe Mrkt::CrudLeads do
         success: true
       }
     end
-    subject { client.delete_leads(leads) }
 
     before do
       stub_request(:delete, "https://#{host}/rest/v1/leads.json")
@@ -159,11 +162,11 @@ describe Mrkt::CrudLeads do
   end
 
   describe '#associate_lead' do
+    subject { client.associate_lead(id, cookie) }
+
     let(:id) { 1 }
     let(:cookie) { 'id:561-HYG-937&token:_mch-marketo.com-1427205775289-40768' }
     let(:request_stub) { {} }
-
-    subject { client.associate_lead(id, cookie) }
 
     before do
       stub_request(:post, "https://#{host}/rest/v1/leads/#{id}/associate.json?#{URI.encode_www_form(cookie: cookie)}")
@@ -197,18 +200,18 @@ describe Mrkt::CrudLeads do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
       end
     end
   end
 
   describe '#merge_leads' do
+    subject { client.merge_leads(id, losing_lead_ids) }
+
     let(:id) { 1 }
     let(:losing_lead_ids) { [2, 3, 4] }
     let(:request_stub) { {} }
-
-    subject { client.merge_leads(id, losing_lead_ids) }
 
     before do
       params = ::Faraday::Utils::ParamsHash.new
@@ -245,13 +248,15 @@ describe Mrkt::CrudLeads do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::LeadNotFound)
       end
     end
   end
 
   describe '#describe_lead' do
+    subject { client.describe_lead }
+
     let(:response_stub) do
       {
         requestId: '5c9e#169a68fa806',
@@ -288,8 +293,6 @@ describe Mrkt::CrudLeads do
         success: true
       }
     end
-
-    subject { client.describe_lead }
 
     before do
       stub_request(:get, "https://#{host}/rest/v1/leads/describe.json")

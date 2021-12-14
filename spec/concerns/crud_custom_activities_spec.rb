@@ -50,12 +50,12 @@ describe Mrkt::CrudCustomObjects do
     end
 
     context 'all activities' do
+      subject { client.get_list_of_custom_activity_types }
+
       before do
         stub_request(:get, "https://#{host}/rest/v1/activities/types.json")
           .to_return(json_stub(response_stub))
       end
-
-      subject { client.get_list_of_custom_activity_types }
 
       it { is_expected.to eq(response_stub) }
     end
@@ -104,6 +104,8 @@ describe Mrkt::CrudCustomObjects do
     end
 
     context 'with no additional attributes' do
+      subject { client.create_custom_activity(lead_id, activity_type_id, primary_attribute_value, date: date) }
+
       let(:request_body) do
         {
           input: [{
@@ -122,12 +124,14 @@ describe Mrkt::CrudCustomObjects do
           .to_return(json_stub(response_stub))
       end
 
-      subject { client.create_custom_activity(lead_id, activity_type_id, primary_attribute_value, date: date) }
-
       it { is_expected.to eq(response_stub) }
     end
 
     context 'with additional attributes' do
+      subject do
+        client.create_custom_activity(lead_id, activity_type_id, primary_attribute_value, attributes: attributes, date: date)
+      end
+
       let(:request_body) do
         {
           input: [{
@@ -148,13 +152,6 @@ describe Mrkt::CrudCustomObjects do
           }]
         }
       end
-
-      before do
-        stub_request(:post, "https://#{host}/rest/v1/activities/external.json")
-          .with(json_stub(request_body))
-          .to_return(json_stub(response_stub))
-      end
-
       let(:attributes) do
         {
           percent: '0.20',
@@ -162,8 +159,10 @@ describe Mrkt::CrudCustomObjects do
         }
       end
 
-      subject do
-        client.create_custom_activity(lead_id, activity_type_id, primary_attribute_value, attributes: attributes, date: date)
+      before do
+        stub_request(:post, "https://#{host}/rest/v1/activities/external.json")
+          .with(json_stub(request_body))
+          .to_return(json_stub(response_stub))
       end
 
       it { is_expected.to eq(response_stub) }

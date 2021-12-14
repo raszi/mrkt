@@ -123,7 +123,7 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::TypeMismatch)
       end
     end
@@ -196,7 +196,7 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::System)
       end
     end
@@ -216,7 +216,7 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::UnspecifiedAction)
       end
     end
@@ -265,7 +265,7 @@ describe Mrkt::CrudAssetFolders do
         }
       end
 
-      it 'should raise an Error' do
+      it 'raises an Error' do
         expect { subject }.to raise_error(Mrkt::Errors::RecordNotFound)
       end
     end
