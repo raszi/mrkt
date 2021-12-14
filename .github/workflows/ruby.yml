@@ -33,7 +33,7 @@ jobs:
         run: bundle install
 
       - name: Run tests and publish coverage
-        uses: paambaati/codeclimate-action@v2.7.5
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
           COVERAGE: on
           CC_TEST_REPORTER_ID: 45cd2174f49b570406e294ff393d456c4ae8532cf16dd6430abb06d8a0722a28
