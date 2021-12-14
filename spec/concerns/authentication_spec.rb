@@ -32,7 +32,13 @@ describe Mrkt::Authentication do
     context 'with optional partner_id client option' do
       subject(:client) { Mrkt::Client.new(client_options) }
 
-      before { remove_request_stub(@authentication_request_stub) }
+      before do
+        remove_request_stub(@authentication_request_stub)
+
+        stub_request(:get, "https://#{host}/identity/oauth/token")
+          .with(query: query)
+          .to_return(json_stub(authentication_stub))
+      end
 
       let(:partner_id) { SecureRandom.uuid }
 
@@ -54,12 +60,6 @@ describe Mrkt::Authentication do
         }
       end
 
-      before do
-        stub_request(:get, "https://#{host}/identity/oauth/token")
-          .with(query: query)
-          .to_return(json_stub(authentication_stub))
-      end
-
       it 'authenticates and then be authenticated?' do
         expect(client.authenticated?).not_to be true
         client.authenticate!
@@ -70,7 +70,14 @@ describe Mrkt::Authentication do
     context 'when the token has expired and @retry_authentication = true' do
       subject(:client) { Mrkt::Client.new(client_options) }
 
-      before { remove_request_stub(@authentication_request_stub) }
+      before do
+        remove_request_stub(@authentication_request_stub)
+
+        stub_request(:get, "https://#{host}/identity/oauth/token")
+          .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
+          .to_return(json_stub(expired_authentication_stub)).times(3).then
+          .to_return(json_stub(valid_authentication_stub))
+      end
 
       let(:retry_count) { 3 }
 
@@ -90,13 +97,6 @@ describe Mrkt::Authentication do
           retry_authentication: true,
           retry_authentication_count: retry_count
         }
-      end
-
-      before do
-        stub_request(:get, "https://#{host}/identity/oauth/token")
-          .with(query: { client_id: client_id, client_secret: client_secret, grant_type: 'client_credentials' })
-          .to_return(json_stub(expired_authentication_stub)).times(3).then
-          .to_return(json_stub(valid_authentication_stub))
       end
 
       it 'retries until getting valid token and then be authenticated?' do
