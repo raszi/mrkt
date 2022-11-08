@@ -19,10 +19,10 @@ Gem::Specification.new do |spec|
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 
-  spec.required_ruby_version = '>= 2.5'
+  spec.required_ruby_version = '>= 2.6'
 
-  spec.add_dependency 'faraday', '>= 1', '< 3'
-  spec.add_dependency 'faraday_middleware', '~> 1.0'
+  spec.add_dependency 'faraday', '>= 1.10', '< 3'
+  spec.add_dependency 'faraday-multipart'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'gem-release', '~> 2.1'

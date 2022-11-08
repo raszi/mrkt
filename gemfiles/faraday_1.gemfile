@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+# require v1.10 or higher.
+# Because gem needs JSON middleware.
+#
+# see: https://github.com/lostisland/faraday/releases/tag/v1.10.0
+gem 'faraday', '~> 1.10'
+
+eval_gemfile File.expand_path('../Gemfile', __dir__)

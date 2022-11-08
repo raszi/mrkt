@@ -1,11 +1,9 @@
-require 'faraday_middleware'
+require 'faraday/response/json'
 
 module Mrkt
   module FaradayMiddleware
-    class Response < ::FaradayMiddleware::ParseJson
-      define_parser do |body|
-        JSON.parse(body, symbolize_names: true) unless body.strip.empty?
-      end
+    class Response < ::Faraday::Response::Json
+      private
 
       def process_response(env)
         super
