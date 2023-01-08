@@ -214,7 +214,7 @@ describe Mrkt::CrudLeads do
     let(:request_stub) { {} }
 
     before do
-      params = ::Faraday::Utils::ParamsHash.new
+      params = Faraday::Utils::ParamsHash.new
       params[:mergeInCRM] = false
       params[:leadIds] = losing_lead_ids.join(',') if losing_lead_ids
 
