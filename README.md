@@ -6,7 +6,7 @@
 [![Gem Version](https://badge.fury.io/rb/mrkt.svg)](https://badge.fury.io/rb/mrkt)
 [![Total Downloads](https://badgen.net/rubygems/dt/mrkt)](https://rubygems.org/gems/mrkt)
 
-This gem provides some level of abstraction to Marketo REST APIs. Please note that this gem is alpha quality.
+This gem provides some level of abstraction to Marketo REST APIs.
 
 
 ## Installation
