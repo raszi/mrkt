@@ -129,6 +129,33 @@ describe Mrkt::CrudLeads do
     end
 
     it { is_expected.to eq(response_stub) }
+
+    context 'with programName' do
+      subject { client.createupdate_leads(leads, lookup_field: :email, program_name: 'programNameTest') }
+
+      let(:request_body) do
+        {
+          action: 'createOrUpdate',
+          input: [
+            {
+              firstName: 'John',
+              lastName: 'Snow',
+              email: 'sample@example.com'
+            }
+          ],
+          lookupField: 'email',
+          programName: 'programNameTest'
+        }
+      end
+
+      before do
+        stub_request(:post, "https://#{host}/rest/v1/leads.json")
+          .with(json_stub(request_body))
+          .to_return(json_stub(response_stub))
+      end
+
+      it { is_expected.to eq(response_stub) }
+    end
   end
 
   describe '#delete_leads' do
