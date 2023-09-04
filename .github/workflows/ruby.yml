@@ -20,21 +20,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-
-      - name: Update the RubyGems system software
-        run: gem update --system
-
-      - name: Update Bundler
-        run: bundle update --bundler
-
-      - name: Install dependencies
-        run: bundle install
 
       - name: Run tests and publish coverage
         uses: paambaati/codeclimate-action@v5.0.0
