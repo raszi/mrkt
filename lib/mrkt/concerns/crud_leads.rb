@@ -23,7 +23,8 @@ module Mrkt
       get('/rest/v1/leads.json', params, optional)
     end
 
-    def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil)
+    def createupdate_leads(leads, action: 'createOrUpdate', lookup_field: nil, partition_name: nil, async_processing: nil,
+                           program_name: nil)
       post_json('/rest/v1/leads.json') do
         params = {
           action: action,
@@ -33,7 +34,8 @@ module Mrkt
         optional = {
           lookupField: lookup_field,
           partitionName: partition_name,
-          asyncProcessing: async_processing
+          asyncProcessing: async_processing,
+          programName: program_name # listed as optional so as to not break existing consumers of the gem.
         }
 
         merge_params(params, optional)
