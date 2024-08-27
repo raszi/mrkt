@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 
-  spec.required_ruby_version = '>= 2.6'
+  spec.required_ruby_version = '>= 2.7'
 
   spec.add_dependency 'faraday', '>= 1.10', '< 3'
   spec.add_dependency 'faraday-multipart'
